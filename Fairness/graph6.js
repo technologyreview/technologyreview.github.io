@@ -1,9 +1,10 @@
 function drawGraph6() {
-	var graphicHeight = 150
-	var canvasHeight = graphicHeight*2
-	var keyHeight = 40
-	var barChartHeight = 60
-	var svgHeight = canvasHeight + keyHeight + barChartHeight
+	var chartHeight = 150 // height of chart area above and below
+	var bucketLabelHeight = 20 // height of bucket labels
+	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
+	var keyHeight = 40 // height of key
+	var barChartHeight = 60 // height of bar chart
+	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
 	// create svg
 	var svg = d3.select("body").append("svg")
@@ -12,7 +13,6 @@ function drawGraph6() {
 
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
-	var scaleHeight = 20
 
 	var blackStart = 4
 	var whiteStart = 5
@@ -20,28 +20,28 @@ function drawGraph6() {
 	var blackThresh = bucketWidth*blackStart
 
 	// bucket labels
-	drawBuckets(svg, graphicHeight+keyHeight, bucketWidth, scaleHeight)
+	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
 
 	// white defendants
-	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
+	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, chartHeight+keyHeight, bucketWidth, bucketLabelHeight, 1)
 	var maxDotStack = (d+spacing)*13
 
-	var wy1 = graphicHeight+keyHeight-scaleHeight-maxDotStack
-	var wy2 = graphicHeight+keyHeight-scaleHeight
+	var wy1 = chartHeight+keyHeight-bucketLabelHeight-maxDotStack
+	var wy2 = chartHeight+keyHeight-bucketLabelHeight
 	var whiteThreshEl =
 	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
-	var wlabely2 = graphicHeight+keyHeight-scaleHeight-(maxDotStack+20)
+	var wlabely2 = chartHeight+keyHeight-bucketLabelHeight-(maxDotStack+20)
 
-	//drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
+	//drawThresh(svg,thresh6_white,keyHeight+20,chartHeight+keyHeight-bucketLabelHeight,1)
 	addLabel(svg,"white defendants",0,wlabely2,"serif","italic")
 
 	// black defendants
-	drawDots(svg, real_score_black_buckets, blue, graphicHeight+keyHeight-scaleHeight, bucketWidth, scaleHeight, -1)
-	var by1 = graphicHeight+keyHeight
-	var by2 = graphicHeight+keyHeight+maxDotStack
+	drawDots(svg, real_score_black_buckets, blue, chartHeight+keyHeight-bucketLabelHeight, bucketWidth, bucketLabelHeight, -1)
+	var by1 = chartHeight+keyHeight
+	var by2 = chartHeight+keyHeight+maxDotStack
 	var blackThreshEl = 
 	  drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
-	var blabely2 = graphicHeight+keyHeight+maxDotStack
+	var blabely2 = chartHeight+keyHeight+maxDotStack
 	addLabel(svg,"black defendants",0,blabely2,"serif","italic")
 
 	addKey(svg,graphicWidth)
@@ -64,7 +64,7 @@ function drawGraph6() {
 	]
 
   // bar chart
-  var barYStart = canvasHeight + keyHeight 
+  var barYStart = graphicHeight + keyHeight 
   drawBar(svg,0,barYStart,"FPR, white defen.",fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
   drawBar(svg,300,barYStart,"FNR, white defen.",fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
   drawBar(svg,0,barYStart+20,"FPR, black defen.",fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)))

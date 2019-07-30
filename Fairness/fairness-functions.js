@@ -6,7 +6,6 @@
 
 // global variables
 var params = ({
-  graphic_width: 616, // width of svg
   bar_height: 18, // height of bar
   bar_width: 100, // width of bar
   label_width: 120 // width of bar label
@@ -18,13 +17,13 @@ var blue = "1F23E0"
 
 
 // draw functions
-function drawBuckets(svg, graphicHeight, bucketWidth, scaleHeight) {
+function drawBuckets(svg, y, bucketWidth) {
   
   // buckets
   for (var i=1; i<=10; i++) {
     svg.append("text")
         .attr("x", (i-1)*bucketWidth+(bucketWidth/2-6)) // subtract font width
-        .attr("y", graphicHeight-(scaleHeight-5)) //subtract font height
+        .attr("y", y-25) //subtract font height
         .attr("dy", "0.9em")
         .text(i)
         .attr("font-size",12)
