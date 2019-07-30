@@ -321,7 +321,7 @@ function drawGraph6() {
 	var wy2 = graphicHeight+keyHeight-scaleHeight
 	var whiteThreshEl =
 	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
-	var wlabely2 = graphicHeight+keyHeight-(maxDotStack+20)
+	var wlabely2 = graphicHeight+keyHeight-scaleHeight-(maxDotStack+20)
 
 	//drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
 	addLabel(svg,"white defendants",0,wlabely2,"serif","italic")
