@@ -122,29 +122,48 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
   return svg.node();
 }
 
-function drawThresh(svg,thresh,y1,y2,flip) {
-  var x = thresh*(params.graphic_width/10)
-  var line = svg.append("line")
+function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
+  
+  var g = svg.append("g")
+  
+  g.append("line")
     .attr("x1", x)
     .attr("y1", y1)
     .attr("x2", x)
     .attr("y2", y2)
     .style("stroke", "black")
     .style("opacity", .7)
+    .attr("stroke-width", 3) 
+    .style("cursor", "pointer")
   
-  var shading = svg.append("rect")
+  g.append("rect")
     .attr("x", x)
     .attr("y", y1)
-    .attr("width", Math.abs(params.graphic_width-x))
+    .attr("width", Math.abs(graphicWidth-x))
     .attr("height", Math.abs(y1 - y2))
     .style("fill", "light gray")
     .style("opacity", .03)
   
   if (flip==1) {
-    addLabel(svg,"jailed →",x+10,y1,"serif","italic")
+    addLabel(g,"jailed →",x+10,y1,"serif","italic")
   } else {
-    addLabel(svg,"jailed →",x+10,y2-18,"serif","italic")
+    addLabel(g,"jailed →",x+10,y2-18,"serif","italic")
   }
+  
+  return g
+}
+
+function moveThresh(g, x, graphicWidth) {
+  g.selectAll("line")
+    .attr("x1",x)
+    .attr("x2",x)
+
+  g.selectAll("rect")
+    .attr("x",x)
+    .attr("width",graphicWidth-x)
+
+  g.selectAll("text")
+    .attr("x", x+10)
 }
 
 function drawBar(svg, x, y, label, value) {
@@ -276,25 +295,83 @@ function drawGraph6() {
 	var bucketWidth = params.graphic_width/10
 	var scaleHeight = 20
 
+	var whiteThresh = bucketWidth*5
+	var blackThresh = bucketWidth*4
+
 	// bucket labels
 	drawBuckets(svg, graphicHeight+keyHeight, bucketWidth, scaleHeight)
 
-	// tresholds
-	var thresh6_white = 5
-	var thresh6_black = 5
-
 	// white defendants
 	drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
-	drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
+	var whitey1 = keyHeight+20
+	var whitey2 = graphicHeight+keyHeight-scaleHeight
+	var whiteThreshEl =
+	  drawThresh(svg,whiteThresh,whitey1,whitey2,params.graphic_width,1)
+
+	//drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
 	addLabel(svg,"white defendants",0,keyHeight,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, graphicHeight+keyHeight-scaleHeight, bucketWidth, scaleHeight, -1)
-	drawThresh(svg,thresh6_black,graphicHeight+keyHeight,svgHeight-20,-1)
+	var blacky1 = graphicHeight+keyHeight
+	var blacky2 = svgHeight-20
+	var blackThreshEl = 
+	  drawThresh(svg,blackThresh,blacky1,blacky2,params.graphic_width,-1)
 	addLabel(svg,"black defendants",0,svgHeight-20,"serif","italic")
 
 	// key
 	addKey(svg)
 
-	
+	var sliderList = [ 
+	{
+	  name: "white",
+	  dragging: false,
+	  el: whiteThreshEl,
+	  pos: whiteThresh,
+	  y1: whitey1,
+	  y2: whitey2
+	},
+	{
+	  name: "black",
+	  dragging: false,
+	  el: blackThreshEl,
+	  pos: blackThresh,
+	  y1: blacky1,
+	  y2: blacky2,
+	}
+	]
+	  
+	svg.on('mousedown', function() {
+		const [x, y] = d3.mouse(this)
+		for (var slider of sliderList) {
+		  if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<20)) {
+		    slider.dragging = true
+		  }
+		}
+	    d3.event.preventDefault()
+	});
+
+	svg.on('mousemove', function() {
+		for (var slider of sliderList) {
+		  if (slider.dragging) {
+		    const [x, y] = d3.mouse(this)
+		    moveThresh(slider.el, x, params.graphic_width)
+		  }
+		}
+	});
+
+	const stopDrag = function() {
+		for (var slider of sliderList) {
+		  if (slider.dragging) {
+		    slider.dragging = false
+		    var [x, y] = d3.mouse(this)
+		    x = Math.floor(x/bucketWidth + 0.5)*bucketWidth
+		    moveThresh(slider.el, x, params.graphic_width)
+		    slider.pos = x
+		  }
+		}
+	}
+
+	svg.on('mouseup', stopDrag)
+	svg.on('mouseleave', stopDrag)
 }
