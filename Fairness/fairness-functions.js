@@ -227,8 +227,15 @@ function fnr(d, thresh) {
 }
 
 
+function pixelsToScore(pixels, bucketWidth) {
+  return Math.floor(pixels/bucketWidth + 0.5)
+}
+function scoreToPixels(score, bucketWidth) {
+  return score*bucketWidth
+}
 
-function addSliders(svg, sliderList, bucketWidth, graphicWidth) {
+
+function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	function startDrag() {
 	    const [x, y] = d3.mouse(this)
 	    for (var slider of sliderList) {
@@ -247,21 +254,24 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth) {
 	      if (slider.dragging) {
 	        const [x, y] = d3.mouse(this)
 	        moveThresh(slider.el, x, graphicWidth)
+          slider.pos = x
+          callback(x)
 	      }
 	    }
 	}
 	svg.on('mousemove', moveDrag)
 	svg.on('touchmove', moveDrag)
-  
 
 	function stopDrag() {
 	    for (var slider of sliderList) {
 	      if (slider.dragging) {
 	        slider.dragging = false
 	        var [x, y] = d3.mouse(this)
-	        x = Math.floor(x/bucketWidth + 0.5)*bucketWidth
+	        x = scoreToPixels(pixelsToScore(x,bucketWidth),bucketWidth)
 	        moveThresh(slider.el, x, graphicWidth)
-	        slider.pos = x
+          slider.pos = x
+          callback(x)
+	        
 	      }
 	    }
 	}

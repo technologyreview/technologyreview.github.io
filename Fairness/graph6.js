@@ -41,6 +41,12 @@ function drawGraph6() {
 	var blabely2 = graphicHeight+keyHeight+maxDotStack
 	addLabel(svg,"black defendants",0,blabely2,"serif","italic")
 
+
+	// callback function for getting thresh value
+	function threshChanged(newThresh,sliderIndex) {
+		return pixelsToScore(newThresh,bucketWidth)
+	}
+
 	// key
 	addKey(svg,graphicWidth)
 
@@ -60,8 +66,8 @@ function drawGraph6() {
 	  y2: by2,
 	}
 	]
-	  
-	addSliders(svg, sliderList, bucketWidth, graphicWidth)
+	
+	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
 }
 
 loadGraphic(drawGraph6)
