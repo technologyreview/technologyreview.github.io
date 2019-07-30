@@ -317,7 +317,7 @@ function drawGraph6() {
 	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
 	var maxDotStack = (d+spacing)*13
 
-	var wy1 = graphicHeight+keyHeight-maxDotStack
+	var wy1 = graphicHeight+keyHeight-scaleHeight-maxDotStack
 	var wy2 = graphicHeight+keyHeight-scaleHeight
 	var whiteThreshEl =
 	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
