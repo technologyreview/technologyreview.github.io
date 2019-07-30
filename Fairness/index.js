@@ -315,22 +315,25 @@ function drawGraph6() {
 
 	// white defendants
 	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
-	
-	var wy1 = graphicHeight+keyHeight-(d+spacing)*13
+	var maxDotStack = (d+spacing)*13
+
+	var wy1 = graphicHeight+keyHeight-maxDotStack
 	var wy2 = graphicHeight+keyHeight-scaleHeight
 	var whiteThreshEl =
 	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
+	var wlabely2 = graphicHeight+keyHeight-(maxDotStack+20)
 
 	//drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
-	addLabel(svg,"white defendants",0,keyHeight,"serif","italic")
+	addLabel(svg,"white defendants",0,wlabely2,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, graphicHeight+keyHeight-scaleHeight, bucketWidth, scaleHeight, -1)
 	var by1 = graphicHeight+keyHeight
-	var by2 = graphicHeight+keyHeight + (d+spacing)*13
+	var by2 = graphicHeight+keyHeight+maxDotStack
 	var blackThreshEl = 
 	  drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
-	addLabel(svg,"black defendants",0,svgHeight-20,"serif","italic")
+	var blabely2 = graphicHeight+keyHeight+maxDotStack
+	addLabel(svg,"black defendants",0,blabely2,"serif","italic")
 
 	// key
 	addKey(svg,graphicWidth)
