@@ -103,6 +103,7 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
   var margin = 10 // margin between bucket edge and start of dots
   var spacing = 4 // spacing between dots
   var d = (bucketWidth - 2*margin - (ncols-1)*spacing)/ncols // compute diameter dynamically
+  d = Math.max(2,Math.min(10,d))
   
   for (var i=1; i<=10; i++) { // for each bucket
     var dotsInBucket = dots[i] // filter to dots in bucket
