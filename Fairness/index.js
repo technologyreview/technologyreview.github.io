@@ -127,7 +127,7 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
     }
   }
   
-  return svg.node();
+  return [d, spacing]
 }
 
 function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
@@ -314,8 +314,9 @@ function drawGraph6() {
 	drawBuckets(svg, graphicHeight+keyHeight, bucketWidth, scaleHeight)
 
 	// white defendants
-	drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
-	var wy1 = keyHeight+20
+	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
+	
+	var wy1 = graphicHeight+keyHeight-(d+spacing)*13
 	var wy2 = graphicHeight+keyHeight-scaleHeight
 	var whiteThreshEl =
 	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
@@ -326,7 +327,7 @@ function drawGraph6() {
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, graphicHeight+keyHeight-scaleHeight, bucketWidth, scaleHeight, -1)
 	var by1 = graphicHeight+keyHeight
-	var by2 = svgHeight-20
+	var by2 = graphicHeight+keyHeight + (d+spacing)*13
 	var blackThreshEl = 
 	  drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
 	addLabel(svg,"black defendants",0,svgHeight-20,"serif","italic")
