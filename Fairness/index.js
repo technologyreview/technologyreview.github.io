@@ -100,9 +100,10 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
   
   // dots
   var ncols = 5 // number of columns
-  var margin = 10 // margin between bucket edge and start of dots
-  var spacing = 2 // spacing between dots
-  var d = (bucketWidth - 2*margin - (ncols-1)*spacing)/ncols // compute diameter dynamically
+  var verticalMargin = 10 // margin between numbers and bottom of dot stack
+  var bucketMargin = bucketWidth/8 // margin between bucket edge and start of dots
+  var spacing = 4 // spacing between dots
+  var d = (bucketWidth - 2*bucketMargin - (ncols-1)*spacing)/ncols // compute diameter dynamically
   d = Math.max(2,Math.min(10,d))
   
   for (var i=1; i<=10; i++) { // for each bucket
@@ -117,11 +118,12 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
       // draw circles
       
       var circles = svg.append("circle")
-        .attr("cx", bucketStart + margin + col*(d+spacing)) // convert cx to pixel
-        .attr("cy", graphicHeight + (-scaleHeight - (margin + row*(d+spacing)))*flip) // convert cy to pixel
+        .attr("cx", bucketStart + bucketMargin + col*(d+spacing)) // convert cx to pixel
+        .attr("cy", graphicHeight + (-scaleHeight - (verticalMargin + row*(d+spacing)))*flip) // convert cy to pixel
         .attr("r", d/2) // computer radius
         .style("fill", dotsInBucket[j]?dotColor:"white") // fill or no fill
         .style("stroke", dotColor) // same stroke
+        .style("stroke-width", Math.max(0.5,Math.min(1,d/8)))
     }
   }
   
