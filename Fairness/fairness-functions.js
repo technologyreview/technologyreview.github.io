@@ -23,7 +23,7 @@ function drawBuckets(svg, y, bucketWidth) {
   for (var i=1; i<=10; i++) {
     svg.append("text")
         .attr("x", (i-1)*bucketWidth+(bucketWidth/2-6)) // subtract font width
-        .attr("y", y-25) //subtract font height
+        .attr("y", y-5) //subtract font height
         .attr("dy", "0.9em")
         .text(i)
         .attr("font-size",12)
@@ -32,11 +32,11 @@ function drawBuckets(svg, y, bucketWidth) {
   }  
 }
 
-function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, flip) {
+function drawDots(svg, dots, dotColor, ystart, bucketWidth, flip) {
   
   // dots
   var ncols = 5 // number of columns
-  var verticalMargin = 10 // margin between numbers and bottom of dot stack
+  // var verticalMargin = 10 // margin between numbers and bottom of dot stack
   var bucketMargin = bucketWidth/8 // margin between bucket edge and start of dots
   var spacing = bucketMargin/2.5 // spacing between dots
   var d = (bucketWidth - 2*bucketMargin - (ncols-1)*spacing)/ncols // compute diameter dynamically
@@ -55,7 +55,7 @@ function drawDots(svg, dots, dotColor, graphicHeight, bucketWidth, scaleHeight, 
       
       var circles = svg.append("circle")
         .attr("cx", bucketStart + bucketMargin + col*(d+spacing)) // convert cx to pixel
-        .attr("cy", graphicHeight + (-scaleHeight - (verticalMargin + row*(d+spacing)))*flip) // convert cy to pixel
+        .attr("cy", ystart + (-row*(d+spacing))*flip) // convert cy to pixel
         .attr("r", d/2) // computer radius
         .style("fill", dotsInBucket[j]?dotColor:"white") // fill or no fill
         .style("stroke", dotColor) // same stroke
