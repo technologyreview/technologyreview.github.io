@@ -56,9 +56,14 @@ d3.csv("./data/compas-scores-two-years.csv").then(function(non_violent) {
 	real_score_white_buckets = bucketScores(real_score_white)
 
 	drawGraph6()
+
+	window.addEventListener("resize",resizeWindow)
 });
 
-
+function resizeWindow() {
+	d3.select('svg').remove();
+	drawGraph6()
+}
 
 /* GRAPHIC FUNCTIONS */
 
@@ -210,17 +215,17 @@ function addLabel(svg,label,x,y,family,style) {
       .attr("opacity","0.75")
 }
 
-function addKey(svg) {
-  addLabel(svg,"not re-arrested",params.graphic_width-80,0,"sans-serif")
-  addLabel(svg,"re-arrested",params.graphic_width-80,20,"sans-serif")
+function addKey(svg,graphicWidth) {
+  addLabel(svg,"not re-arrested",graphicWidth-80,0,"sans-serif")
+  addLabel(svg,"re-arrested",graphicWidth-80,20,"sans-serif")
   svg.append("circle")
-      .attr("cx", params.graphic_width-95)
+      .attr("cx", graphicWidth-95)
       .attr("cy", 8.5)
       .attr("r", 5)
       .style("fill", "white")
       .style("stroke", "gray")
   svg.append("circle")
-      .attr("cx", params.graphic_width-95)
+      .attr("cx", graphicWidth-95)
       .attr("cy", 28.5)
       .attr("r", 5)
       .style("fill", "gray")
@@ -289,10 +294,14 @@ function drawGraph6() {
 	var canvasHeight = graphicHeight*2
 	var keyHeight = 40
 	var svgHeight = canvasHeight + keyHeight
+
+	// create svg
 	var svg = d3.select("body").append("svg")
-		.attr("width",params.graphic_width)
+		.attr("width","100%")
 		.attr("height",svgHeight)
-	var bucketWidth = params.graphic_width/10
+
+	var graphicWidth = svg.node().getBoundingClientRect().width
+	var bucketWidth = graphicWidth/10
 	var scaleHeight = 20
 
 	var whiteThresh = bucketWidth*5
@@ -303,75 +312,86 @@ function drawGraph6() {
 
 	// white defendants
 	drawDots(svg, real_score_white_buckets, yellow, graphicHeight+keyHeight, bucketWidth, scaleHeight, 1)
-	var whitey1 = keyHeight+20
-	var whitey2 = graphicHeight+keyHeight-scaleHeight
+	var wy1 = keyHeight+20
+	var wy2 = graphicHeight+keyHeight-scaleHeight
 	var whiteThreshEl =
-	  drawThresh(svg,whiteThresh,whitey1,whitey2,params.graphic_width,1)
+	  drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
 
 	//drawThresh(svg,thresh6_white,keyHeight+20,graphicHeight+keyHeight-scaleHeight,1)
 	addLabel(svg,"white defendants",0,keyHeight,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, graphicHeight+keyHeight-scaleHeight, bucketWidth, scaleHeight, -1)
-	var blacky1 = graphicHeight+keyHeight
-	var blacky2 = svgHeight-20
+	var by1 = graphicHeight+keyHeight
+	var by2 = svgHeight-20
 	var blackThreshEl = 
-	  drawThresh(svg,blackThresh,blacky1,blacky2,params.graphic_width,-1)
+	  drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
 	addLabel(svg,"black defendants",0,svgHeight-20,"serif","italic")
 
 	// key
-	addKey(svg)
+	addKey(svg,graphicWidth)
 
 	var sliderList = [ 
 	{
-	  name: "white",
 	  dragging: false,
 	  el: whiteThreshEl,
 	  pos: whiteThresh,
-	  y1: whitey1,
-	  y2: whitey2
+	  y1: wy1,
+	  y2: wy2
 	},
 	{
-	  name: "black",
 	  dragging: false,
 	  el: blackThreshEl,
 	  pos: blackThresh,
-	  y1: blacky1,
-	  y2: blacky2,
+	  y1: by1,
+	  y2: by2,
 	}
 	]
 	  
-	svg.on('mousedown', function() {
-		const [x, y] = d3.mouse(this)
-		for (var slider of sliderList) {
-		  if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<20)) {
-		    slider.dragging = true
-		  }
-		}
-	    d3.event.preventDefault()
-	});
+	addSliders(svg, sliderList, bucketWidth, graphicWidth)
+}
 
-	svg.on('mousemove', function() {
-		for (var slider of sliderList) {
-		  if (slider.dragging) {
-		    const [x, y] = d3.mouse(this)
-		    moveThresh(slider.el, x, params.graphic_width)
-		  }
-		}
-	});
+function addSliders(svg, sliderList, bucketWidth, graphicWidth) {
+	function startDrag() {
+	    const [x, y] = d3.mouse(this)
+	    for (var slider of sliderList) {
+	      if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<20)) {
+	        slider.dragging = true
+	        d3.event.preventDefault()
+	      }
+	    }
+	}
+	svg.on('mousedown', startDrag)
+	svg.on('touchstart', startDrag)
 
-	const stopDrag = function() {
-		for (var slider of sliderList) {
-		  if (slider.dragging) {
-		    slider.dragging = false
-		    var [x, y] = d3.mouse(this)
-		    x = Math.floor(x/bucketWidth + 0.5)*bucketWidth
-		    moveThresh(slider.el, x, params.graphic_width)
-		    slider.pos = x
-		  }
-		}
+
+	function moveDrag() {
+	   	for (var slider of sliderList) {
+	      if (slider.dragging) {
+	        const [x, y] = d3.mouse(this)
+	        moveThresh(slider.el, x, graphicWidth)
+	      }
+	    }
+	}
+	svg.on('mousemove', moveDrag)
+	svg.on('touchmove', moveDrag)
+  
+
+	function stopDrag() {
+	    for (var slider of sliderList) {
+	      if (slider.dragging) {
+	        slider.dragging = false
+	        var [x, y] = d3.mouse(this)
+	        x = Math.floor(x/bucketWidth + 0.5)*bucketWidth
+	        moveThresh(slider.el, x, graphicWidth)
+	        slider.pos = x
+	      }
+	    }
 	}
 
 	svg.on('mouseup', stopDrag)
 	svg.on('mouseleave', stopDrag)
+	svg.on('touchend', stopDrag)
+	svg.on('touchcancel', stopDrag)
+
 }
