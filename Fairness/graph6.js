@@ -2,7 +2,8 @@ function drawGraph6() {
 	var graphicHeight = 150
 	var canvasHeight = graphicHeight*2
 	var keyHeight = 40
-	var svgHeight = canvasHeight + keyHeight
+	var barChartHeight = 60
+	var svgHeight = canvasHeight + keyHeight + barChartHeight
 
 	// create svg
 	var svg = d3.select("body").append("svg")
@@ -13,8 +14,10 @@ function drawGraph6() {
 	var bucketWidth = graphicWidth/10
 	var scaleHeight = 20
 
-	var whiteThresh = bucketWidth*5
-	var blackThresh = bucketWidth*4
+	var blackStart = 4
+	var whiteStart = 5
+	var whiteThresh = bucketWidth*whiteStart
+	var blackThresh = bucketWidth*blackStart
 
 	// bucket labels
 	drawBuckets(svg, graphicHeight+keyHeight, bucketWidth, scaleHeight)
@@ -41,33 +44,41 @@ function drawGraph6() {
 	var blabely2 = graphicHeight+keyHeight+maxDotStack
 	addLabel(svg,"black defendants",0,blabely2,"serif","italic")
 
-
-	// callback function for getting thresh value
-	function threshChanged(newThresh,sliderIndex) {
-		return pixelsToScore(newThresh,bucketWidth)
-	}
-
-	// key
 	addKey(svg,graphicWidth)
 
 	var sliderList = [ 
-	{
-	  dragging: false,
-	  el: whiteThreshEl,
-	  pos: whiteThresh,
-	  y1: wy1,
-	  y2: wy2
-	},
-	{
-	  dragging: false,
-	  el: blackThreshEl,
-	  pos: blackThresh,
-	  y1: by1,
-	  y2: by2,
-	}
+		{
+		  dragging: false,
+		  el: whiteThreshEl,
+		  pos: whiteThresh,
+		  y1: wy1,
+		  y2: wy2
+		},
+		{
+		  dragging: false,
+		  el: blackThreshEl,
+		  pos: blackThresh,
+		  y1: by1,
+		  y2: by2,
+		}
 	]
+
+  // bar chart
+  var barYStart = canvasHeight + keyHeight 
+  drawBar(svg,0,barYStart,"FPR, white defen.",fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
+  drawBar(svg,300,barYStart,"FNR, white defen.",fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
+  drawBar(svg,0,barYStart+20,"FPR, black defen.",fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)))
+  drawBar(svg,300,barYStart+20,"FNR, black defen.",fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)))
 	
+		// called whenever the threshold moves
+	function threshChanged(newThresh) {
+		console.log("black " + pixelsToScore(sliderList[1].pos, bucketWidth))
+		console.log("white " + pixelsToScore(sliderList[0].pos, bucketWidth))
+	}
+
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
+
+
 }
 
 loadGraphic(drawGraph6)

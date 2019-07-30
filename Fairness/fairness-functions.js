@@ -317,6 +317,7 @@ function bucketScores(array) {
 // create data variables
 var rng = seedrandom("hey there")
 var real_score_bw, fake_score_bw_buckets, real_score_black_buckets, real_score_white_buckets
+var real_score_white, real_score_black
 
 // Loads the the COMPAS data, subsamples it, calls drawFunction to render the graphic
 function loadGraphic(drawGraphFunction) {
@@ -337,10 +338,10 @@ function loadGraphic(drawGraphFunction) {
     var fake_score_bw = real_score_bw.map(a => [a[0], a[0]>=7])
     fake_score_bw_buckets = bucketScores(fake_score_bw)
     
-    var real_score_black = filterRace(["African-American"],real_score_bw)
+    real_score_black = filterRace(["African-American"],real_score_bw)
     real_score_black_buckets = bucketScores(real_score_black)
     
-    var real_score_white = filterRace(["Caucasian"],real_score_bw)
+    real_score_white = filterRace(["Caucasian"],real_score_bw)
     real_score_white_buckets = bucketScores(real_score_white)
 
     drawGraphFunction()
