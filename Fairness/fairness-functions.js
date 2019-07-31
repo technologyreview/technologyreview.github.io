@@ -47,18 +47,17 @@ function drawDots(svg, dots, dotColor, ystart, bucketWidth, flip) {
   for (var i=1; i<=10; i++) { // for each bucket
     var dotsInBucket = dots[i] // filter to dots in bucket
     var nrows = Math.ceil(dotsInBucket.length/ncols) // compute number of rows
-    
+    var bucketStart = (i-1)*bucketWidth // calculate x value for left edge of bucket
+
     for (var j in dotsInBucket) { // for each dot
       var row = Math.floor(j/ncols) // calculate row index
       var col = j%ncols // calculate column index
-      var bucketStart = (i-1)*bucketWidth // calculate x value for left edge of bucket
       
       // draw circles
-      
       var circles = svg.append("circle")
-        .attr("cx", bucketStart + bucketMargin + col*(d+spacing)) // convert cx to pixel
-        .attr("cy", ystart + (-row*(d+spacing))*flip) // convert cy to pixel
-        .attr("r", d/2) // computer radius
+        .attr("cx", bucketStart + bucketMargin + col*(d+spacing) + d/2) // convert col to pixel
+        .attr("cy", ystart + (-row*(d+spacing))*flip) // convert row to pixel
+        .attr("r", d/2) // compute radius
         .style("fill", dotsInBucket[j]?dotColor:"white") // fill or no fill
         .style("stroke", dotColor) // same stroke
         .style("stroke-width", Math.max(0.5,Math.min(1,d/8)))
