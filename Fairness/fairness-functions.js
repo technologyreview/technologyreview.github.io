@@ -89,9 +89,9 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .style("opacity", .03)
   
   if (flip==1) {
-    addLabel(g,"jailed →",x+10,y1,"serif","italic")
+    addLabel(g,"jailed →",x+10,y1+28,"serif","italic")
   } else {
-    addLabel(g,"jailed →",x+10,y2-18,"serif","italic")
+    addLabel(g,"jailed →",x+10,y2,"serif","italic")
   }
   
   return g
@@ -146,7 +146,7 @@ function addLabel(svg,label,x,y,family,style) {
   
   svg.append("text")
       .attr("x", x)
-      .attr("y", y+font_size)
+      .attr("y", y-font_size)
       .text(label)
       .attr("font-size",font_size)
       .attr("font-family",family)
@@ -333,7 +333,7 @@ function loadGraphic(drawGraphFunction) {
     var score = non_violent.map(a => [Number(a.decile_score), Number(a.two_year_recid), (a.race)])
     var score_bw = filterRace(["Caucasian","African-American"],score)
     real_score_bw = score_bw.filter(x => rng() > 0.9216) // adjust threshold to control sample size, 500ish is good
-    
+
     var fake_score_bw = real_score_bw.map(a => [a[0], a[0]>=7])
     fake_score_bw_buckets = bucketScores(fake_score_bw)
     

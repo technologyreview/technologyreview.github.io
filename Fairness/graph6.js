@@ -24,21 +24,19 @@ function drawGraph6() {
 
 	// white defendants
 	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+chartHeight, bucketWidth, 1)
-	var maxDotStack = (d+spacing)*13
+	var maxDotStack = (d+spacing)*11
 
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
-	var wlabely2 = chartHeight+keyHeight-bucketLabelHeight-(maxDotStack+20)
-	addLabel(svg,"white defendants",0,wlabely2,"serif","italic")
+	addLabel(svg,"white defendants",0,wy1,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
-	var blabely2 = chartHeight+keyHeight+maxDotStack
-	addLabel(svg,"black defendants",0,blabely2,"serif","italic")
+	addLabel(svg,"black defendants",0,by2+28,"serif","italic")
 
 	addKey(svg,graphicWidth)
 
