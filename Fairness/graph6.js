@@ -3,7 +3,7 @@ function drawGraph6() {
 	var bucketLabelHeight = 40 // height of bucket labels
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var keyHeight = 30 // height of key
-	var barChartHeight = 180 // height of bar chart
+	var barChartHeight = 150 // height of bar chart
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
 	// create svg
@@ -69,7 +69,7 @@ function drawGraph6() {
 	
 	var barXstart = graphicWidth/3
 	var barSpacing = 8 // spacing between bars in same group
-	var barGroupSpacing = 40 // spacing between grouped bars
+	var barGroupSpacing = 30 // spacing between grouped bars
 
 	var barData = [
 		{
