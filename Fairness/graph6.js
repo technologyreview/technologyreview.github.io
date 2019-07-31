@@ -38,7 +38,10 @@ function drawGraph6() {
 	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
 	addLabel(svg,"black defendants",0,by2,"serif","italic")
 
-	addKey(svg,keyHeight,graphicWidth)
+	// add key, position dynamic to size of chart
+	var keyx = graphicWidth - 100
+	var keyy = wy1/3 // starts a third of the way between the top of chart and top of slider
+	addKey(svg,keyx,keyy,d)
 
 	var sliderList = [ 
 		{
@@ -57,7 +60,7 @@ function drawGraph6() {
 		}
 	]
 
-	// bar charts
+	// bar charts, size & position dynamic to size of svg
 	var bottomOfGraph = keyHeight + graphicHeight
 	var barYStart = bottomOfGraph + (svgHeight - bottomOfGraph)/3
 
@@ -66,30 +69,34 @@ function drawGraph6() {
 			label: "FPR, white defendants",
 			x: 0,
 			y: barYStart,
+			color: yellow,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "FNR, white defendants",
 			x: 300,
 			y: barYStart,
+			color: yellow,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
 			label: "FPR, black defendants",
 			x: 0,
 			y: barYStart+30,
+			color: blue,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
 			label: "FNR, black defendants",
 			x: 300,
 			y: barYStart+30,
+			color: blue,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 	]
 
 	for (var b of barData) {
-  	b.el = drawBar(svg,b)		
+		b.el = drawBar(svg,b)
 	}
 		// called whenever the threshold moves
 	function threshChanged(newThresh) {

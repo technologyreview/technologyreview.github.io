@@ -11,9 +11,9 @@ var params = ({
   labelWidth: 135 // width of bar label
 })
 
-var yellow = "FCCD23"
-var orange = "FC5623"
-var blue = "1F23E0"
+var yellow = "#FCCD23"
+var orange = "#FC5623"
+var blue = "#1F23E0"
 
 
 // draw functions
@@ -127,19 +127,20 @@ function drawBar(svg, d) {
     .attr("overflow-wrap","normal")
   
   g.append("rect")
-    .attr("width",d.getVal()*params.barWidth)
-    .attr("height",params.barHeight-1)
-    .attr("x",d.x+params.labelWidth)
-    .attr("y",d.y)
-    .attr("id", "barVal")
-  
-  g.append("rect")
     .attr("width",params.barWidth)
     .attr("height",params.barHeight-1)
     .attr("x",d.x+params.labelWidth)
     .attr("y",d.y)
-    .attr("fill","none")
-    .attr("stroke","black")
+    .style("fill", "light gray")
+    .style("opacity", .08)
+
+  g.append("rect")
+    .attr("width",d.getVal()*params.barWidth)
+    .attr("height",params.barHeight-1)
+    .attr("x",d.x+params.labelWidth)
+    .attr("y",d.y)
+    .attr("fill",d.color)
+    .attr("id", "barVal")
   
   g.append("text")
     .attr("x", d.x+params.labelWidth+params.barWidth+10)
@@ -174,42 +175,39 @@ function addLabel(svg,label,x,y,family,style) {
       .attr("opacity","0.75")
 }
 
-function addKey(svg,keyHeight,graphicWidth) {
-  addLabel(svg,"not re-arrested",graphicWidth-84,keyHeight-20,"sans-serif")
-  addLabel(svg,"re-arrested",graphicWidth-84,keyHeight,"sans-serif")
-
-  var r = 4
-
+function addKey(svg,x,y,d) {
+  addLabel(svg,"not re-arrested",x,y,"sans-serif")
+  addLabel(svg,"re-arrested",x,y+16,"sans-serif")
 
   // blue filled circle
   svg.append("circle")
-      .attr("cx", graphicWidth-95)
-      .attr("cy", keyHeight-12)
-      .attr("r", r)
+      .attr("cx", x-2*d)
+      .attr("cy", y+8)
+      .attr("r", d/2)
       .style("fill", "white")
       .style("stroke", blue)
 
   // yellow filled circle
   svg.append("circle")
-      .attr("cx", graphicWidth-110)
-      .attr("cy", keyHeight-12)
-      .attr("r", r)
+      .attr("cx", x-4*d)
+      .attr("cy", y+8)
+      .attr("r", d/2)
       .style("fill", "white")
       .style("stroke", yellow)
 
   // blue unfilled circle
   svg.append("circle")
-      .attr("cx", graphicWidth-95)
-      .attr("cy", keyHeight+8)
-      .attr("r", r)
+      .attr("cx", x-2*d)
+      .attr("cy", y+8+16)
+      .attr("r", d/2)
       .style("fill", blue)
       .style("stroke", blue)
 
   // yellow unfilled circle
   svg.append("circle")
-      .attr("cx", graphicWidth-110)
-      .attr("cy", keyHeight+8)
-      .attr("r", r)
+      .attr("cx", x-4*d)
+      .attr("cy", y+8+16)
+      .attr("r", d/2)
       .style("fill", yellow)
       .style("stroke", yellow)
 }
