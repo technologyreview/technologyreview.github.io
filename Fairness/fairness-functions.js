@@ -89,9 +89,9 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .style("opacity", .03)
   
   if (flip==1) {
-    addLabel(g,"jailed →",x+10,y1+28,"serif","italic")
+    addLabel(g,"will likely be jailed →",x+10,y1,"serif","italic")
   } else {
-    addLabel(g,"jailed →",x+10,y2,"serif","italic")
+    addLabel(g,"will likely be jailed →",x+10,y2-18,"serif","italic")
   }
   
   return g
@@ -146,7 +146,7 @@ function addLabel(svg,label,x,y,family,style) {
   
   svg.append("text")
       .attr("x", x)
-      .attr("y", y-font_size)
+      .attr("y", y+font_size)
       .text(label)
       .attr("font-size",font_size)
       .attr("font-family",family)
@@ -154,21 +154,44 @@ function addLabel(svg,label,x,y,family,style) {
       .attr("opacity","0.75")
 }
 
-function addKey(svg,graphicWidth) {
-  addLabel(svg,"not re-arrested",graphicWidth-80,0,"sans-serif")
-  addLabel(svg,"re-arrested",graphicWidth-80,20,"sans-serif")
+function addKey(svg,keyHeight,graphicWidth) {
+  addLabel(svg,"not re-arrested",graphicWidth-84,keyHeight-20,"sans-serif")
+  addLabel(svg,"re-arrested",graphicWidth-84,keyHeight,"sans-serif")
+
+  var r = 4
+
+
+  // blue filled circle
   svg.append("circle")
       .attr("cx", graphicWidth-95)
-      .attr("cy", 8.5)
-      .attr("r", 5)
+      .attr("cy", keyHeight-12)
+      .attr("r", r)
       .style("fill", "white")
-      .style("stroke", "gray")
+      .style("stroke", blue)
+
+  // yellow filled circle
+  svg.append("circle")
+      .attr("cx", graphicWidth-110)
+      .attr("cy", keyHeight-12)
+      .attr("r", r)
+      .style("fill", "white")
+      .style("stroke", yellow)
+
+  // blue unfilled circle
   svg.append("circle")
       .attr("cx", graphicWidth-95)
-      .attr("cy", 28.5)
-      .attr("r", 5)
-      .style("fill", "gray")
-      .style("stroke", "gray")
+      .attr("cy", keyHeight+8)
+      .attr("r", r)
+      .style("fill", blue)
+      .style("stroke", blue)
+
+  // yellow unfilled circle
+  svg.append("circle")
+      .attr("cx", graphicWidth-110)
+      .attr("cy", keyHeight+8)
+      .attr("r", r)
+      .style("fill", yellow)
+      .style("stroke", yellow)
 }
 
 
