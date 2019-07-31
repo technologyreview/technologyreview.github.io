@@ -6,9 +6,9 @@
 
 // global variables
 var params = ({
-  barHeight: 18, // height of bar
+  barHeight: 22, // height of bar
   barWidth: 100, // width of bar
-  labelWidth: 135 // width of bar label
+  labelWidth: 35 // width of bar label
 })
 
 var yellow = "#FCCD23"
@@ -110,14 +110,14 @@ function moveThresh(g, x, graphicWidth) {
     .attr("x", x+10)
 }
 
-function drawBar(svg, d) {
+function drawBar(svg, x, d, barWidth) {
   var g = svg.append("g")
   var family = "sans-serif"
   var fontsize = 12
   var opacity = 0.8
 
   g.append("text")
-    .attr("x", d.x)
+    .attr("x", x-params.labelWidth)
     .attr("y", d.y)
     .attr("dy", "0.9em")
     .text(d.label)
@@ -127,23 +127,23 @@ function drawBar(svg, d) {
     .attr("overflow-wrap","normal")
   
   g.append("rect")
-    .attr("width",params.barWidth)
+    .attr("width",barWidth)
     .attr("height",params.barHeight-1)
-    .attr("x",d.x+params.labelWidth)
+    .attr("x",x)
     .attr("y",d.y)
     .style("fill", "light gray")
     .style("opacity", .08)
 
   g.append("rect")
-    .attr("width",d.getVal()*params.barWidth)
+    .attr("width",d.getVal()*barWidth)
     .attr("height",params.barHeight-1)
-    .attr("x",d.x+params.labelWidth)
+    .attr("x",x)
     .attr("y",d.y)
     .attr("fill",d.color)
     .attr("id", "barVal")
   
   g.append("text")
-    .attr("x", d.x+params.labelWidth+params.barWidth+10)
+    .attr("x", x+barWidth+10)
     .attr("y", d.y)
     .attr("dy", "0.9em")
     .text((d.getVal()*100).toFixed(0)+"%")

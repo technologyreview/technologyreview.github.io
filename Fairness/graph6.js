@@ -3,7 +3,7 @@ function drawGraph6() {
 	var bucketLabelHeight = 40 // height of bucket labels
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var keyHeight = 40 // height of key
-	var barChartHeight = 80 // height of bar chart
+	var barChartHeight = 200 // height of bar chart
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
 	// create svg
@@ -61,42 +61,43 @@ function drawGraph6() {
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var bottomOfGraph = keyHeight + graphicHeight
-	var barYStart = bottomOfGraph + (svgHeight - bottomOfGraph)/3
+	var barYStart = by2 + (svgHeight - by2)/3 // bar position starts 1/3 of the way
+	barYStart = Math.max(by2+20,Math.min(svgHeight-10,barYStart)) // min 20 izels away from bottom of chart
+	var barWidth = graphicWidth/3
+	barWidth = Math.max(100,Math.min(graphicWidth,barWidth))
+	var barXstart = graphicWidth/3
+	var barSpacing = 10 // spacing between bars in same group
+	var barGroupSpacing = 40 // spacing between grouped bars
 
 	var barData = [
 		{
-			label: "FPR, white defendants",
-			x: 0,
+			label: "FPR",
 			y: barYStart,
 			color: yellow,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR, white defendants",
-			x: 300,
-			y: barYStart,
+			label: "FNR",
+			y: barYStart+params.barHeight+barSpacing,
 			color: yellow,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "FPR, black defendants",
-			x: 0,
-			y: barYStart+30,
+			label: "FPR",
+			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: blue,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR, black defendants",
-			x: 300,
-			y: barYStart+30,
+			label: "FNR",
+			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 	]
 
 	for (var b of barData) {
-		b.el = drawBar(svg,b)
+		b.el = drawBar(svg,barXstart,b,barWidth)
 	}
 		// called whenever the threshold moves
 	function threshChanged(newThresh) {
