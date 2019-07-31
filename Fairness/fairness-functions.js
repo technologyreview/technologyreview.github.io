@@ -6,9 +6,9 @@
 
 // global variables
 var params = ({
-  bar_height: 18, // height of bar
-  bar_width: 100, // width of bar
-  label_width: 120 // width of bar label
+  barHeight: 18, // height of bar
+  barWidth: 100, // width of bar
+  labelWidth: 135 // width of bar label
 })
 
 var yellow = "FCCD23"
@@ -127,22 +127,22 @@ function drawBar(svg, d) {
     .attr("overflow-wrap","normal")
   
   g.append("rect")
-    .attr("width",d.getVal()*params.bar_width)
-    .attr("height",params.bar_height-1)
-    .attr("x",d.x+params.label_width)
+    .attr("width",d.getVal()*params.barWidth)
+    .attr("height",params.barHeight-1)
+    .attr("x",d.x+params.labelWidth)
     .attr("y",d.y)
     .attr("id", "barVal")
   
   g.append("rect")
-    .attr("width",params.bar_width)
-    .attr("height",params.bar_height-1)
-    .attr("x",d.x+params.label_width)
+    .attr("width",params.barWidth)
+    .attr("height",params.barHeight-1)
+    .attr("x",d.x+params.labelWidth)
     .attr("y",d.y)
     .attr("fill","none")
     .attr("stroke","black")
   
   g.append("text")
-    .attr("x", d.x+params.label_width+params.bar_width+10)
+    .attr("x", d.x+params.labelWidth+params.barWidth+10)
     .attr("y", d.y)
     .attr("dy", "0.9em")
     .text((d.getVal()*100).toFixed(0)+"%")
@@ -156,7 +156,7 @@ function drawBar(svg, d) {
 
 // Updates bar value. Element and data values stored in d
 function updateBar(d) {
-  d.el.select("#barVal").attr("width",d.getVal()*params.bar_width)
+  d.el.select("#barVal").attr("width",d.getVal()*params.barWidth)
   d.el.select("#textVal").text((d.getVal()*100).toFixed(0)+"%")
 }
 

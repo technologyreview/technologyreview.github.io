@@ -3,7 +3,7 @@ function drawGraph6() {
 	var bucketLabelHeight = 40 // height of bucket labels
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var keyHeight = 40 // height of key
-	var barChartHeight = 60 // height of bar chart
+	var barChartHeight = 80 // height of bar chart
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
 	// create svg
@@ -70,20 +70,20 @@ function drawGraph6() {
 		},
 		{
 			label: "FNR, white defendants",
-			x: 260,
+			x: 300,
 			y: barYStart,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
 			label: "FPR, black defendants",
 			x: 0,
-			y: barYStart+20,
+			y: barYStart+30,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
 			label: "FNR, black defendants",
-			x: 260,
-			y: barYStart+20,
+			x: 300,
+			y: barYStart+30,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 	]
