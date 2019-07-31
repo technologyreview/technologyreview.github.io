@@ -1,9 +1,9 @@
 function drawGraph6() {
-	var chartHeight = 150 // height of chart area above and below
+	var chartHeight = 160 // height of chart area above and below
 	var bucketLabelHeight = 40 // height of bucket labels
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
-	var keyHeight = 30 // height of key
-	var barChartHeight = 160 // height of bar chart
+	var keyHeight = 40 // height of key
+	var barChartHeight = 155 // height of bar chart
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
 	// create svg
@@ -40,7 +40,8 @@ function drawGraph6() {
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
-	var keyy = wy1/4 // starts a third of the way between the top of chart and top of slider
+	var keyy = wy1/4 // starts a quarter of the way between the top of chart and top of slider
+	keyy = Math.max(by2+15,barYStart)
 	addKey(svg,keyx,keyy,d)
 
 	var sliderList = [ 
