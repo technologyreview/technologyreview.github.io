@@ -57,19 +57,48 @@ function drawGraph6() {
 		}
 	]
 
-  // bar chart
+  // bar charts
   var barYStart = graphicHeight + keyHeight 
-  drawBar(svg,0,barYStart,"FPR, white defen.",fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
-  drawBar(svg,300,barYStart,"FNR, white defen.",fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)))
-  drawBar(svg,0,barYStart+20,"FPR, black defen.",fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)))
-  drawBar(svg,300,barYStart+20,"FNR, black defen.",fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)))
-	
+
+	var barData = [
+		{
+			label: "FPR, white defen.",
+			x: 0,
+			y: barYStart,
+			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+		},
+		{
+			label: "FNR, white defen.",
+			x: 260,
+			y: barYStart,
+			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+		},		
+		{
+			label: "FPR, black defen.",
+			x: 0,
+			y: barYStart+20,
+			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
+		},
+		{
+			label: "FNR, black defen.",
+			x: 260,
+			y: barYStart+20,
+			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
+		},
+	]
+
+	for (var b of barData) {
+  	b.el = drawBar(svg,b)		
+	}
 		// called whenever the threshold moves
 	function threshChanged(newThresh) {
 		console.log("black " + pixelsToScore(sliderList[1].pos, bucketWidth))
 		console.log("white " + pixelsToScore(sliderList[0].pos, bucketWidth))
+		for (var b of barData) {
+  		updateBar(b)		
+		}
 	}
-
+	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
 
 

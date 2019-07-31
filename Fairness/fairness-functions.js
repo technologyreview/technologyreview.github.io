@@ -110,36 +110,49 @@ function moveThresh(g, x, graphicWidth) {
     .attr("x", x+10)
 }
 
-function drawBar(svg, x, y, label, value) {
-  svg.append("text")
-      .attr("x", x)
-      .attr("y", y)
+function drawBar(svg, d) {
+  var g = svg.append("g")
+
+  g.append("text")
+      .attr("x", d.x)
+      .attr("y", d.y)
       .attr("dy", "0.9em")
-      .text(label)
+      .text(d.label)
       .attr("font-size",14)
       .attr("overflow-wrap","normal")
   
-  svg.append("rect")
-    .attr("width",value*params.bar_width)
+  g.append("rect")
+    .attr("width",d.getVal()*params.bar_width)
     .attr("height",params.bar_height-1)
-    .attr("x",x+params.label_width)
-    .attr("y",y)
+    .attr("x",d.x+params.label_width)
+    .attr("y",d.y)
+    .attr("id", "barVal")
   
-  svg.append("rect")
+  g.append("rect")
     .attr("width",params.bar_width)
     .attr("height",params.bar_height-1)
-    .attr("x",x+params.label_width)
-    .attr("y",y)
+    .attr("x",d.x+params.label_width)
+    .attr("y",d.y)
     .attr("fill","none")
     .attr("stroke","black")
   
-  svg.append("text")
-      .attr("x", x+params.label_width+params.bar_width+10)
-      .attr("y", y)
+  g.append("text")
+      .attr("x", d.x+params.label_width+params.bar_width+10)
+      .attr("y", d.y)
       .attr("dy", "0.9em")
-      .text((value*100).toFixed(0)+"%")
+      .text((d.getVal()*100).toFixed(0)+"%")
       .attr("font-size",14)
+      .attr("id", "textVal")
+
+  return g
 }
+
+// Updates bar value. Element and data values stored in d
+function updateBar(d) {
+  d.el.select("#barVal").attr("width",d.getVal()*params.bar_width)
+  d.el.select("#textVal").text((d.getVal()*100).toFixed(0)+"%")
+}
+
 
 function addLabel(svg,label,x,y,family,style) {
   var font_size = 12
