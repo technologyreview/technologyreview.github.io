@@ -92,8 +92,6 @@ function drawGraph6() {
 	}
 		// called whenever the threshold moves
 	function threshChanged(newThresh) {
-		console.log("black " + pixelsToScore(sliderList[1].pos, bucketWidth))
-		console.log("white " + pixelsToScore(sliderList[0].pos, bucketWidth))
 		for (var b of barData) {
   		updateBar(b)		
 		}
