@@ -77,25 +77,25 @@ function drawGraph6() {
 
 	var barData = [
 		{
-			label: "FPR",
+			label: "white",
 			y: barYStart,
 			color: yellow,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR",
-			y: barYStart+params.barHeight+barSpacing,
+			label: "white",
+			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "FPR",
-			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
+			label: "black",
+			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR",
+			label: "black",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }

@@ -223,6 +223,7 @@ function addKey(svg,x,y,d) {
       .attr("r", d/2)
       .style("fill", "white")
       .style("stroke", blue)
+      .style("stroke-width", Math.max(0.5,Math.min(1,d/8)))
 
   // yellow filled circle
   svg.append("circle")
