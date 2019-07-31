@@ -112,14 +112,19 @@ function moveThresh(g, x, graphicWidth) {
 
 function drawBar(svg, d) {
   var g = svg.append("g")
+  var family = "sans-serif"
+  var fontsize = 12
+  var opacity = 0.8
 
   g.append("text")
-      .attr("x", d.x)
-      .attr("y", d.y)
-      .attr("dy", "0.9em")
-      .text(d.label)
-      .attr("font-size",14)
-      .attr("overflow-wrap","normal")
+    .attr("x", d.x)
+    .attr("y", d.y)
+    .attr("dy", "0.9em")
+    .text(d.label)
+    .attr("font-size",fontsize)
+    .attr("font-family",family)
+    .attr("opacity",opacity)
+    .attr("overflow-wrap","normal")
   
   g.append("rect")
     .attr("width",d.getVal()*params.bar_width)
@@ -137,12 +142,14 @@ function drawBar(svg, d) {
     .attr("stroke","black")
   
   g.append("text")
-      .attr("x", d.x+params.label_width+params.bar_width+10)
-      .attr("y", d.y)
-      .attr("dy", "0.9em")
-      .text((d.getVal()*100).toFixed(0)+"%")
-      .attr("font-size",14)
-      .attr("id", "textVal")
+    .attr("x", d.x+params.label_width+params.bar_width+10)
+    .attr("y", d.y)
+    .attr("dy", "0.9em")
+    .text((d.getVal()*100).toFixed(0)+"%")
+    .attr("font-size",fontsize)
+    .attr("font-family",family)
+    .attr("opacity",opacity)
+    .attr("id", "textVal")
 
   return g
 }

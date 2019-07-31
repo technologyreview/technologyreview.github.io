@@ -57,30 +57,31 @@ function drawGraph6() {
 		}
 	]
 
-  // bar charts
-  var barYStart = graphicHeight + keyHeight 
+	// bar charts
+	var bottomOfGraph = keyHeight + graphicHeight
+	var barYStart = bottomOfGraph + (svgHeight - bottomOfGraph)/3
 
 	var barData = [
 		{
-			label: "FPR, white defen.",
+			label: "FPR, white defendants",
 			x: 0,
 			y: barYStart,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR, white defen.",
+			label: "FNR, white defendants",
 			x: 260,
 			y: barYStart,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "FPR, black defen.",
+			label: "FPR, black defendants",
 			x: 0,
 			y: barYStart+20,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR, black defen.",
+			label: "FNR, black defendants",
 			x: 260,
 			y: barYStart+20,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
