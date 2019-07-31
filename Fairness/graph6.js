@@ -40,7 +40,7 @@ function drawGraph6() {
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
-	var keyy = wy1/3 // starts a third of the way between the top of chart and top of slider
+	var keyy = wy1/4 // starts a third of the way between the top of chart and top of slider
 	addKey(svg,keyx,keyy,d)
 
 	var sliderList = [ 
