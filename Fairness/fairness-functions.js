@@ -6,7 +6,7 @@
 
 // global variables
 var params = ({
-  barHeight: 22, // height of bar
+  barHeight: 18, // height of bar
   barWidth: 100, // width of bar
   labelWidth: 35 // width of bar label
 })
