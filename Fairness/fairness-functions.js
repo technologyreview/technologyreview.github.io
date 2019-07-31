@@ -4,12 +4,14 @@
 
 /* DRAW GRAPHIC ELEMENTS */
 
-// global variables
-var params = ({
+// parameters that define drawing layout and style
+var params = {
   barHeight: 18, // height of bar
   barWidth: 100, // width of bar
-  labelWidth: 35 // width of bar label
-})
+  labelWidth: 35, // width of bar label
+  handleWidth: 7,   // threshold drag handle width
+  handleHeight: 20  // threshold drag handle width
+}
 
 var yellow = "#FCCD23"
 var orange = "#FC5623"
@@ -70,44 +72,80 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
   
   var g = svg.append("g")
   
-  g.append("line")
-    .attr("x1", x)
+  slider = g.append("g")
+    .attr("id", "slider")
+    .attr("transform", "translate("+x+",0)")
+
+  // main thresh line
+  slider.append("line")
+    .attr("x1", 0)
     .attr("y1", y1)
-    .attr("x2", x)
+    .attr("x2", 0)
     .attr("y2", y2)
-    .style("stroke", "black")
-    .style("opacity", .7)
+    .style("stroke", "gray")
     .attr("stroke-width", 3) 
     .style("cursor", "pointer")
-  
+
+  // drag handle
+  slider.append("rect")
+    .attr("x", -params.handleWidth/2)
+    .attr("y", (y1+y2)/2 -params.handleHeight/2)
+    .attr("width", params.handleWidth)
+    .attr("height", params.handleHeight)
+    .style("fill", "gray")
+    .style("cursor", "pointer")
+
+  if (flip==1) {
+    addLabel(slider,"will likely be jailed →",10,y1,"serif","italic")
+  } else {
+    addLabel(slider,"will likely be jailed →",10,y2-18,"serif","italic")
+  }
+
+  // background fill to right of thresh
   g.append("rect")
+    .attr("id", "fillrect")
     .attr("x", x)
     .attr("y", y1)
     .attr("width", Math.abs(graphicWidth-x))
     .attr("height", Math.abs(y1 - y2))
     .style("fill", "light gray")
-    .style("opacity", .03)
-  
-  if (flip==1) {
-    addLabel(g,"will likely be jailed →",x+10,y1,"serif","italic")
-  } else {
-    addLabel(g,"will likely be jailed →",x+10,y2-18,"serif","italic")
-  }
+    .style("opacity", .03)  
   
   return g
 }
 
 function moveThresh(g, x, graphicWidth) {
-  g.selectAll("line")
-    .attr("x1",x)
-    .attr("x2",x)
+  g.select("#slider")
+    .attr("transform", "translate("+x+",0)")
 
-  g.selectAll("rect")
+  g.select("#fillrect")
     .attr("x",x)
     .attr("width",graphicWidth-x)
 
-  g.selectAll("text")
-    .attr("x", x+10)
+}
+
+// the grey "ticks" that show where the user can drag the threshold to
+function drawThreshTicks(svg, y1, y2, bucketWidth) {
+  var g = svg.append("g").style("opacity", 0) // off at first
+
+  for (var i=0; i<10; i++) {
+    var x = scoreToPixels(i, bucketWidth)
+    g.append("rect")
+      .attr("x", x-params.handleWidth/2)
+      .attr("y", (y1+y2)/2-params.handleHeight/2)
+      .attr("width", params.handleWidth)
+      .attr("height", params.handleHeight)
+      .style("fill", "#f0f0f0")
+    g.append("line")
+      .attr("x1", x)
+      .attr("y1", (y1+y2)/2 - params.handleHeight/2 - 10)
+      .attr("x2", x)
+      .attr("y2", (y1+y2)/2 + params.handleHeight/2 + 10)
+      .style("stroke", "#f0f0f0")
+      .attr("stroke-width", 3) 
+  }
+
+  return g
 }
 
 function drawBar(svg, x, d, barWidth) {
@@ -281,6 +319,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	    for (var slider of sliderList) {
 	      if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<20)) {
 	        slider.dragging = true
+          slider.ticksEl.style("opacity", 1)
 	        d3.event.preventDefault()
 	      }
 	    }
@@ -310,6 +349,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	        x = scoreToPixels(pixelsToScore(x,bucketWidth),bucketWidth)
 	        moveThresh(slider.el, x, graphicWidth)
           slider.pos = x
+          slider.ticksEl.style("opacity", 0)
           callback(x)
 	        
 	      }
