@@ -6,11 +6,12 @@
 
 // parameters that define drawing layout and style
 var params = {
-  barHeight: 18, // height of bar
-  barWidth: 100, // width of bar
-  labelWidth: 35, // width of bar label
-  handleWidth: 7,   // threshold drag handle width
-  handleHeight: 20  // threshold drag handle width
+  barHeight: 18,      // height of bar
+  barWidth: 100,      // width of bar
+  labelWidth: 35,     // width of bar label
+  handleWidth: 7,     // threshold drag handle width
+  handleHeight: 20,   // threshold drag handle width
+  sliderHitWidth: 20  // how far away from threshold you can click
 }
 
 var yellow = "#FCCD23"
@@ -70,7 +71,16 @@ function drawDots(svg, dots, dotColor, ystart, bucketWidth, flip) {
 function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
   
   var g = svg.append("g")
-  
+
+  // background fill to right of thresh
+  g.append("rect")
+    .attr("id", "fillrect")
+    .attr("x", x)
+    .attr("y", y1)
+    .attr("width", Math.abs(graphicWidth-x))
+    .attr("height", Math.abs(y1 - y2))
+    .style("fill", "light gray")
+    .style("opacity", .03)  
   slider = g.append("g")
     .attr("id", "slider")
     .attr("transform", "translate("+x+",0)")
@@ -83,7 +93,6 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("y2", y2)
     .style("stroke", "gray")
     .attr("stroke-width", 3) 
-    .style("cursor", "pointer")
 
   // drag handle
   slider.append("rect")
@@ -92,7 +101,16 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("width", params.handleWidth)
     .attr("height", params.handleHeight)
     .style("fill", "gray")
-    .style("cursor", "pointer")
+
+  // invisible handle to change the cursor
+  slider.append("rect")
+    .attr("x", -params.sliderHitWidth)
+    .attr("y", y1)
+    .attr("width", 2*params.sliderHitWidth)
+    .attr("height", y2-y1)
+    .style("fill", "green")
+    .style("opacity", 0)
+    .style("cursor", "col-resize")
 
   if (flip==1) {
     addLabel(slider,"will likely be jailed →",10,y1,"serif","italic")
@@ -100,15 +118,7 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     addLabel(slider,"will likely be jailed →",10,y2-18,"serif","italic")
   }
 
-  // background fill to right of thresh
-  g.append("rect")
-    .attr("id", "fillrect")
-    .attr("x", x)
-    .attr("y", y1)
-    .attr("width", Math.abs(graphicWidth-x))
-    .attr("height", Math.abs(y1 - y2))
-    .style("fill", "light gray")
-    .style("opacity", .03)  
+
   
   return g
 }
@@ -127,7 +137,7 @@ function moveThresh(g, x, graphicWidth) {
 function drawThreshTicks(svg, y1, y2, bucketWidth) {
   var g = svg.append("g").style("opacity", 0) // off at first
 
-  for (var i=0; i<10; i++) {
+  for (var i=0; i<=10; i++) {
     var x = scoreToPixels(i, bucketWidth)
     g.append("rect")
       .attr("x", x-params.handleWidth/2)
@@ -317,7 +327,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	function startDrag() {
 	    const [x, y] = d3.mouse(this)
 	    for (var slider of sliderList) {
-	      if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<20)) {
+	      if ((y>slider.y1) && (y<slider.y2) && (Math.abs(x-slider.pos)<params.sliderHitWidth)) {
 	        slider.dragging = true
           slider.ticksEl.style("opacity", 1)
 	        d3.event.preventDefault()
