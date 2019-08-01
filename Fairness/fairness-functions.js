@@ -186,6 +186,8 @@ function drawBar(svg, x, d, barWidth) {
   var opacity = 0.8
   var textY = d.y+font_size/2+params.barHeight/3
 
+  var [percent,numer,denom] = d.getVal()
+
   g.append("text")
     .attr("x", x-params.labelWidth)
     .attr("y", textY)
@@ -204,27 +206,26 @@ function drawBar(svg, x, d, barWidth) {
     .style("opacity", .06)
 
   g.append("rect")
-    .attr("width",d.getVal()[2]*barWidth)
+    .attr("width",percent*barWidth)
     .attr("height",params.barHeight-1)
     .attr("x",x)
     .attr("y",d.y)
     .attr("fill",d.color)
     .attr("id", "barVal")
   
-  var [numer,denom,percent] = d.getVal()
   var numMargin = 20
   var numSpacing = 30
 
-  drawNum(g,numer,x+barWidth+numMargin,textY,"numer")
+  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin,textY,"percent")
+  drawNum(g,numer,x+barWidth+numMargin+2*numSpacing,textY,"numer")
   drawNum(g,denom,x+barWidth+numMargin+numSpacing,textY,"denom")
-  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin+2*numSpacing,textY,"percent")
 
   return g
 }
 
 // Updates bar value. Element and data values stored in d
 function updateBar(d,barWidth) {
-  var [numer,denom,percent] = d.getVal()
+  var [percent,numer,denom] = d.getVal()
 
   d.el.select("#barVal").attr("width",percent*barWidth)
   d.el.select("#numer").text(numer)
@@ -234,7 +235,7 @@ function updateBar(d,barWidth) {
 function drawBarGroupLabel(svg,label,x,y) {
   var font_size = 16
   var family = "sans-serif"
-  var style = "bold"
+  var weight = "bold"
 
   svg.append("text")
       .attr("x", x)
@@ -242,20 +243,24 @@ function drawBarGroupLabel(svg,label,x,y) {
       .text(label)
       .attr("font-size",font_size+"px")
       .attr("font-family",family)
-      .attr("font-style",style)
+      .attr("font-weight",weight)
       .attr("opacity","0.75")
 }
 
-function drawNumLabel(svg,x,y) {
-  var font_size = 18
+function drawNumLabel(svg,label,x,y) {
+  var font_size = 10
+  var family = "sans-serif"
+  var weight = "light"
+  var transform = "uppercase"
 
   svg.append("text")
       .attr("x", x)
-      .attr("y", y+font_size)
+      .attr("y", y+font_size/2)
       .text(label)
       .attr("font-size",font_size + "px")
       .attr("font-family",family)
-      .attr("font-style",style)
+      .attr("font-weight",weight)
+      .attr("text-transform",transform)
       .attr("opacity","0.75")
 }
 
@@ -341,7 +346,7 @@ function acc(d, thresh) {
     }
     
   }
-  return [tp+tn,total,(tp+tn)/total]
+  return [(tp+tn)/total,tp+tn,total]
 }
 
 function fpr(d, thresh) {
@@ -358,7 +363,7 @@ function fpr(d, thresh) {
     }
   }
   
-  return [fp,n,fp/n]
+  return [fp/n,fp,n]
 }
 
 function fnr(d, thresh) {
@@ -375,7 +380,7 @@ function fnr(d, thresh) {
     }
   }
   
-  return [fn,p,fn/p]
+  return [fn/p,fn,p]
 }
 
 

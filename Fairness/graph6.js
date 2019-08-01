@@ -106,12 +106,22 @@ function drawGraph6() {
 		b.el = drawBar(svg,barXStart,b,barWidth)
 	}
 
+	// label bar groups
 	var barGroupLabelsX = barXStart-params.labelWidth-60
 	var barGroupHeight = 2*params.barHeight+barSpacing
+
 	var fpry = barYStart+barGroupHeight/2
 	var fnry = barYStart+barGroupSpacing+3*barGroupHeight/2
+
 	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,fpry)
 	drawBarGroupLabel(svg,"FNR",barGroupLabelsX,fnry)
+
+
+	// label numbers
+	// drawNumLabel(svg,"high-risk, not re-arrested",x,y)
+	// drawNumLabel(svg,"not re-arrested",x,y)
+	// drawNumLabel(svg,"percentage",x,y)
+
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
