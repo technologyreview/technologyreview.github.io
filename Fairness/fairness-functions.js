@@ -6,11 +6,12 @@
 
 // parameters that define drawing layout and style
 var params = {
-  barHeight: 18, // height of bar
-  labelWidth: 40, // width of bar label
-  handleWidth: 7,   // threshold drag handle width
-  handleHeight: 20,  // threshold drag handle width
-  sliderHitWidth: 20  // how far away from threshold you can click
+  barHeight: 18,          // height of bar
+  labelWidth: 40,         // width of bar label
+  threshWidthScale: 400,  // at this screen width the threshold will be 1px wide
+  handleWidth: 7,         // threshold drag handle width
+  handleHeight: 20,       // threshold drag handle width
+  sliderHitWidth: 20,     // how far away from threshold you can click
 }
 
 var yellow = "#FCCD23"
@@ -67,8 +68,18 @@ function drawDots(svg, dots, dotColor, ystart, bucketWidth, flip) {
   return [d, spacing]
 }
 
+function calcThreshWidth(graphicWidth) {
+  return Math.min(3,Math.max(1, graphicWidth/params.threshWidthScale)) // get narrower lines on small screens
+}
+
+function calcHandleWidth(graphicWidth) {
+  return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
+}
+
 function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
-  
+  var threshWidth = calcThreshWidth(graphicWidth)
+  var handleWidth = calcHandleWidth(graphicWidth)
+
   var g = svg.append("g")
 
   // background fill to right of thresh
@@ -91,14 +102,14 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("x2", 0)
     .attr("y2", y2)
     .style("stroke", "gray")
-    .attr("stroke-width", 3) 
+    .attr("stroke-width", threshWidth) 
 
   // drag handle
   var y = (y1+y2)/2
   slider.append("rect")
-    .attr("x", -params.handleWidth/2)
+    .attr("x", -handleWidth/2)
     .attr("y", y-params.handleHeight/2)
-    .attr("width", params.handleWidth)
+    .attr("width", handleWidth)
     .attr("height", params.handleHeight)
     .style("fill", "gray")
 
@@ -139,8 +150,6 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
   } else {
     addLabel(slider,"will likely be jailed →",10,y2-18,"serif","italic")
   }
-
-
   
   return g
 }
@@ -156,7 +165,10 @@ function moveThresh(g, x, graphicWidth) {
 }
 
 // the grey "ticks" that show where the user can drag the threshold to
-function drawThreshTicks(svg, y1, y2, bucketWidth) {
+function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
+  var threshWidth = calcThreshWidth(graphicWidth)
+  var handleWidth = calcHandleWidth(graphicWidth)
+
   var g = svg.append("g").style("opacity", 0) // off at first
 
   for (var i=0; i<=10; i++) {
@@ -164,7 +176,7 @@ function drawThreshTicks(svg, y1, y2, bucketWidth) {
     g.append("rect")
       .attr("x", x-params.handleWidth/2)
       .attr("y", (y1+y2)/2-params.handleHeight/2)
-      .attr("width", params.handleWidth)
+      .attr("width", handleWidth)
       .attr("height", params.handleHeight)
       .style("fill", "#f0f0f0")
     g.append("line")
@@ -173,7 +185,7 @@ function drawThreshTicks(svg, y1, y2, bucketWidth) {
       .attr("x2", x)
       .attr("y2", (y1+y2)/2 + params.handleHeight/2 + 10)
       .style("stroke", "#f0f0f0")
-      .attr("stroke-width", 3) 
+      .attr("stroke-width", threshWidth) 
   }
 
   return g

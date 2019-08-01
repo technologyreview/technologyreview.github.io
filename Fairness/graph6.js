@@ -28,7 +28,7 @@ function drawGraph6() {
 
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
-	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth)
+	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
 	addLabel(svg,"white defendants",0,wy1-18,"serif","italic")
 
@@ -36,7 +36,7 @@ function drawGraph6() {
 	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth)
+	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
 	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
 	addLabel(svg,"black defendants",0,by2,"serif","italic")
 
