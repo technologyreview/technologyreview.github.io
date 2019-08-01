@@ -9,7 +9,7 @@ var params = {
   barHeight: 18, // height of bar
   labelWidth: 40, // width of bar label
   handleWidth: 7,   // threshold drag handle width
-  handleHeight: 20  // threshold drag handle width
+  handleHeight: 20,  // threshold drag handle width
   sliderHitWidth: 20  // how far away from threshold you can click
 }
 
