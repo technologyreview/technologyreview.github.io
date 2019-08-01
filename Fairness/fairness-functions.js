@@ -182,17 +182,20 @@ function drawBar(svg, x, d, barWidth) {
   var numMargin = 20
   var numSpacing = 30
 
-  drawNum(g,numer,x+barWidth+numMargin,textY)
-  drawNum(g,denom,x+barWidth+numMargin+numSpacing,textY)
-  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin+2*numSpacing,textY)
+  drawNum(g,numer,x+barWidth+numMargin,textY,"numer")
+  drawNum(g,denom,x+barWidth+numMargin+numSpacing,textY,"denom")
+  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin+2*numSpacing,textY,"percent")
 
   return g
 }
 
 // Updates bar value. Element and data values stored in d
 function updateBar(d,barWidth) {
-  d.el.select("#barVal").attr("width",d.getVal()[2]*barWidth)
-  d.el.select("#textVal").text((d.getVal()[2]*100).toFixed(0)+"%")
+  var [numer,denom,percent] = d.getVal()
+
+  d.el.select("#barVal").attr("width",percent*barWidth)
+  d.el.select("#numer").text(numer)
+  d.el.select("#percent").text((percent*100).toFixed(0)+"%")
 }
 
 function drawBarGroupLabel(svg,label,x,y) {
@@ -223,7 +226,7 @@ function drawNumLabel(svg,x,y) {
       .attr("opacity","0.75")
 }
 
-function drawNum(g,text,x,y) {
+function drawNum(g,text,x,y,id) {
   var font_size = 12
   var family = "sans-serif"
 
@@ -234,6 +237,7 @@ function drawNum(g,text,x,y) {
     .attr("font-size",font_size+"px")
     .attr("font-family",family)
     .attr("opacity","0.75")
+    .attr("id",id)
 }
 
 function addLabel(svg,label,x,y,family,style) {
