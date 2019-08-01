@@ -71,7 +71,7 @@ function drawGraph6() {
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
 	
-	var barXstart = graphicWidth/3
+	var barXStart = graphicWidth/3
 	var barSpacing = 8 // spacing between bars in same group
 	var barGroupSpacing = 30 // spacing between grouped bars
 
@@ -103,12 +103,20 @@ function drawGraph6() {
 	]
 
 	for (var b of barData) {
-		b.el = drawBar(svg,barXstart,b,barWidth)
+		b.el = drawBar(svg,barXStart,b,barWidth)
 	}
-		// called whenever the threshold moves
+
+	var barGroupLabelsX = barXStart-params.labelWidth-60
+	var barGroupHeight = 2*params.barHeight+barSpacing
+	var fpry = barYStart+barGroupHeight/2
+	var fnry = barYStart+barGroupSpacing+3*barGroupHeight/2
+	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,fpry)
+	drawBarGroupLabel(svg,"FNR",barGroupLabelsX,fnry)
+
+	// called whenever the threshold moves
 	function threshChanged(newThresh) {
 		for (var b of barData) {
-  		updateBar(b)		
+  		updateBar(b,barWidth)		
 		}
 	}
 	

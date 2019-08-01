@@ -7,8 +7,7 @@
 // parameters that define drawing layout and style
 var params = {
   barHeight: 18, // height of bar
-  barWidth: 100, // width of bar
-  labelWidth: 35, // width of bar label
+  labelWidth: 40, // width of bar label
   handleWidth: 7,   // threshold drag handle width
   handleHeight: 20  // threshold drag handle width
 }
@@ -150,15 +149,15 @@ function drawThreshTicks(svg, y1, y2, bucketWidth) {
 function drawBar(svg, x, d, barWidth) {
   var g = svg.append("g")
   var family = "sans-serif"
-  var fontsize = 12
+  var font_size = 12
   var opacity = 0.8
+  var textY = d.y+font_size/2+params.barHeight/3
 
   g.append("text")
     .attr("x", x-params.labelWidth)
-    .attr("y", d.y)
-    .attr("dy", "0.9em")
+    .attr("y", textY)
     .text(d.label)
-    .attr("font-size",fontsize)
+    .attr("font-size",font_size+"px")
     .attr("font-family",family)
     .attr("opacity",opacity)
     .attr("overflow-wrap","normal")
@@ -169,35 +168,73 @@ function drawBar(svg, x, d, barWidth) {
     .attr("x",x)
     .attr("y",d.y)
     .style("fill", "light gray")
-    .style("opacity", .08)
+    .style("opacity", .06)
 
   g.append("rect")
-    .attr("width",d.getVal()*barWidth)
+    .attr("width",d.getVal()[2]*barWidth)
     .attr("height",params.barHeight-1)
     .attr("x",x)
     .attr("y",d.y)
     .attr("fill",d.color)
     .attr("id", "barVal")
   
-  g.append("text")
-    .attr("x", x+barWidth+10)
-    .attr("y", d.y)
-    .attr("dy", "0.9em")
-    .text((d.getVal()*100).toFixed(0)+"%")
-    .attr("font-size",fontsize)
-    .attr("font-family",family)
-    .attr("opacity",opacity)
-    .attr("id", "textVal")
+  var [numer,denom,percent] = d.getVal()
+  var numMargin = 20
+  var numSpacing = 30
+
+  drawNum(g,numer,x+barWidth+numMargin,textY)
+  drawNum(g,denom,x+barWidth+numMargin+numSpacing,textY)
+  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin+2*numSpacing,textY)
 
   return g
 }
 
 // Updates bar value. Element and data values stored in d
-function updateBar(d) {
-  d.el.select("#barVal").attr("width",d.getVal()*params.barWidth)
-  d.el.select("#textVal").text((d.getVal()*100).toFixed(0)+"%")
+function updateBar(d,barWidth) {
+  d.el.select("#barVal").attr("width",d.getVal()[2]*barWidth)
+  d.el.select("#textVal").text((d.getVal()[2]*100).toFixed(0)+"%")
 }
 
+function drawBarGroupLabel(svg,label,x,y) {
+  var font_size = 16
+  var family = "sans-serif"
+  var style = "bold"
+
+  svg.append("text")
+      .attr("x", x)
+      .attr("y", y+font_size/2)
+      .text(label)
+      .attr("font-size",font_size+"px")
+      .attr("font-family",family)
+      .attr("font-style",style)
+      .attr("opacity","0.75")
+}
+
+function drawNumLabel(svg,x,y) {
+  var font_size = 18
+
+  svg.append("text")
+      .attr("x", x)
+      .attr("y", y+font_size)
+      .text(label)
+      .attr("font-size",font_size + "px")
+      .attr("font-family",family)
+      .attr("font-style",style)
+      .attr("opacity","0.75")
+}
+
+function drawNum(g,text,x,y) {
+  var font_size = 12
+  var family = "sans-serif"
+
+  g.append("text")
+    .attr("x", x)
+    .attr("y", y)
+    .text(text)
+    .attr("font-size",font_size+"px")
+    .attr("font-family",family)
+    .attr("opacity","0.75")
+}
 
 function addLabel(svg,label,x,y,family,style) {
   var font_size = 12
@@ -206,7 +243,7 @@ function addLabel(svg,label,x,y,family,style) {
       .attr("x", x)
       .attr("y", y+font_size)
       .text(label)
-      .attr("font-size",font_size)
+      .attr("font-size",font_size + "px")
       .attr("font-family",family)
       .attr("font-style",style)
       .attr("opacity","0.75")
@@ -267,7 +304,7 @@ function acc(d, thresh) {
     }
     
   }
-  return (tp+tn)/total
+  return [tp+tn,total,(tp+tn)/total]
 }
 
 function fpr(d, thresh) {
@@ -284,7 +321,7 @@ function fpr(d, thresh) {
     }
   }
   
-  return fp/n
+  return [fp,n,fp/n]
 }
 
 function fnr(d, thresh) {
@@ -301,7 +338,7 @@ function fnr(d, thresh) {
     }
   }
   
-  return fn/p
+  return [fn,p,fn/p]
 }
 
 
