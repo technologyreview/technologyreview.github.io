@@ -105,7 +105,7 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("stroke-width", threshWidth) 
 
   // drag handle
-  var y = (y1+y2)/2 - flip*30
+  var y = (y1+y2)/2
   slider.append("rect")
     .attr("x", -handleWidth/2)
     .attr("y", y-params.handleHeight/2)
