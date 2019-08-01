@@ -229,8 +229,8 @@ function drawBar(svg, x, d, barWidth) {
   var numSpacing = 30
 
   drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin,textY,"percent")
-  drawNum(g,numer,x+barWidth+numMargin+2*numSpacing,textY,"numer")
-  drawNum(g,denom,x+barWidth+numMargin+numSpacing,textY,"denom")
+  drawNum(g,numer,x+barWidth+numMargin+numSpacing,textY,"numer")
+  drawNum(g,denom,x+barWidth+numMargin+2*numSpacing,textY,"denom")
 
   return g
 }
