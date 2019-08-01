@@ -14,7 +14,7 @@ function drawGraph6() {
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
 
-	var blackStart = 4
+	var blackStart = 5
 	var whiteStart = 5
 	var whiteThresh = bucketWidth*whiteStart
 	var blackThresh = bucketWidth*blackStart
