@@ -94,15 +94,38 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("stroke-width", 3) 
 
   // drag handle
+  var y = (y1+y2)/2
   slider.append("rect")
     .attr("x", -params.handleWidth/2)
-    .attr("y", (y1+y2)/2 -params.handleHeight/2)
+    .attr("y", y-params.handleHeight/2)
     .attr("width", params.handleWidth)
     .attr("height", params.handleHeight)
     .style("fill", "gray")
 
+  // delightful arrows
+  var ad = 8 // arrow distance
+  var aw = 8 // arrow width
+  var ah = 8 // arrow height
+  slider.append("path")
+    .attr("id", "rightArrow")
+    .attr("d", 
+          " M " + ad + " " + (y-ah/2) + 
+          " L " + (ad+aw) + " " + y +
+          " L " + ad + " " + (y+ah/2))
+    .style("fill", "gray")
+    .attr("transform", "translate(0,0)")
+  slider.append("path")
+    .attr("id", "leftArrow")
+    .attr("d", 
+          " M " + -ad + " " + (y-ah/2) + 
+          " L " + -(ad+aw) + " " + y +
+          " L " + -ad + " " + (y+ah/2))
+    .style("fill", "gray")
+    .attr("transform", "translate(0,0)")
+
   // invisible handle to change the cursor
   slider.append("rect")
+    .attr("id","hitHandle")
     .attr("x", -params.sliderHitWidth)
     .attr("y", y1)
     .attr("width", 2*params.sliderHitWidth)
@@ -365,6 +388,18 @@ function scoreToPixels(score, bucketWidth) {
 
 
 function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
+  // Make the sliders animate in and out when the user points at the hit region
+  function arrowsOut() {
+    d3.select(this.parentNode).select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
+    d3.select(this.parentNode).select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
+  }
+  function arrowsIn() {
+    d3.select(this.parentNode).select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
+    d3.select(this.parentNode).select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
+  }
+  svg.selectAll("#hitHandle").on('mouseenter', arrowsOut)
+  svg.selectAll("#hitHandle").on('mouseleave', arrowsIn)
+
 	function startDrag() {
 	    const [x, y] = d3.mouse(this)
 	    for (var slider of sliderList) {
