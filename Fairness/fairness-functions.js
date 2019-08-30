@@ -146,9 +146,9 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    addLabel(slider,"will likely be jailed →",10,y1,"serif","italic")
+    addLabel(slider,"will likely be jailed →",10,y1,12,"serif","italic")
   } else {
-    addLabel(slider,"will likely be jailed →",10,y2-18,"serif","italic")
+    addLabel(slider,"will likely be jailed →",10,y2-18,12,"serif","italic")
   }
   
   return g
@@ -191,24 +191,24 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
   return g
 }
 
-function drawBar(svg, x, d, barWidth) {
+function drawBar(svg, x, d, barWidth, numMargin, numSpacing) {
   var g = svg.append("g")
   var family = "sans-serif"
   var font_size = 12
+  var percentage_font_size = 12
   var opacity = 0.8
-  var textY = d.y+font_size/2+params.barHeight/3
+  var textY = d.y
 
   var [percent,numer,denom] = d.getVal()
 
-  g.append("text")
-    .attr("x", x-params.labelWidth)
-    .attr("y", textY)
-    .text(d.label)
-    .attr("font-size",font_size+"px")
-    .attr("font-family",family)
-    .attr("opacity",opacity)
-    .attr("overflow-wrap","normal")
-  
+  addLabel(
+    svg, 
+    d.label,
+    x-params.labelWidth, 
+    textY, 
+    font_size,
+    family)
+
   g.append("rect")
     .attr("width",barWidth)
     .attr("height",params.barHeight-1)
@@ -224,13 +224,14 @@ function drawBar(svg, x, d, barWidth) {
     .attr("y",d.y)
     .attr("fill",d.color)
     .attr("id", "barVal")
-  
-  var numMargin = 20
-  var numSpacing = 30
 
-  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin,textY,"percent")
-  drawNum(g,numer,x+barWidth+numMargin+numSpacing,textY,"numer")
-  drawNum(g,denom,x+barWidth+numMargin+2*numSpacing,textY,"denom")
+
+  var numbersX = x+barWidth+numMargin
+  addLabel(g,(percent*100).toFixed(0)+"%",numbersX,textY,percentage_font_size,"sans-serif","","percent")
+  addLabel(g,"=",numbersX+1.2*numSpacing,textY,font_size)
+  addLabel(g,numer,numbersX+2*numSpacing,textY,font_size,"sans-serif","normal","numer")
+  addLabel(g,"out of",numbersX+3.7*numSpacing,textY,font_size,"sans-serif","italic")
+  addLabel(g,denom,numbersX+6*numSpacing,textY,font_size,"sans-serif","normal","denom")
 
   return g
 }
@@ -276,36 +277,23 @@ function drawNumLabel(svg,label,x,y) {
       .attr("opacity","0.75")
 }
 
-function drawNum(g,text,x,y,id) {
-  var font_size = 12
-  var family = "sans-serif"
+function addLabel(svg,label,x,y,font_size=12,font_family="sans-serif",font_style,id,text_anchor="start") {
 
-  g.append("text")
-    .attr("x", x)
-    .attr("y", y)
-    .text(text)
-    .attr("font-size",font_size+"px")
-    .attr("font-family",family)
-    .attr("opacity","0.75")
-    .attr("id",id)
-}
-
-function addLabel(svg,label,x,y,family,style) {
-  var font_size = 12
-  
   svg.append("text")
       .attr("x", x)
       .attr("y", y+font_size)
       .text(label)
-      .attr("font-size",font_size + "px")
-      .attr("font-family",family)
-      .attr("font-style",style)
+      .attr("font-size", font_size + "px")
+      .attr("font-family",font_family)
+      .attr("font-style",font_style)
+      .attr("text-anchor", text_anchor)
       .attr("opacity","0.75")
+      .attr("id",id)
 }
 
 function addKey(svg,x,y,d) {
-  addLabel(svg,"not re-arrested",x,y,"sans-serif")
-  addLabel(svg,"re-arrested",x,y+16,"sans-serif")
+  addLabel(svg,"not re-arrested",x,y,12,"sans-serif")
+  addLabel(svg,"re-arrested",x,y+16,12,"sans-serif")
 
   // blue filled circle
   svg.append("circle")
