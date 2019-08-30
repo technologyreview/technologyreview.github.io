@@ -7,7 +7,7 @@ function drawGraph6() {
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 	var label_font_size = 12
   var numMargin = 20  // margin from end of bar to numbers
-  var numSpacing = 30 // spacing between numbers to right of bars
+  var numSpacing = 20 // spacing between numbers to right of bars
 
 	// create svg
 	var svg = d3.select("body").append("svg")
@@ -125,9 +125,9 @@ function drawGraph6() {
 	var numbersX = barXStart+barWidth+numMargin
 	var numberLabelY1 = barData[0].y - 30
 	var numberLabelY2 = barData[0].y - 18
-	addLabel(svg,"High-risk,",numbersX+2*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-	addLabel(svg,"not re-arrested",numbersX+2*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-	addLabel(svg,"Not re-arrested",numbersX+6*numSpacing,numberLabelY2,10,"sans-serif","italic",)
+	addLabel(svg,"High-risk,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
+	addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
+	addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
 
 
 	// called whenever the threshold moves

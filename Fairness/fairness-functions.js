@@ -193,21 +193,19 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
 
 function drawBar(svg, x, d, barWidth, numMargin, numSpacing) {
   var g = svg.append("g")
-  var family = "sans-serif"
-  var font_size = 12
-  var percentage_font_size = 12
-  var opacity = 0.8
+  var font_size = "12px"
+  var number_font_size = "16px"
   var textY = d.y
-
+  var dimColor = "#808080"
+  var dimWeight = 200
   var [percent,numer,denom] = d.getVal()
 
-  addLabel(
+  drawText(
     svg, 
     d.label,
     x-params.labelWidth, 
     textY, 
-    font_size,
-    family)
+    {"font-size":font_size})
 
   g.append("rect")
     .attr("width",barWidth)
@@ -227,11 +225,36 @@ function drawBar(svg, x, d, barWidth, numMargin, numSpacing) {
 
 
   var numbersX = x+barWidth+numMargin
-  addLabel(g,(percent*100).toFixed(0)+"%",numbersX,textY,percentage_font_size,"sans-serif","","percent")
-  addLabel(g,"=",numbersX+1.2*numSpacing,textY,font_size)
-  addLabel(g,numer,numbersX+2*numSpacing,textY,font_size,"sans-serif","normal","numer")
-  addLabel(g,"out of",numbersX+3.7*numSpacing,textY,font_size,"sans-serif","italic")
-  addLabel(g,denom,numbersX+6*numSpacing,textY,font_size,"sans-serif","normal","denom")
+  var numbersY = d.y
+  drawText(g,
+           (percent*100).toFixed(0)+"%",
+           numbersX,
+           numbersY,
+           { "font-size":number_font_size, "id":"percent"})
+
+  // drawText(g,
+  //          "=",
+  //          numbersX+2*numSpacing,
+  //          textY,
+  //          { "font-size":font_size, "fill":dimColor})
+
+  drawText(g,
+           numer,
+           numbersX+3*numSpacing,
+           numbersY,
+           { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"numer", })
+
+  drawText(g,
+           "out of",
+           numbersX+4.7*numSpacing,
+           textY,
+           { "font-size":font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
+
+  drawText(g,
+           denom,
+           numbersX+7*numSpacing,
+           numbersY,
+           { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
 
   return g
 }
@@ -277,8 +300,35 @@ function drawNumLabel(svg,label,x,y) {
       .attr("opacity","0.75")
 }
 
-function addLabel(svg,label,x,y,font_size=12,font_family="sans-serif",font_style,id,text_anchor="start") {
+function drawText(svg, text, x, y, attrs) {
+  t = svg.append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .text(text)
 
+  // default font if none given in attrs
+  if (!attrs["font-family"]) 
+    attrs["font-family"] = "sans-serif"
+
+  // make Y coordinate specify top edge of the text
+  attrs["dominant-baseline"] = "text-before-edge"
+
+  for (var a in attrs) {
+    t.attr(a, attrs[a])
+  }
+}
+
+function addLabel(
+  svg,
+  label,
+  x,
+  y,
+  font_size=12,
+  font_family="sans-serif",
+  font_style,
+  id,
+  text_anchor="start") 
+{
   svg.append("text")
       .attr("x", x)
       .attr("y", y+font_size)
