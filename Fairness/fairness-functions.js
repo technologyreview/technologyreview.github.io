@@ -76,7 +76,7 @@ function calcHandleWidth(graphicWidth) {
   return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
 }
 
-function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
+function drawThresh(svg,x,y1,y2,graphicWidth,flip,narrowLayout) {
   var threshWidth = calcThreshWidth(graphicWidth)
   var handleWidth = calcHandleWidth(graphicWidth)
 
@@ -113,26 +113,28 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("height", params.handleHeight)
     .style("fill", "gray")
 
-  // delightful arrows
-  var ad = 8 // arrow distance
-  var aw = 8 // arrow width
-  var ah = 8 // arrow height
-  slider.append("path")
-    .attr("id", "rightArrow")
-    .attr("d", 
-          " M " + ad + " " + (y-ah/2) + 
-          " L " + (ad+aw) + " " + y +
-          " L " + ad + " " + (y+ah/2))
-    .style("fill", "gray")
-    .attr("transform", "translate(0,0)")
-  slider.append("path")
-    .attr("id", "leftArrow")
-    .attr("d", 
-          " M " + -ad + " " + (y-ah/2) + 
-          " L " + -(ad+aw) + " " + y +
-          " L " + -ad + " " + (y+ah/2))
-    .style("fill", "gray")
-    .attr("transform", "translate(0,0)")
+  if (!narrowLayout) {
+    // delightful arrows
+    var ad = 8 // arrow distance
+    var aw = 8 // arrow width
+    var ah = 8 // arrow height
+    slider.append("path")
+      .attr("id", "rightArrow")
+      .attr("d", 
+            " M " + ad + " " + (y-ah/2) + 
+            " L " + (ad+aw) + " " + y +
+            " L " + ad + " " + (y+ah/2))
+      .style("fill", "gray")
+      .attr("transform", "translate(0,0)")
+    slider.append("path")
+      .attr("id", "leftArrow")
+      .attr("d", 
+            " M " + -ad + " " + (y-ah/2) + 
+            " L " + -(ad+aw) + " " + y +
+            " L " + -ad + " " + (y+ah/2))
+      .style("fill", "gray")
+      .attr("transform", "translate(0,0)")
+  }
 
   // invisible handle to change the cursor
   slider.append("rect")
@@ -191,7 +193,7 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
   return g
 }
 
-function drawBar(svg, x, d, barWidth, numMargin, numSpacing) {
+function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var g = svg.append("g")
   var font_size = "12px"
   var number_font_size = "16px"
@@ -232,29 +234,25 @@ function drawBar(svg, x, d, barWidth, numMargin, numSpacing) {
            numbersY,
            { "font-size":number_font_size, "id":"percent"})
 
-  // drawText(g,
-  //          "=",
-  //          numbersX+2*numSpacing,
-  //          textY,
-  //          { "font-size":font_size, "fill":dimColor})
+  if (!narrowLayout) {
+    drawText(g,
+             numer,
+             numbersX+3*numSpacing,
+             numbersY,
+             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"numer", })
 
-  drawText(g,
-           numer,
-           numbersX+3*numSpacing,
-           numbersY,
-           { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"numer", })
+    drawText(g,
+             "out of",
+             numbersX+4.7*numSpacing,
+             textY,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
 
-  drawText(g,
-           "out of",
-           numbersX+4.7*numSpacing,
-           textY,
-           { "font-size":font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
-
-  drawText(g,
-           denom,
-           numbersX+7*numSpacing,
-           numbersY,
-           { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
+    drawText(g,
+             denom,
+             numbersX+7*numSpacing,
+             numbersY,
+             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
+  }
 
   return g
 }

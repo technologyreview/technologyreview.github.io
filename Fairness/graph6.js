@@ -15,8 +15,11 @@ function drawGraph6() {
 		.attr("height",svgHeight)
 
 	var graphicWidth = svg.node().getBoundingClientRect().width
-	var bucketWidth = graphicWidth/10
 
+	// Too narrow to show some things. True for mobile but also narrow desktop
+	var narrowLayout = graphicWidth < 550 
+
+	var bucketWidth = graphicWidth/10
 	var blackStart = 5
 	var whiteStart = 5
 	var whiteThresh = bucketWidth*whiteStart
@@ -32,7 +35,7 @@ function drawGraph6() {
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
-	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1)
+	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
 	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
@@ -40,7 +43,7 @@ function drawGraph6() {
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
-	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1)
+	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
 	// add key, position dynamic to size of chart
@@ -76,7 +79,7 @@ function drawGraph6() {
 	
 	var barXStart = graphicWidth/3
 	var barSpacing = 8 // spacing between bars in same group
-	var barGroupSpacing = 30 // spacing between grouped bars
+	var barGroupSpacing = 40 // spacing between grouped bars
 
 	var barData = [
 		{
@@ -107,7 +110,7 @@ function drawGraph6() {
 
 
 	for (var b of barData) {
-		b.el = drawBar(svg,barXStart,b,barWidth,numMargin,numSpacing)
+		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
 	// label bar groups
@@ -121,14 +124,21 @@ function drawGraph6() {
 	drawBarGroupLabel(svg,"FNR",barGroupLabelsX,fnry)
 
 
-	// label numbers
-	var numbersX = barXStart+barWidth+numMargin
-	var numberLabelY1 = barData[0].y - 30
-	var numberLabelY2 = barData[0].y - 18
-	addLabel(svg,"High-risk,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-	addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-	addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
+	// Fraction table labels
+	if (!narrowLayout) {
+		var numbersX = barXStart+barWidth+numMargin
+		var numberLabelY1 = barData[0].y - 30
+		var numberLabelY2 = barData[0].y - 18
+		addLabel(svg,"High-risk,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
+		addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
+		addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
 
+		var numberLabelY3 = barData[1].y - 30
+		var numberLabelY4 = barData[1].y - 18
+		addLabel(svg,"Low-risk,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
+		addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
+		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
+	}
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
