@@ -73,7 +73,7 @@ function calcHandleWidth(graphicWidth) {
   return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
 }
 
-function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
+function drawThresh(svg,x,y1,y2,graphicWidth,flip,narrowLayout) {
   var threshWidth = calcThreshWidth(graphicWidth)
   var handleWidth = calcHandleWidth(graphicWidth)
 
@@ -110,26 +110,28 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .attr("height", params.handleHeight)
     .style("fill", "gray")
 
-  // delightful arrows
-  var ad = 8 // arrow distance
-  var aw = 8 // arrow width
-  var ah = 8 // arrow height
-  slider.append("path")
-    .attr("id", "rightArrow")
-    .attr("d", 
-          " M " + ad + " " + (y-ah/2) + 
-          " L " + (ad+aw) + " " + y +
-          " L " + ad + " " + (y+ah/2))
-    .style("fill", "gray")
-    .attr("transform", "translate(0,0)")
-  slider.append("path")
-    .attr("id", "leftArrow")
-    .attr("d", 
-          " M " + -ad + " " + (y-ah/2) + 
-          " L " + -(ad+aw) + " " + y +
-          " L " + -ad + " " + (y+ah/2))
-    .style("fill", "gray")
-    .attr("transform", "translate(0,0)")
+  if (!narrowLayout) {
+    // delightful arrows
+    var ad = 8 // arrow distance
+    var aw = 8 // arrow width
+    var ah = 8 // arrow height
+    slider.append("path")
+      .attr("id", "rightArrow")
+      .attr("d", 
+            " M " + ad + " " + (y-ah/2) + 
+            " L " + (ad+aw) + " " + y +
+            " L " + ad + " " + (y+ah/2))
+      .style("fill", "gray")
+      .attr("transform", "translate(0,0)")
+    slider.append("path")
+      .attr("id", "leftArrow")
+      .attr("d", 
+            " M " + -ad + " " + (y-ah/2) + 
+            " L " + -(ad+aw) + " " + y +
+            " L " + -ad + " " + (y+ah/2))
+      .style("fill", "gray")
+      .attr("transform", "translate(0,0)")
+  }
 
   // invisible handle to change the cursor
   slider.append("rect")
@@ -143,9 +145,9 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    addLabel(slider,"will likely be jailed →",10,y1,"serif","italic")
+    addLabel(slider,"will likely be jailed →",10,y1,12,"serif","italic")
   } else {
-    addLabel(slider,"will likely be jailed →",10,y2-18,"serif","italic")
+    addLabel(slider,"will likely be jailed →",10,y2-18,12,"serif","italic")
   }
   
   return g
@@ -188,24 +190,22 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
   return g
 }
 
-function drawBar(svg, x, d, barWidth) {
+function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var g = svg.append("g")
-  var family = "sans-serif"
-  var font_size = 12
-  var opacity = 0.8
-  var textY = d.y+font_size/2+params.barHeight/3
-
+  var font_size = "12px"
+  var number_font_size = "16px"
+  var textY = d.y
+  var dimColor = "#808080"
+  var dimWeight = 200
   var [percent,numer,denom] = d.getVal()
 
-  g.append("text")
-    .attr("x", x-params.labelWidth)
-    .attr("y", textY)
-    .text(d.label)
-    .attr("font-size",font_size+"px")
-    .attr("font-family",family)
-    .attr("opacity",opacity)
-    .attr("overflow-wrap","normal")
-  
+  drawText(
+    svg, 
+    d.label,
+    x-params.labelWidth, 
+    textY, 
+    {"font-size":font_size})
+
   g.append("rect")
     .attr("width",barWidth)
     .attr("height",params.barHeight-1)
@@ -221,13 +221,35 @@ function drawBar(svg, x, d, barWidth) {
     .attr("y",d.y)
     .attr("fill",d.color)
     .attr("id", "barVal")
-  
-  var numMargin = 20
-  var numSpacing = 30
 
-  drawNum(g,(percent*100).toFixed(0)+"%",x+barWidth+numMargin,textY,"percent")
-  drawNum(g,numer,x+barWidth+numMargin+numSpacing,textY,"numer")
-  drawNum(g,denom,x+barWidth+numMargin+2*numSpacing,textY,"denom")
+
+  var numbersX = x+barWidth+numMargin
+  var numbersY = d.y
+  drawText(g,
+           (percent*100).toFixed(0)+"%",
+           numbersX,
+           numbersY,
+           { "font-size":number_font_size, "id":"percent"})
+
+  if (!narrowLayout) {
+    drawText(g,
+             numer,
+             numbersX+3*numSpacing,
+             numbersY,
+             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"numer", })
+
+    drawText(g,
+             "out of",
+             numbersX+4.7*numSpacing,
+             textY,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
+
+    drawText(g,
+             denom,
+             numbersX+7*numSpacing,
+             numbersY,
+             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
+  }
 
   return g
 }
@@ -273,36 +295,50 @@ function drawNumLabel(svg,label,x,y) {
       .attr("opacity","0.75")
 }
 
-function drawNum(g,text,x,y,id) {
-  var font_size = 12
-  var family = "sans-serif"
+function drawText(svg, text, x, y, attrs) {
+  t = svg.append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .text(text)
 
-  g.append("text")
-    .attr("x", x)
-    .attr("y", y)
-    .text(text)
-    .attr("font-size",font_size+"px")
-    .attr("font-family",family)
-    .attr("opacity","0.75")
-    .attr("id",id)
+  // default font if none given in attrs
+  if (!attrs["font-family"]) 
+    attrs["font-family"] = "sans-serif"
+
+  // make Y coordinate specify top edge of the text
+  attrs["dominant-baseline"] = "text-before-edge"
+
+  for (var a in attrs) {
+    t.attr(a, attrs[a])
+  }
 }
 
-function addLabel(svg,label,x,y,family,style) {
-  var font_size = 12
-  
+function addLabel(
+  svg,
+  label,
+  x,
+  y,
+  font_size=12,
+  font_family="sans-serif",
+  font_style,
+  id,
+  text_anchor="start") 
+{
   svg.append("text")
       .attr("x", x)
       .attr("y", y+font_size)
       .text(label)
-      .attr("font-size",font_size + "px")
-      .attr("font-family",family)
-      .attr("font-style",style)
+      .attr("font-size", font_size + "px")
+      .attr("font-family",font_family)
+      .attr("font-style",font_style)
+      .attr("text-anchor", text_anchor)
       .attr("opacity","0.75")
+      .attr("id",id)
 }
 
 function addKey(svg,x,y,d) {
-  addLabel(svg,"not re-arrested",x,y,"sans-serif")
-  addLabel(svg,"re-arrested",x,y+16,"sans-serif")
+  addLabel(svg,"not re-arrested",x,y,12,"sans-serif")
+  addLabel(svg,"re-arrested",x,y+16,12,"sans-serif")
 
   // blue filled circle
   svg.append("circle")
