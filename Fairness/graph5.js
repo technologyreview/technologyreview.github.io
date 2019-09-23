@@ -1,4 +1,4 @@
-function drawGraph6() {
+function drawGraph5() {
 
 	// create svg
 	var svg = d3.select("body").append("svg")
@@ -144,4 +144,4 @@ function drawGraph6() {
 
 }
 
-loadGraphic(drawGraph6)
+loadGraphic(drawGraph5)

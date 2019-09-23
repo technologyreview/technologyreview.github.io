@@ -16,6 +16,21 @@ var orange = "#FC5623"
 var blue = "#1F23E0"
 
 
+// define constants for spacing of graphics
+// define constants for vertical spacing
+var chartHeight = 160 // height of chart area above and below
+var bucketLabelHeight = 40 // height of bucket labels
+var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
+var keyHeight = 40 // height of key
+var barChartHeight = 155 // height of bar chart
+var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
+
+// define constants for text spacing
+var label_font_size = 12
+var numMargin = 20  // margin from end of bar to numbers
+var numSpacing = 20 // spacing between numbers to right of bars
+
+
 // draw functions
 function drawBuckets(svg, y, bucketWidth) {
   
