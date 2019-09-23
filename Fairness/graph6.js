@@ -1,6 +1,9 @@
 function drawGraph6() {
 
 	// create svg
+	var keyHeight = 40 // height of key
+	var barChartHeight = 160 // height of bar chart
+	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 

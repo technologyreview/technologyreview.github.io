@@ -18,10 +18,8 @@ var blue = "#1F23E0"
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
-var chartHeight = 160 // height of chart area above and below
 var bucketLabelHeight = 40 // height of bucket labels
-var keyHeight = 40 // height of key
-var barChartHeight = 155 // height of bar chart
+
 
 // define constants for text spacing
 var label_font_size = 12
@@ -545,7 +543,7 @@ function bucketScores(array) {
 
 // create data variables
 var rng = seedrandom("hey there")
-var real_score_bw, fake_score_bw_buckets, real_score_black_buckets, real_score_white_buckets
+var real_score_bw, real_score_bw_buckets, fake_score_bw_buckets, real_score_black_buckets, real_score_white_buckets
 var real_score_white, real_score_black
 
 // Loads the the COMPAS data, subsamples it, calls drawFunction to render the graphic
@@ -563,6 +561,7 @@ function loadGraphic(drawGraphFunction) {
     var score = non_violent.map(a => [Number(a.decile_score), Number(a.two_year_recid), (a.race)])
     var score_bw = filterRace(["Caucasian","African-American"],score)
     real_score_bw = score_bw.filter(x => rng() > 0.9216) // adjust threshold to control sample size, 500ish is good
+    real_score_bw_buckets = bucketScores(real_score_bw)
 
     var fake_score_bw = real_score_bw.map(a => [a[0], a[0]>=7])
     fake_score_bw_buckets = bucketScores(fake_score_bw)

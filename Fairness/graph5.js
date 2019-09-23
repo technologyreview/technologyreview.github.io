@@ -1,6 +1,9 @@
 function drawGraph5() {
 
 	// create svg
+	var keyHeight = 40 // height of key
+	var barChartHeight = 150 // height of bar chart
+	var chartHeight = 235 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 
@@ -11,8 +14,9 @@ function drawGraph5() {
 	// define constants specific to this graphic
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
-	var whiteStart = 5
-	var whiteThresh = bucketWidth*whiteStart
+
+	var start = 5
+	var thresh = bucketWidth*start
 
 	// set threshold for switching to narrow layout
 	// (Too narrow to show some things. True for mobile but also narrow desktop)
@@ -22,35 +26,35 @@ function drawGraph5() {
 	drawBuckets(svg, keyHeight/2+graphicHeight, bucketWidth)
 
 	// white defendants
-	var [d, spacing] = drawDots(svg, real_score_white_buckets, orange, keyHeight+chartHeight, bucketWidth, 1)
-	var maxDotStack = (d+spacing)*11
+	var [d, spacing] = drawDots(svg, real_score_bw_buckets, orange, keyHeight+chartHeight, bucketWidth, 1)
+	var maxDotStack = (d+spacing)*17
 
-	var wy1 = keyHeight+chartHeight-maxDotStack
-	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
-	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
-	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
-	// addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
+	var threshy1 = keyHeight+chartHeight-maxDotStack
+	var threshy2 = keyHeight+chartHeight+10 // +10 to go over dots
+	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
+	var threshEl = drawThresh(svg,thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
+	// addLabel(svg,"all defendants",0,threshy1-18,label_font_size,"serif","italic")
 
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
-	var keyy = wy1/6 // starts a quarter of the way between the top of chart and top of slider
+	var keyy = threshy1/6 // starts a quarter of the way between the top of chart and top of slider
 	addKey(svg,keyx,keyy,d)
 
 	var sliderList = [ 
 		{
 		  dragging: false,
-		  el: whiteThreshEl,
-		  ticksEl: whiteThreshTicksEl,
-		  pos: whiteThresh,
-		  y1: wy1,
-		  y2: wy2
+		  el: threshEl,
+		  ticksEl: threshTicksEl,
+		  pos: thresh,
+		  y1: threshy1,
+		  y2: threshy2
 		}
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = wy2 + (svgHeight - wy2)/3 // bar position starts 1/3 of the way
-	barYStart = Math.max(wy2+15,barYStart) // min 20 pixels away from bottom of chart
+	var barYStart = threshy2 + (svgHeight - threshy2)/3 // bar position starts 1/3 of the way
+	barYStart = Math.max(threshy2+15,barYStart) // min 20 pixels away from bottom of chart
 	
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
@@ -61,16 +65,16 @@ function drawGraph5() {
 
 	var barData = [
 		{
-			label: "white",
+			label: "FPR",
 			y: barYStart,
 			color: orange,
-			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "white",
+			label: "FNR",
 			y: barYStart+params.barHeight+barGroupSpacing,
 			color: orange,
-			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		}
 	]
 
@@ -83,8 +87,8 @@ function drawGraph5() {
 	var barGroupLabelsX = barXStart-params.labelWidth-60
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
-	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
-	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
+	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
+	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
 
 
 	// Fraction table labels
