@@ -1,6 +1,9 @@
 function drawGraph5() {
 
 	// create svg
+	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
+	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
+
 	var svg = d3.select("body").append("svg")
 		.attr("width","100%")
 		.attr("height",svgHeight)
@@ -8,35 +11,26 @@ function drawGraph5() {
 	// define constants specific to this graphic
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
-	var blackStart = 5
 	var whiteStart = 5
 	var whiteThresh = bucketWidth*whiteStart
-	var blackThresh = bucketWidth*blackStart
 
 	// set threshold for switching to narrow layout
 	// (Too narrow to show some things. True for mobile but also narrow desktop)
 	var narrowLayout = graphicWidth < 550 
 
 	// bucket labels
-	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
+	drawBuckets(svg, keyHeight/2+graphicHeight, bucketWidth)
 
 	// white defendants
-	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+chartHeight, bucketWidth, 1)
+	var [d, spacing] = drawDots(svg, real_score_white_buckets, orange, keyHeight+chartHeight, bucketWidth, 1)
 	var maxDotStack = (d+spacing)*11
 
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
-	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
+	// addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
-	// black defendants
-	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
-	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
-	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
-	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
-	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
@@ -51,20 +45,12 @@ function drawGraph5() {
 		  pos: whiteThresh,
 		  y1: wy1,
 		  y2: wy2
-		},
-		{
-		  dragging: false,
-		  el: blackThreshEl,
-		  ticksEl: blackThreshTicksEl,
-		  pos: blackThresh,
-		  y1: by1,
-		  y2: by2,
 		}
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = by2 + (svgHeight - by2)/4 // bar position starts 1/3 of the way
-	barYStart = Math.max(by2+15,barYStart) // min 20 pixels away from bottom of chart
+	var barYStart = wy2 + (svgHeight - wy2)/3 // bar position starts 1/3 of the way
+	barYStart = Math.max(wy2+15,barYStart) // min 20 pixels away from bottom of chart
 	
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
@@ -77,27 +63,15 @@ function drawGraph5() {
 		{
 			label: "white",
 			y: barYStart,
-			color: yellow,
+			color: orange,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "white",
-			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
-			color: yellow,
+			y: barYStart+params.barHeight+barGroupSpacing,
+			color: orange,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
-		},		
-		{
-			label: "black",
-			y: barYStart+params.barHeight+barSpacing,
-			color: blue,
-			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
-		},
-		{
-			label: "black",
-			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
-			color: blue,
-			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
-		},
+		}
 	]
 
 
@@ -109,11 +83,8 @@ function drawGraph5() {
 	var barGroupLabelsX = barXStart-params.labelWidth-60
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
-	var fpry = barYStart+barGroupHeight/2
-	var fnry = barYStart+barGroupSpacing+3*barGroupHeight/2
-
-	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,fpry)
-	drawBarGroupLabel(svg,"FNR",barGroupLabelsX,fnry)
+	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
+	drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
 
 
 	// Fraction table labels

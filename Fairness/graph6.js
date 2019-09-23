@@ -1,6 +1,9 @@
 function drawGraph6() {
 
 	// create svg
+	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
+	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
+
 	var svg = d3.select("body").append("svg")
 		.attr("width","100%")
 		.attr("height",svgHeight)
@@ -8,6 +11,7 @@ function drawGraph6() {
 	// define constants specific to this graphic
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
+
 	var blackStart = 5
 	var whiteStart = 5
 	var whiteThresh = bucketWidth*whiteStart
