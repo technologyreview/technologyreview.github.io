@@ -1,7 +1,4 @@
 
-
-
-
 /* DRAW GRAPHIC ELEMENTS */
 
 // parameters that define drawing layout and style
