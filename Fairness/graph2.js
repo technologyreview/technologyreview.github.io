@@ -3,7 +3,7 @@
 function drawGraph2() {
 
 	// create svg
-	var chartHeight = 200 // height of chart area above and below
+	var chartHeight = 240 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight // height of svg
 
