@@ -19,7 +19,7 @@ var blue = "#1F23E0"
 // define constants for spacing of graphics
 // define constants for vertical spacing
 var bucketLabelHeight = 40 // height of bucket labels
-
+var strokeWidth
 
 // define constants for text spacing
 var label_font_size = 12
@@ -52,6 +52,7 @@ function drawDots(svg, dots, dotColor, ystart, bucketWidth, flip) {
   var spacing = bucketMargin/2.5 // spacing between dots
   var d = (bucketWidth - 2*bucketMargin - (ncols-1)*spacing)/ncols // compute diameter dynamically
   d = Math.max(2,Math.min(10,d))
+  strokeWidth = Math.max(0.5,Math.min(1,d/8))
   
   for (var i=1; i<=10; i++) { // for each bucket
     var dotsInBucket = dots[i] // filter to dots in bucket
@@ -347,42 +348,35 @@ function addLabel(
       .attr("id",id)
 }
 
-function addKey(svg,x,y,d) {
+function addKeyCircles(svg,cx,cy,r,colors,strokeWidth) {
+  
+  for (color of colors) {
+    cx += -4*r
+
+    svg.append("circle")
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .attr("r", r)
+      .style("fill", "white")
+      .style("stroke", color)
+      .style("stroke-width", strokeWidth)
+
+    svg.append("circle")
+      .attr("cx", cx)
+      .attr("cy", cy+16)
+      .attr("r", r)
+      .style("fill", color)
+      .style("stroke", color)
+      .style("stroke-width", strokeWidth)
+  }
+}
+
+function addKey(svg,x,y,r,colors,strokeWidth) {
   addLabel(svg,"not re-arrested",x,y,12,"sans-serif")
   addLabel(svg,"re-arrested",x,y+16,12,"sans-serif")
 
-  // blue filled circle
-  svg.append("circle")
-      .attr("cx", x-2*d)
-      .attr("cy", y+8)
-      .attr("r", d/2)
-      .style("fill", "white")
-      .style("stroke", blue)
-      .style("stroke-width", Math.max(0.5,Math.min(1,d/8)))
+  addKeyCircles(svg,x,y+8,r,colors,strokeWidth)
 
-  // yellow filled circle
-  svg.append("circle")
-      .attr("cx", x-4*d)
-      .attr("cy", y+8)
-      .attr("r", d/2)
-      .style("fill", "white")
-      .style("stroke", yellow)
-
-  // blue unfilled circle
-  svg.append("circle")
-      .attr("cx", x-2*d)
-      .attr("cy", y+8+16)
-      .attr("r", d/2)
-      .style("fill", blue)
-      .style("stroke", blue)
-
-  // yellow unfilled circle
-  svg.append("circle")
-      .attr("cx", x-4*d)
-      .attr("cy", y+8+16)
-      .attr("r", d/2)
-      .style("fill", yellow)
-      .style("stroke", yellow)
 }
 
 
