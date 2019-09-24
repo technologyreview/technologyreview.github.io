@@ -26,7 +26,7 @@ function drawGraph4() {
 	// bucket labels
 	drawBuckets(svg, keyHeight/2+graphicHeight, bucketWidth)
 
-	// white defendants
+	// add dots
 	var [d, spacing] = drawDots(svg, real_score_bw_buckets, orange, keyHeight+chartHeight, bucketWidth, 1)
 	var maxDotStack = (d+spacing)*17
 
