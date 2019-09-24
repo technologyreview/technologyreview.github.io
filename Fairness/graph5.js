@@ -39,7 +39,7 @@ function drawGraph5() {
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
-	var keyy = threshy1/6 // starts a quarter of the way between the top of chart and top of slider
+	var keyy = threshy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
 	addKey(svg,keyx,keyy,d/2,[orange],strokeWidth)
 
 	var sliderList = [ 
