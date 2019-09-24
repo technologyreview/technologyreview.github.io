@@ -1,4 +1,4 @@
-function drawGraph5() {
+function drawGraph4() {
 
 	// create svg
 	var keyHeight = 40 // height of key
@@ -65,16 +65,10 @@ function drawGraph5() {
 
 	var barData = [
 		{
-			label: "FPR",
+			label: "Acc.",
 			y: barYStart,
 			color: orange,
-			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
-		},
-		{
-			label: "FNR",
-			y: barYStart+params.barHeight+barGroupSpacing,
-			color: orange,
-			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+			getVal: function() { return acc(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		}
 	]
 
@@ -100,11 +94,6 @@ function drawGraph5() {
 		addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
 		addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
 
-		var numberLabelY3 = barData[1].y - 30
-		var numberLabelY4 = barData[1].y - 18
-		addLabel(svg,"Low-risk,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
-		addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
-		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}
 
 	// called whenever the threshold moves
@@ -119,4 +108,4 @@ function drawGraph5() {
 
 }
 
-loadGraphic(drawGraph5)
+loadGraphic(drawGraph4)
