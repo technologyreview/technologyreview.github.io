@@ -3,9 +3,9 @@
 function drawGraph2() {
 
 	// create svg
-	var chartHeight = 240 // height of chart area above and below
+	var chartHeight = 200 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
-	var svgHeight = graphicHeight + keyHeight // height of svg
+	var svgHeight = graphicHeight // height of svg
 
 	var svg = d3.select("body").append("svg")
 		.attr("width","100%")
@@ -18,23 +18,11 @@ function drawGraph2() {
 	var start = 5
 	var thresh = bucketWidth*start
 
-	// set threshold for switching to narrow layout
-	// (Too narrow to show some things. True for mobile but also narrow desktop)
-	var narrowLayout = graphicWidth < 700 
-
 	// bucket labels
-	drawBuckets(svg, keyHeight/2+graphicHeight, bucketWidth)
+	drawBuckets(svg, chartHeight + bucketLabelHeight/2, bucketWidth)
 
 	// add dots
-	var [d, spacing] = drawDots(svg, fake_score_bw_buckets, orange, keyHeight+chartHeight, bucketWidth, 1)
-	var maxDotStack = (d+spacing)*17
-
-	var threshy1 = keyHeight+chartHeight-maxDotStack
-
-	// add key, position dynamic to size of chart
-	var keyx = graphicWidth - 100
-	var keyy = threshy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
-	addKey(svg,keyx,keyy,d/2,[orange],strokeWidth)
+	var [d, spacing] = drawDots(svg, unscored_bw_buckets, gray, chartHeight, bucketWidth, 1)
 
 }
 

@@ -14,7 +14,7 @@ var params = {
 var yellow = "#FCCD23"
 var orange = "#FC5623"
 var blue = "#1F23E0"
-
+var gray = "#979797"
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
@@ -561,6 +561,9 @@ function loadGraphic(drawGraphFunction) {
 
     fake_score_bw = real_score_bw.map(a => [a[0], a[0]>=7])
     fake_score_bw_buckets = bucketScores(fake_score_bw)
+
+    unscored_bw = real_score_bw.map(a => [a[0], 1])
+    unscored_bw_buckets = bucketScores(unscored_bw)
     
     real_score_black = filterRace(["African-American"],real_score_bw)
     real_score_black_buckets = bucketScores(real_score_black)
