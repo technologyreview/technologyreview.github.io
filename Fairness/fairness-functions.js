@@ -21,7 +21,7 @@ var blue = "#1F23E0"
 var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
-var barChartTopPadding = 40
+var barChartTopPadding = 20
 
 // define constants for text spacing
 var label_font_size = 12

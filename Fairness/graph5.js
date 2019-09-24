@@ -54,7 +54,9 @@ function drawGraph5() {
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = svgHeight-barChartHeight+barChartTopPadding
+	var barYStart = keyHeight+chartHeight+bucketLabelHeight
+	barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/4 // starts one third
+
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
 	
