@@ -1,3 +1,5 @@
+// max-width: 878 px
+
 function drawGraph6() {
 
 	// create svg
