@@ -21,7 +21,7 @@ function drawGraph5() {
 
 	// set threshold for switching to narrow layout
 	// (Too narrow to show some things. True for mobile but also narrow desktop)
-	var narrowLayout = graphicWidth < 550 
+	var narrowLayout = graphicWidth < 700 
 
 	// bucket labels
 	drawBuckets(svg, keyHeight/2+graphicHeight, bucketWidth)
