@@ -1,8 +1,7 @@
 function drawGraph6() {
 
 	// create svg
-	var keyHeight = 40 // height of key
-	var barChartHeight = 160 // height of bar chart
+	var barChartHeight = 165 // height of bar chart
 	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
@@ -71,8 +70,7 @@ function drawGraph6() {
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = by2 + (svgHeight - by2)/4 // bar position starts 1/3 of the way
-	barYStart = Math.max(by2+15,barYStart) // min 20 pixels away from bottom of chart
+	var barYStart = svgHeight-barChartHeight+barChartTopPadding
 	
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth

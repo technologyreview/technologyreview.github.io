@@ -18,8 +18,10 @@ var blue = "#1F23E0"
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
+var keyHeight = 40 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
+var barChartTopPadding = 40
 
 // define constants for text spacing
 var label_font_size = 12
