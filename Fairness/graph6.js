@@ -35,7 +35,7 @@ function drawGraph6() {
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
-	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
+	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
 	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
@@ -43,7 +43,7 @@ function drawGraph6() {
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
-	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
+	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
 	// add key, position dynamic to size of chart

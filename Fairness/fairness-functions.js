@@ -87,7 +87,7 @@ function calcHandleWidth(graphicWidth) {
   return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
 }
 
-function drawThresh(svg,x,y1,y2,graphicWidth,flip,narrowLayout) {
+function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
   var threshWidth = calcThreshWidth(graphicWidth)
   var handleWidth = calcHandleWidth(graphicWidth)
 
@@ -104,6 +104,7 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .style("opacity", .03)  
   slider = g.append("g")
     .attr("id", "slider")
+    .attr("data-label", label)
     .attr("transform", "translate("+x+",0)")
 
   // main thresh line
@@ -216,8 +217,10 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var dimWeight = 200
   var [percent,numer,denom] = d.getVal()
 
+  g.attr("class", d.label)
+
   drawText(
-    svg, 
+    g, 
     d.label,
     x-params.labelWidth, 
     textY, 
@@ -434,17 +437,33 @@ function scoreToPixels(score, bucketWidth) {
   return score*bucketWidth
 }
 
+function reverseBlackWhite(s) {
+  return s=="black" ?  "white" : "black"
+}
 
 function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
+  
   // Make the sliders animate in and out when the user points at the hit region
+  // Also potentially dim some of the bars, if data-dimclass attr is set
   function arrowsOut() {
-    d3.select(this.parentNode).select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
-    d3.select(this.parentNode).select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
+    var slider = d3.select(this.parentNode) 
+    slider.select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
+    slider.select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
+
+    var label = slider.attr("data-label")
+    var dimTarget = reverseBlackWhite(label)
+    svg.selectAll("." + dimTarget).style("opacity",0.2)
   }
   function arrowsIn() {
-    d3.select(this.parentNode).select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
-    d3.select(this.parentNode).select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
+    var slider = d3.select(this.parentNode) 
+    slider.select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
+    slider.select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
+
+    var label = slider.attr("data-label")
+    var dimTarget = reverseBlackWhite(label)
+    svg.selectAll("." + dimTarget).style("opacity",1)
   }
+
   svg.selectAll("#hitHandle").on('mouseenter', arrowsOut)
   svg.selectAll("#hitHandle").on('mouseleave', arrowsIn)
 
