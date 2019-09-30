@@ -159,13 +159,16 @@ function drawThresh(svg,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    addLabel(slider,"will likely be jailed →",10,y1,12,"serif","italic")
+    addLabel(slider,"jailed →",10,y1,12,"serif","italic")
+    addLabel(slider,"← released",-10,y1,12,"serif","italic","",0.75,"","end")
   } else {
-    addLabel(slider,"will likely be jailed →",10,y2-18,12,"serif","italic")
+    addLabel(slider,"jailed →",10,y2-18,12,"serif","italic")
+    addLabel(slider,"← released",-10,y2-18,12,"serif","italic","",0.75,"","end")
   }
   
   return g
 }
+
 
 function moveThresh(g, x, graphicWidth) {
   g.select("#slider")
@@ -277,21 +280,6 @@ function updateBar(d,barWidth) {
   d.el.select("#percent").text((percent*100).toFixed(0)+"%")
 }
 
-function drawBarGroupLabel(svg,label,x,y) {
-  var font_size = 16
-  var family = "sans-serif"
-  var weight = "bold"
-
-  svg.append("text")
-      .attr("x", x)
-      .attr("y", y+font_size/2)
-      .text(label)
-      .attr("font-size",font_size+"px")
-      .attr("font-family",family)
-      .attr("font-weight",weight)
-      .attr("opacity","0.75")
-}
-
 function drawNumLabel(svg,label,x,y) {
   var font_size = 10
   var family = "sans-serif"
@@ -336,6 +324,8 @@ function addLabel(
   font_family="sans-serif",
   font_style,
   id,
+  opacity=0.75,
+  font_weight,
   text_anchor="start") 
 {
   svg.append("text")
@@ -345,8 +335,9 @@ function addLabel(
       .attr("font-size", font_size + "px")
       .attr("font-family",font_family)
       .attr("font-style",font_style)
+      .attr("font-weight",font_weight)
       .attr("text-anchor", text_anchor)
-      .attr("opacity","0.75")
+      .attr("opacity",opacity)
       .attr("id",id)
 }
 
