@@ -26,31 +26,31 @@ function drawGraph6() {
 	var narrowLayout = graphicWidth < 700 
 
 	// bucket labels
-	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
+	drawBuckets(svg, keyHeight+barChartHeight+graphicHeight/2, bucketWidth)
 
 	// white defendants
-	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+chartHeight, bucketWidth, 1)
+	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+barChartHeight+chartHeight, bucketWidth, 1)
 	var maxDotStack = (d+spacing)*11
 
-	var wy1 = keyHeight+chartHeight-maxDotStack
-	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
+	var wy1 = keyHeight+barChartHeight+chartHeight-maxDotStack
+	var wy2 = keyHeight+barChartHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
 	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
-	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
-	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
-	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
+	drawDots(svg, real_score_black_buckets, blue, keyHeight+barChartHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
+	var by1 = keyHeight+barChartHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
+	var by2 = keyHeight+barChartHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
 	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
 	// add key, position dynamic to size of chart
-	var keyx = graphicWidth - 100
-	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
+	var keyx = 100
+	var keyy = keyHeight+barChartHeight/2 // starts a quarter of the way between the top of chart and top of slider
 	
-	addKey(svg,keyx,keyy,d/2,[yellow,blue],strokeWidth)
+	// addKey(svg,keyx,keyy,d/2,[yellow,blue],strokeWidth)
 
 	var sliderList = [ 
 		{
@@ -72,8 +72,8 @@ function drawGraph6() {
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/4 // starts one third
+	var barYStart = keyHeight
+	// barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/4 // starts one third
 
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
