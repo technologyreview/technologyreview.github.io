@@ -143,6 +143,14 @@ function drawGraph6() {
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
+
+		// Has the user moved the slider(s) to the target value?
+		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
+		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
+		if ((slider0 == 5) && (slider1==6)) {
+			console.log("GOAAAAALLLL!")
+		}
+
 		for (var b of barData) {
   		updateBar(b,barWidth)		
 		}
