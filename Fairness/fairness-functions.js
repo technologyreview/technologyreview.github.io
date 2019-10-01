@@ -301,7 +301,7 @@ function drawNumLabel(svg,label,x,y) {
       .attr("opacity","0.75")
 }
 
-function drawText(svg, text, x, y, attrs) {
+function drawText(svg, text, x, y, attrs,styles="") {
   t = svg.append("text")
         .attr("x", x)
         .attr("y", y)
@@ -317,6 +317,12 @@ function drawText(svg, text, x, y, attrs) {
   for (var a in attrs) {
     t.attr(a, attrs[a])
   }
+
+  for (var s in styles) {
+    t.style(s, styles[s])
+  }
+
+  return t
 }
 
 function addLabel(
@@ -526,6 +532,25 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	svg.on('touchend', stopDrag)
 	svg.on('touchcancel', stopDrag)
 
+}
+
+// draw check
+function drawCheck(svg,thresh,y,bucketWidth,id) {
+  var x = scoreToPixels(thresh, bucketWidth)
+  var t = drawText(svg, "✓", x, y,
+    {
+      "font-size": "20px",
+      "text-anchor":"middle",
+      "id":id
+    },
+    {
+      "font-weight": "100",
+      "color":orange,
+      "opacity": 0,
+    })
+  
+  return t
+  
 }
 
 /* RESHAPE DATA */

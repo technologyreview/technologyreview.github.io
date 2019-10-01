@@ -143,22 +143,44 @@ function drawGraph6() {
 		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}
 
+
+	// goals
+	var goal0 = 6
+	var goal1 = 8
+
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
+
+		var t = d3.transition()
+		    .duration(200)
+		    .ease(d3.easeLinear);
 
 		// Has the user moved the slider(s) to the target value?
 		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
 		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
-		if ((slider0 == 5) && (slider1==6)) {
-			console.log("GOAAAAALLLL!")
+
+		// turn sliders on and off
+		if (slider0 == goal0){
+			d3.select("#whiteCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#whiteCheck").transition(t).style("opacity",0)
 		}
 
+		if (slider1 == goal1){
+			d3.select("#blackCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#blackCheck").transition(t).style("opacity",0)
+		}
+
+		// update bars
 		for (var b of barData) {
   		updateBar(b,barWidth)		
 		}
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
+	var check0 = drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
+	var check1 = drawCheck(svg,goal1,by2+4,bucketWidth,"blackCheck")
 
 
 }
