@@ -442,7 +442,8 @@ function reverseBlackWhite(s) {
 }
 
 function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
-  
+  var label
+
   // Make the sliders animate in and out when the user points at the hit region
   // Also potentially dim some of the bars, if data-dimclass attr is set
   function arrowsOut() {
@@ -450,9 +451,9 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
 
-    var label = slider.attr("data-label")
+    label = slider.attr("data-label")
     var dimTarget = reverseBlackWhite(label)
-    svg.selectAll("." + dimTarget).style("opacity",0.2)
+    svg.selectAll("." + dimTarget).style("opacity",0.3)
   }
   function arrowsIn() {
     var slider = d3.select(this.parentNode) 
@@ -483,11 +484,16 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 
 	function moveDrag() {
 	   	for (var slider of sliderList) {
+        
 	      if (slider.dragging) {
 	        const [x, y] = d3.mouse(this)
 	        moveThresh(slider.el, x, graphicWidth)
           slider.pos = x
           callback(x)
+
+          //also keep target dimmed
+          var dimTarget = reverseBlackWhite(label)
+          svg.selectAll("." + dimTarget).style("opacity",0.3)
 	      }
 	    }
 	}
