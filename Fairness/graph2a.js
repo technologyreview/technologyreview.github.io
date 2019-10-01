@@ -32,7 +32,7 @@ function drawGraph2a() {
 	var threshy1 = chartHeight-maxDotStack
 	var threshy2 = chartHeight+10 // +10 to go over dots
 	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
-	var threshEl = drawThresh(svg,thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
+	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
 
 	var sliderList = [ 
 		{

@@ -33,7 +33,7 @@ function drawGraph5() {
 	var threshy1 = keyHeight+chartHeight-maxDotStack
 	var threshy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
-	var threshEl = drawThresh(svg,thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
+	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
 	// addLabel(svg,"all defendants",0,threshy1-18,label_font_size,"serif","italic")
 
 
