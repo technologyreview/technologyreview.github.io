@@ -38,6 +38,9 @@ function drawGraph7() {
 	var threshTicksEl = drawThreshTicks(svg, wy1, by2, bucketWidth, graphicWidth)
 	var threshEl = drawThresh(svg,"white",thresh,wy1,by2,graphicWidth,1, narrowLayout)
 
+	// COMPAS threshold
+	var threshCOMPAS = drawCompasThresh(svg,thresh,wy1,by2)
+
 	// add key, position dynamic to size of chart
 	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
 	

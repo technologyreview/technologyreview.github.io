@@ -3,7 +3,7 @@
 function drawGraph2a() {
 
 	// create svg
-	keyHeight = 15
+	keyHeight = 20
 	var chartHeight = 240 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight // height of svg
@@ -28,6 +28,9 @@ function drawGraph2a() {
 	var threshy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
 	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
+
+	// COMPAS threshold
+	var threshCOMPAS = drawCompasThresh(svg,thresh,threshy1,threshy2)
 
 	// add key, position dynamic to size of chart
 	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider

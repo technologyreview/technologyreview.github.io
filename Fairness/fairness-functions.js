@@ -100,6 +100,32 @@ function calcHandleWidth(graphicWidth) {
   return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
 }
 
+function drawCompasThresh(svg,x,y1,y2) {
+
+  var g = svg.append("g")
+
+  // main thresh line
+  g.append("line")
+    .attr("x1", x)
+    .attr("y1", y1-20)
+    .attr("x2", x)
+    .attr("y2", y2)
+    .style("stroke", "gray")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray","2,4")
+
+  // label as COMPAS
+  drawText(
+    g, 
+    "COMPAS",
+    x, 
+    y1-28, 
+    {"font-size":10,
+     "text-anchor":"middle",
+     "opacity":0.6})
+
+}
+
 function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
   var threshWidth = calcThreshWidth(graphicWidth)
   var handleWidth = calcHandleWidth(graphicWidth)

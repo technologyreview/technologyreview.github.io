@@ -40,6 +40,9 @@ function drawGraph6() {
 	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
+	// COMPAS threshold
+	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)
+
 	// add key, position dynamic to size of chart
 	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
 	

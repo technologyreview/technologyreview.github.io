@@ -27,8 +27,9 @@ function drawGraph4() {
 	var threshy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
 	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
-	// addLabel(svg,"all defendants",0,threshy1-18,label_font_size,"serif","italic")
 
+	// COMPAS threshold
+	var threshCOMPAS = drawCompasThresh(svg,thresh,threshy1,threshy2)
 
 	// add key, position dynamic to size of chart
 	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider
