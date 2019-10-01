@@ -66,13 +66,13 @@ function drawGraph5() {
 
 	var barData = [
 		{
-			label: "FPR",
+			label: "wrongly jailed",
 			y: barYStart,
 			color: orange,
 			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "FNR",
+			label: "prematurely released",
 			y: barYStart+params.barHeight+barGroupSpacing,
 			color: orange,
 			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -83,13 +83,6 @@ function drawGraph5() {
 	for (var b of barData) {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
-
-	// label bar groups
-	var barGroupLabelsX = barXStart-params.labelWidth-60
-	var barGroupHeight = 2*params.barHeight+barSpacing
-
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
 
 
 	// Fraction table labels

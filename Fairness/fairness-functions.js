@@ -222,9 +222,10 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   drawText(
     g, 
     d.label,
-    x-params.labelWidth, 
+    x-10, 
     textY, 
-    {"font-size":font_size})
+    {"font-size":font_size,
+     "text-anchor":"end"})
 
   g.append("rect")
     .attr("width",barWidth)

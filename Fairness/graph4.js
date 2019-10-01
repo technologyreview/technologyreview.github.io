@@ -66,7 +66,7 @@ function drawGraph4() {
 
 	var barData = [
 		{
-			label: "Acc.",
+			label: "accuracy",
 			y: barYStart,
 			color: orange,
 			getVal: function() { return acc(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -77,13 +77,6 @@ function drawGraph4() {
 	for (var b of barData) {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
-
-	// label bar groups
-	var barGroupLabelsX = barXStart-params.labelWidth-60
-	var barGroupHeight = 2*params.barHeight+barSpacing
-
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
 
 
 	// Fraction table labels
