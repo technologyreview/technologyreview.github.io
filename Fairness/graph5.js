@@ -16,7 +16,7 @@ function drawGraph5() {
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
 
-	var start = 5
+	var start = 4
 	var thresh = bucketWidth*start
 
 	// set threshold for switching to narrow layout
@@ -101,15 +101,32 @@ function drawGraph5() {
 		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}
 
+	var goal = 8
+
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
+
+		var t = d3.transition()
+		    .duration(200)
+		    .ease(d3.easeLinear);
+
+		// Has the user moved the slider(s) to the target value?
+		var slider = pixelsToScore(sliderList[0].pos, bucketWidth)
+
+		// turn sliders on and off
+		if (slider == goal){
+			d3.select("#goalCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#goalCheck").transition(t).style("opacity",0)
+		}
+
 		for (var b of barData) {
   		updateBar(b,barWidth)		
 		}
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-
+	drawCheck(svg,goal,threshy1-24,bucketWidth,"goalCheck")
 
 }
 

@@ -457,18 +457,18 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
 
-    var label = slider.attr("data-label")
-    var dimTarget = reverseBlackWhite(label)
-    svg.selectAll("." + dimTarget).style("opacity",0.3)
+    // var label = slider.attr("data-label")
+    // var dimTarget = reverseBlackWhite(label)
+    // svg.selectAll("." + dimTarget).style("opacity",0.3)
   }
   function arrowsIn() {
     var slider = d3.select(this.parentNode) 
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
 
-    var label = slider.attr("data-label")
-    var dimTarget = reverseBlackWhite(label)
-    svg.selectAll("." + dimTarget).style("opacity",1)
+    // var label = slider.attr("data-label")
+    // var dimTarget = reverseBlackWhite(label)
+    // svg.selectAll("." + dimTarget).style("opacity",1)
   }
 
   svg.selectAll("#hitHandle").on('mouseenter', arrowsOut)
@@ -522,6 +522,11 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           slider.pos = x
           slider.ticksEl.style("opacity", 0)
           callback(x)
+
+          //undim target
+          var label = slider.label
+          var dimTarget = reverseBlackWhite(label)
+          svg.selectAll("." + dimTarget).style("opacity",1)
 	        
 	      }
 	    }
@@ -545,7 +550,7 @@ function drawCheck(svg,thresh,y,bucketWidth,id) {
     },
     {
       "font-weight": "100",
-      "color":orange,
+      "color":"red",
       "opacity": 0,
     })
   

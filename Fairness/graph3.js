@@ -34,8 +34,7 @@ function drawGraph3() {
 	var threshy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var threshTicksEl = drawThreshTicks(svg, threshy1, threshy2, bucketWidth, graphicWidth)
 	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
-	// addLabel(svg,"all defendants",0,threshy1-18,label_font_size,"serif","italic")
-
+	
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
@@ -99,13 +98,28 @@ function drawGraph3() {
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
+		
+		var t = d3.transition()
+		    .duration(200)
+		    .ease(d3.easeLinear);
+
+		// Has the user moved the slider(s) to the target value?
+		var slider = pixelsToScore(sliderList[0].pos, bucketWidth)
+
+		// turn sliders on and off
+		if (slider == goal){
+			d3.select("#goalCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#goalCheck").transition(t).style("opacity",0)
+		}
+
 		for (var b of barData) {
   		updateBar(b,barWidth)		
 		}
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-
+	drawCheck(svg,goal,threshy1-24,bucketWidth,"goalCheck")
 
 }
 

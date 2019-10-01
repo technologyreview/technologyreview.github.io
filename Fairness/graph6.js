@@ -16,8 +16,8 @@ function drawGraph6() {
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
 
-	var blackStart = 5
-	var whiteStart = 5
+	var blackStart = 4
+	var whiteStart = 4
 	var whiteThresh = bucketWidth*whiteStart
 	var blackThresh = bucketWidth*blackStart
 
@@ -148,6 +148,7 @@ function drawGraph6() {
 	var goal0 = 6
 	var goal1 = 8
 
+
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
 
@@ -179,9 +180,8 @@ function drawGraph6() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	var check0 = drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
-	var check1 = drawCheck(svg,goal1,by2+4,bucketWidth,"blackCheck")
-
+	drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
+	drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
 
 }
 
