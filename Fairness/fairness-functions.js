@@ -526,6 +526,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           var label = slider.label
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",0.3)
+          svg.selectAll("." + dimTarget + "Gone").style("opacity",0)
 	      }
 	    }
 	}
@@ -546,6 +547,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           var label = slider.label
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",0.3)
+          svg.selectAll("." + dimTarget + "Gone").style("opacity",0)
 	      }
 	    }
 	}
@@ -567,6 +569,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           var label = slider.label
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",1)
+          svg.selectAll("." + dimTarget + "Gone").style("opacity",1)
 	        
 	      }
 	    }

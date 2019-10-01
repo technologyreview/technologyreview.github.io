@@ -65,7 +65,7 @@ function drawGraph5() {
 			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "prematurely released",
+			label: "wrongly released",
 			y: barYStart+params.barHeight+barGroupSpacing,
 			color: orange,
 			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -83,13 +83,13 @@ function drawGraph5() {
 		var numbersX = barXStart+barWidth+numMargin
 		var numberLabelY1 = barData[0].y - 30
 		var numberLabelY2 = barData[0].y - 18
-		addLabel(svg,"High-risk,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
+		addLabel(svg,"Jailed,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
 		addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
 		addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
 
 		var numberLabelY3 = barData[1].y - 30
 		var numberLabelY4 = barData[1].y - 18
-		addLabel(svg,"Low-risk,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
+		addLabel(svg,"Released,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
 		addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
 		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}

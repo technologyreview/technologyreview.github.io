@@ -82,25 +82,25 @@ function drawGraph6() {
 
 	var barData = [
 		{
-			label: "white",
+			label: "whiteGone",
 			y: barYStart,
 			color: yellow,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "white",
+			label: "whiteGone",
 			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "black",
+			label: "blackGone",
 			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
-			label: "black",
+			label: "blackGone",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
@@ -120,7 +120,7 @@ function drawGraph6() {
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
 
 	addLabel(svg,"wrongly jailed",barGroupLabelsX,fpry,13.5,"sans-serif","italic","",1)
-	addLabel(svg,"prematurely released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
+	addLabel(svg,"wrongly released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
 
 
 	// Fraction table labels
@@ -148,26 +148,26 @@ function drawGraph6() {
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
 
-		var t = d3.transition()
-		    .duration(200)
-		    .ease(d3.easeLinear);
+		// var t = d3.transition()
+		//     .duration(200)
+		//     .ease(d3.easeLinear);
 
-		// Has the user moved the slider(s) to the target value?
-		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
-		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
+		// // Has the user moved the slider(s) to the target value?
+		// var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
+		// var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
 
-		// turn sliders on and off
-		if (slider0 == goal0){
-			d3.select("#whiteCheck").transition(t).style("opacity",.6)
-		} else {
-			d3.select("#whiteCheck").transition(t).style("opacity",0)
-		}
+		// // turn sliders on and off
+		// if (slider0 == goal0){
+		// 	d3.select("#whiteCheck").transition(t).style("opacity",.6)
+		// } else {
+		// 	d3.select("#whiteCheck").transition(t).style("opacity",0)
+		// }
 
-		if (slider1 == goal1){
-			d3.select("#blackCheck").transition(t).style("opacity",.6)
-		} else {
-			d3.select("#blackCheck").transition(t).style("opacity",0)
-		}
+		// if (slider1 == goal1){
+		// 	d3.select("#blackCheck").transition(t).style("opacity",.6)
+		// } else {
+		// 	d3.select("#blackCheck").transition(t).style("opacity",0)
+		// }
 
 		// update bars
 		for (var b of barData) {
@@ -176,8 +176,8 @@ function drawGraph6() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
-	drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
+	// drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
+	// drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
 
 }
 

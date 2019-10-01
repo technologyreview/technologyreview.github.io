@@ -1,23 +1,17 @@
 // max-width: 878 px
 
-function drawGraph6() {
+function drawGraph6a() {
 
 	// create svg
-	var barChartHeight = 170 // height of bar chart
+	var barChartHeight = 190 // height of bar chart
 	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
+	var svg = createSVG(svgHeight)
 
-	var svg = d3.select("body").append("svg")
-		.attr("width","100%")
-		.attr("height",svgHeight)
-
-	// define constants specific to this graphic
-	var graphicWidth = svg.node().getBoundingClientRect().width
-	var bucketWidth = graphicWidth/10
-
-	var blackStart = 5
-	var whiteStart = 5
+	// default threshold
+	var blackStart = 4
+	var whiteStart = 4
 	var whiteThresh = bucketWidth*whiteStart
 	var blackThresh = bucketWidth*blackStart
 
@@ -26,31 +20,33 @@ function drawGraph6() {
 	var narrowLayout = graphicWidth < 700 
 
 	// bucket labels
-	drawBuckets(svg, keyHeight+barChartHeight+graphicHeight/2, bucketWidth)
+	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
 
 	// white defendants
-	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+barChartHeight+chartHeight, bucketWidth, 1)
+	var [d, spacing] = drawDots(svg, real_score_white_buckets, yellow, keyHeight+chartHeight, bucketWidth, 1)
 	var maxDotStack = (d+spacing)*11
 
-	var wy1 = keyHeight+barChartHeight+chartHeight-maxDotStack
-	var wy2 = keyHeight+barChartHeight+chartHeight+10 // +10 to go over dots
+	var wy1 = keyHeight+chartHeight-maxDotStack
+	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
-	var whiteThreshEl = drawThresh(svg,whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
+	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
 	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
-	drawDots(svg, real_score_black_buckets, blue, keyHeight+barChartHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
-	var by1 = keyHeight+barChartHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
-	var by2 = keyHeight+barChartHeight+chartHeight+bucketLabelHeight+maxDotStack
+	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
+	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
+	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
-	var blackThreshEl = drawThresh(svg,blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
+	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
+	// COMPAS threshold
+	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)
+
 	// add key, position dynamic to size of chart
-	var keyx = 100
-	var keyy = keyHeight+barChartHeight/2 // starts a quarter of the way between the top of chart and top of slider
+	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
 	
-	// addKey(svg,keyx,keyy,d/2,[yellow,blue],strokeWidth)
+	addKey(svg,keyx,keyy,d/2,spacing,[yellow,blue],strokeWidth)
 
 	var sliderList = [ 
 		{
@@ -59,7 +55,8 @@ function drawGraph6() {
 		  ticksEl: whiteThreshTicksEl,
 		  pos: whiteThresh,
 		  y1: wy1,
-		  y2: wy2
+		  y2: wy2,
+		  label: "white"
 		},
 		{
 		  dragging: false,
@@ -68,12 +65,13 @@ function drawGraph6() {
 		  pos: blackThresh,
 		  y1: by1,
 		  y2: by2,
+		  label: "black"
 		}
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	var barYStart = keyHeight
-	// barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/4 // starts one third
+	var barYStart = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
+	barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/6 // starts one third
 
 	var barWidth = graphicWidth/3
 	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
@@ -122,7 +120,7 @@ function drawGraph6() {
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
 
 	addLabel(svg,"wrongly jailed",barGroupLabelsX,fpry,13.5,"sans-serif","italic","",1)
-	addLabel(svg,"prematurely released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
+	addLabel(svg,"wrongly released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
 
 
 	// Fraction table labels
@@ -141,16 +139,46 @@ function drawGraph6() {
 		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}
 
+
+	// goals
+	var goal0 = 6
+	var goal1 = 8
+
+
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
+
+		var t = d3.transition()
+		    .duration(200)
+		    .ease(d3.easeLinear);
+
+		// Has the user moved the slider(s) to the target value?
+		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
+		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
+
+		// turn sliders on and off
+		if (slider0 == goal0){
+			d3.select("#whiteCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#whiteCheck").transition(t).style("opacity",0)
+		}
+
+		if (slider1 == goal1){
+			d3.select("#blackCheck").transition(t).style("opacity",.6)
+		} else {
+			d3.select("#blackCheck").transition(t).style("opacity",0)
+		}
+
+		// update bars
 		for (var b of barData) {
   		updateBar(b,barWidth)		
 		}
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-
+	drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
+	drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
 
 }
 
-loadGraphic(drawGraph6)
+loadGraphic(drawGraph6a)

@@ -109,7 +109,7 @@ function drawGraph7() {
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
 
 	addLabel(svg,"wrongly jailed",barGroupLabelsX,fpry,13.5,"sans-serif","italic","",1)
-	addLabel(svg,"prematurely released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
+	addLabel(svg,"wrongly released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
 
 
 	// Fraction table labels
