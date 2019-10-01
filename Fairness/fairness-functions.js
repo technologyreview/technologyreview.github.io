@@ -18,7 +18,7 @@ var gray = "#979797"
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
-var keyHeight = 35 // height of key
+var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20

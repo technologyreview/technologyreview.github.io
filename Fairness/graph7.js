@@ -1,6 +1,6 @@
 // max-width: 878 px
 
-function drawGraph6() {
+function drawGraph7() {
 
 	// create svg
 	var barChartHeight = 190 // height of bar chart
@@ -16,10 +16,8 @@ function drawGraph6() {
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
 
-	var blackStart = 4
-	var whiteStart = 4
-	var whiteThresh = bucketWidth*whiteStart
-	var blackThresh = bucketWidth*blackStart
+	var start = 4
+	var thresh = bucketWidth*start
 
 	// set threshold for switching to narrow layout
 	// (Too narrow to show some things. True for mobile but also narrow desktop)
@@ -34,17 +32,17 @@ function drawGraph6() {
 
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
-	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
-	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
 	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
-	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
+
+	// draw single threshold
+	var threshTicksEl = drawThreshTicks(svg, wy1, by2, bucketWidth, graphicWidth)
+	var threshEl = drawThresh(svg,"white",thresh,wy1,by2,graphicWidth,1, narrowLayout)
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
@@ -55,21 +53,12 @@ function drawGraph6() {
 	var sliderList = [ 
 		{
 		  dragging: false,
-		  el: whiteThreshEl,
-		  ticksEl: whiteThreshTicksEl,
-		  pos: whiteThresh,
+		  el: threshEl,
+		  ticksEl: threshTicksEl,
+		  pos: thresh,
 		  y1: wy1,
-		  y2: wy2,
-		  label: "white"
-		},
-		{
-		  dragging: false,
-		  el: blackThreshEl,
-		  ticksEl: blackThreshTicksEl,
-		  pos: blackThresh,
-		  y1: by1,
 		  y2: by2,
-		  label: "black"
+		  // label: "white"
 		}
 	]
 
@@ -101,13 +90,13 @@ function drawGraph6() {
 			label: "black",
 			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
-			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
+			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "black",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
-			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
+			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 	]
 
@@ -143,35 +132,8 @@ function drawGraph6() {
 		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
 	}
 
-
-	// goals
-	var goal0 = 6
-	var goal1 = 8
-
-
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
-
-		var t = d3.transition()
-		    .duration(200)
-		    .ease(d3.easeLinear);
-
-		// Has the user moved the slider(s) to the target value?
-		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
-		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
-
-		// turn sliders on and off
-		if (slider0 == goal0){
-			d3.select("#whiteCheck").transition(t).style("opacity",.6)
-		} else {
-			d3.select("#whiteCheck").transition(t).style("opacity",0)
-		}
-
-		if (slider1 == goal1){
-			d3.select("#blackCheck").transition(t).style("opacity",.6)
-		} else {
-			d3.select("#blackCheck").transition(t).style("opacity",0)
-		}
 
 		// update bars
 		for (var b of barData) {
@@ -180,9 +142,7 @@ function drawGraph6() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
-	drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
 
 }
 
-loadGraphic(drawGraph6)
+loadGraphic(drawGraph7)
