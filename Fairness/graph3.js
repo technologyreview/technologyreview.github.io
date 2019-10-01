@@ -16,7 +16,7 @@ function drawGraph3() {
 	var graphicWidth = svg.node().getBoundingClientRect().width
 	var bucketWidth = graphicWidth/10
 
-	var start = 5
+	var start = 4
 	var thresh = bucketWidth*start
 
 	// set threshold for switching to narrow layout
@@ -96,9 +96,11 @@ function drawGraph3() {
 
 	}
 
+	var goal = 6
+
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
-		
+
 		var t = d3.transition()
 		    .duration(200)
 		    .ease(d3.easeLinear);

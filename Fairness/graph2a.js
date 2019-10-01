@@ -19,7 +19,7 @@ function drawGraph2a() {
 	// (Too narrow to show some things. True for mobile but also narrow desktop)
 	var narrowLayout = graphicWidth < 700 
 
-	var start = 5
+	var start = 4
 	var thresh = bucketWidth*start
 
 	// bucket labels
@@ -50,7 +50,7 @@ function drawGraph2a() {
 	}
 
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-
+	drawCheck(svg,goal,threshy1-24,bucketWidth,"goalCheck")
 
 }
 
