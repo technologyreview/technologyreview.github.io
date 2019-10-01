@@ -38,7 +38,7 @@ function drawGraph3() {
 
 	// add key, position dynamic to size of chart
 	var keyx = graphicWidth - 100
-	var keyy = threshy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
+	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider
 	addKey(svg,keyx,keyy,d/2,[orange],strokeWidth)
 
 	var sliderList = [ 
@@ -65,7 +65,7 @@ function drawGraph3() {
 
 	var barData = [
 		{
-			label: "Acc.",
+			label: "accuracy",
 			y: barYStart,
 			color: orange,
 			getVal: function() { return acc(fake_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -80,10 +80,6 @@ function drawGraph3() {
 	// label bar groups
 	var barGroupLabelsX = barXStart-params.labelWidth-60
 	var barGroupHeight = 2*params.barHeight+barSpacing
-
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[0].y)
-	// drawBarGroupLabel(svg,"FPR",barGroupLabelsX,barData[1].y)
-
 
 	// Fraction table labels
 	if (!narrowLayout) {
