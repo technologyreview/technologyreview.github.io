@@ -4,7 +4,6 @@
 // parameters that define drawing layout and style
 var params = {
   barHeight: 18,          // height of bar
-  labelWidth: 40,         // width of bar label
   threshWidthScale: 400,  // at this screen width the threshold will be 1px wide
   handleWidth: 7,         // threshold drag handle width
   handleHeight: 20,       // threshold drag handle width
@@ -18,6 +17,7 @@ var gray = "#979797"
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
+var graphicWidth, bucketWidth, keyx
 var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
@@ -27,6 +27,19 @@ var barChartTopPadding = 20
 var label_font_size = 12
 var numMargin = 20  // margin from end of bar to numbers
 var numSpacing = 20 // spacing between numbers to right of bars
+
+// create svg
+function createSVG(svgHeight) {
+  var svg = d3.select("body").append("svg")
+    .attr("width","100%")
+    .attr("height",svgHeight)
+
+  graphicWidth = svg.node().getBoundingClientRect().width
+  bucketWidth = graphicWidth/10
+  keyx = scoreToPixels(8,bucketWidth)+bucketWidth/8
+
+  return svg
+}
 
 
 // draw functions
@@ -351,10 +364,11 @@ function addLabel(
       .attr("id",id)
 }
 
-function addKeyCircles(svg,cx,cy,r,colors,strokeWidth) {
-  
+function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
+  cx = cx - r - spacing
+
   for (color of colors) {
-    cx += -4*r
+    cx += 2*r+spacing
 
     svg.append("circle")
       .attr("cx", cx)
@@ -374,11 +388,11 @@ function addKeyCircles(svg,cx,cy,r,colors,strokeWidth) {
   }
 }
 
-function addKey(svg,x,y,r,colors,strokeWidth) {
-  addLabel(svg,"not re-arrested",x,y,12,"sans-serif")
-  addLabel(svg,"re-arrested",x,y+16,12,"sans-serif")
+function addKey(svg,x,y,r,spacing,colors,strokeWidth) {
+  addLabel(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y,12,"sans-serif")
+  addLabel(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+16,12,"sans-serif")
 
-  addKeyCircles(svg,x,y+8,r,colors,strokeWidth)
+  addKeyCircles(svg,x,y+8,r,spacing,colors,strokeWidth)
 
 }
 

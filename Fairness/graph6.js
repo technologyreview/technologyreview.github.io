@@ -7,15 +7,9 @@ function drawGraph6() {
 	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
+	var svg = createSVG(svgHeight)
 
-	var svg = d3.select("body").append("svg")
-		.attr("width","100%")
-		.attr("height",svgHeight)
-
-	// define constants specific to this graphic
-	var graphicWidth = svg.node().getBoundingClientRect().width
-	var bucketWidth = graphicWidth/10
-
+	// default threshold
 	var blackStart = 4
 	var whiteStart = 4
 	var whiteThresh = bucketWidth*whiteStart
@@ -47,10 +41,9 @@ function drawGraph6() {
 	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
 
 	// add key, position dynamic to size of chart
-	var keyx = graphicWidth - 100
 	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider
 	
-	addKey(svg,keyx,keyy,d/2,[yellow,blue],strokeWidth)
+	addKey(svg,keyx,keyy,d/2,spacing,[yellow,blue],strokeWidth)
 
 	var sliderList = [ 
 		{

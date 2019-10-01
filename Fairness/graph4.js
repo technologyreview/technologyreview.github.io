@@ -7,14 +7,7 @@ function drawGraph4() {
 	var chartHeight = 240 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
-
-	var svg = d3.select("body").append("svg")
-		.attr("width","100%")
-		.attr("height",svgHeight)
-
-	// define constants specific to this graphic
-	var graphicWidth = svg.node().getBoundingClientRect().width
-	var bucketWidth = graphicWidth/10
+	var svg = createSVG(svgHeight)
 
 	var start = 4
 	var thresh = bucketWidth*start
@@ -38,9 +31,8 @@ function drawGraph4() {
 
 
 	// add key, position dynamic to size of chart
-	var keyx = graphicWidth - 100
 	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider
-	addKey(svg,keyx,keyy,d/2,[orange],strokeWidth)
+	addKey(svg,keyx,keyy,d/2,spacing,[orange],strokeWidth)
 
 	var sliderList = [ 
 		{
