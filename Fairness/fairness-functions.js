@@ -377,7 +377,7 @@ function addLabel(
   font_weight,
   text_anchor="start") 
 {
-  svg.append("text")
+  var t = svg.append("text")
       .attr("x", x)
       .attr("y", y+font_size)
       .text(label)
@@ -388,6 +388,8 @@ function addLabel(
       .attr("text-anchor", text_anchor)
       .attr("opacity",opacity)
       .attr("id",id)
+
+  return t
 }
 
 function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
@@ -583,23 +585,58 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 }
 
 // draw check
-function drawCheck(svg,thresh,y,bucketWidth,id) {
+function drawGoal(svg,thresh,y,bucketWidth,goalClass,flip) {
   var x = scoreToPixels(thresh, bucketWidth)
-  var t = drawText(svg, "✓", x, y,
-    {
-      "font-size": "20px",
-      "text-anchor":"middle",
-      "id":id
-    },
-    {
-      "font-weight": "100",
-      "color":"red",
-      "opacity": 0,
-    })
+  var g = svg.append("g")
+  var rectWidth = 80
+  var rectHeight = 24
+  var recty = y-flip*10
+  var triWidth = 14 // triangle base
+  var triHeight = 10 // triangle height
+
+  // tooltip box
+  // rectangle body
+  var rect = g.append("rect")
+    .attr("x", x-rectWidth/2)
+    .attr("width", rectWidth)
+    .attr("height", rectHeight)
+    .style("fill", "black")
+    .style("opacity", 0)
+    .style("stroke-width", 0)
+    .attr("class",goalClass)
+
+  // triangle
+  g.append("path")
+    .attr("d", 
+          " M " + (x-triWidth/2) + " " + recty + 
+          " L " + (x+triWidth/2) + " " + recty +
+          " L " + x + " " + (recty+flip*triHeight))
+    .style("fill", "black")
+    .style("opacity", 0)
+    .style("stroke-width", 0)
+    .attr("class",goalClass)
+
+  if (flip==1) {
+    var textOffset = -28
+    rect.attr("y", recty-rectHeight)
+
+  } else {
+    var textOffset = 16
+    rect.attr("y", recty)
+  }
+
+  // text
+  var tooltip = addLabel(g,"best outcome",x,y+textOffset,10)
+  tooltip.attr("text-anchor","middle")
+    .style("fill","white")
+    .style("opacity", 0)
+    .attr("class",goalClass)
+
   
   return t
   
 }
+
 
 /* RESHAPE DATA */
 

@@ -80,7 +80,6 @@ function drawGraph4() {
 		addLabel(svg,"Predicted",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
 		addLabel(svg,"correctly",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
 		addLabel(svg,"All defendants",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
-
 	}
 
 	var goal = 5
@@ -97,9 +96,9 @@ function drawGraph4() {
 
 		// turn sliders on and off
 		if (slider == goal){
-			d3.select("#goalCheck").transition(t).style("opacity",.6)
+			d3.selectAll(".goal").transition(t).style("opacity",.8)
 		} else {
-			d3.select("#goalCheck").transition(t).style("opacity",0)
+			d3.selectAll(".goal").transition(t).style("opacity",0)
 		}
 
 		for (var b of barData) {
@@ -108,7 +107,7 @@ function drawGraph4() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawCheck(svg,goal,threshy1-24,bucketWidth,"goalCheck")
+	drawGoal(svg,goal,threshy1,bucketWidth,"goal",1)
 
 }
 

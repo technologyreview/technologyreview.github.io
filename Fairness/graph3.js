@@ -98,9 +98,9 @@ function drawGraph3() {
 
 		// turn sliders on and off
 		if (slider == goal){
-			d3.select("#goalCheck").transition(t).style("opacity",.6)
+			d3.selectAll(".goal").transition(t).style("opacity",.8)
 		} else {
-			d3.select("#goalCheck").transition(t).style("opacity",0)
+			d3.selectAll(".goal").transition(t).style("opacity",0)
 		}
 
 		for (var b of barData) {
@@ -109,7 +109,7 @@ function drawGraph3() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawCheck(svg,goal,threshy1-24,bucketWidth,"goalCheck")
+	drawGoal(svg,goal,threshy1,bucketWidth,"goal",1)
 
 }
 

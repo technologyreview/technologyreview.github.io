@@ -158,15 +158,15 @@ function drawGraph6a() {
 
 		// turn sliders on and off
 		if (slider0 == goal0){
-			d3.select("#whiteCheck").transition(t).style("opacity",.6)
+			d3.selectAll(".whiteGoal").transition(t).style("opacity",.8)
 		} else {
-			d3.select("#whiteCheck").transition(t).style("opacity",0)
+			d3.selectAll(".whiteGoal").transition(t).style("opacity",0)
 		}
 
 		if (slider1 == goal1){
-			d3.select("#blackCheck").transition(t).style("opacity",.6)
+			d3.selectAll(".blackGoal").transition(t).style("opacity",.8)
 		} else {
-			d3.select("#blackCheck").transition(t).style("opacity",0)
+			d3.selectAll(".blackGoal").transition(t).style("opacity",0)
 		}
 
 		// update bars
@@ -176,9 +176,8 @@ function drawGraph6a() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
-	drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
-
+	drawGoal(svg,goal0,wy1,bucketWidth,"whiteGoal",1)
+	drawGoal(svg,goal1,by2,bucketWidth,"blackGoal",-1)
 }
 
 loadGraphic(drawGraph6a)

@@ -148,27 +148,6 @@ function drawGraph6() {
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
 
-		// var t = d3.transition()
-		//     .duration(200)
-		//     .ease(d3.easeLinear);
-
-		// // Has the user moved the slider(s) to the target value?
-		// var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
-		// var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
-
-		// // turn sliders on and off
-		// if (slider0 == goal0){
-		// 	d3.select("#whiteCheck").transition(t).style("opacity",.6)
-		// } else {
-		// 	d3.select("#whiteCheck").transition(t).style("opacity",0)
-		// }
-
-		// if (slider1 == goal1){
-		// 	d3.select("#blackCheck").transition(t).style("opacity",.6)
-		// } else {
-		// 	d3.select("#blackCheck").transition(t).style("opacity",0)
-		// }
-
 		// update bars
 		for (var b of barData) {
   		updateBar(b,barWidth)		
@@ -176,8 +155,7 @@ function drawGraph6() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	// drawCheck(svg,goal0,wy1-24,bucketWidth,"whiteCheck")
-	// drawCheck(svg,goal1,by2+2,bucketWidth,"blackCheck")
+
 
 }
 
