@@ -59,7 +59,8 @@ function drawGraph6() {
 		  ticksEl: whiteThreshTicksEl,
 		  pos: whiteThresh,
 		  y1: wy1,
-		  y2: wy2
+		  y2: wy2,
+		  label: "white"
 		},
 		{
 		  dragging: false,
@@ -68,6 +69,7 @@ function drawGraph6() {
 		  pos: blackThresh,
 		  y1: by1,
 		  y2: by2,
+		  label: "black"
 		}
 	]
 
