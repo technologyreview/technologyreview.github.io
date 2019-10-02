@@ -107,7 +107,7 @@ function drawCompasThresh(svg,x,y1,y2) {
   // main thresh line
   g.append("line")
     .attr("x1", x)
-    .attr("y1", y1-20)
+    .attr("y1", y1-16)
     .attr("x2", x)
     .attr("y2", y2)
     .style("stroke", "gray")

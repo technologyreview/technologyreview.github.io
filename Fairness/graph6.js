@@ -10,8 +10,8 @@ function drawGraph6() {
 	var svg = createSVG(svgHeight)
 
 	// default threshold
-	var blackStart = 4
-	var whiteStart = 4
+	var blackStart = 7
+	var whiteStart = 7
 	var whiteThresh = bucketWidth*whiteStart
 	var blackThresh = bucketWidth*blackStart
 

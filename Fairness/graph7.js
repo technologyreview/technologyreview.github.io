@@ -10,7 +10,7 @@ function drawGraph7() {
 	var svg = createSVG(svgHeight)
 
 	// default threshold
-	var start = 4
+	var start = 7
 	var thresh = bucketWidth*start
 
 	// set threshold for switching to narrow layout
