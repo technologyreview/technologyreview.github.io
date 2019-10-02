@@ -1,9 +1,9 @@
 // max-width: 878 px
 
-function drawGraph6a() {
+function drawGraph6() {
 
 	// create svg
-	var barChartHeight = 250 // height of bar chart
+	var barChartHeight = 190 // height of bar chart
 	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
@@ -30,8 +30,7 @@ function drawGraph6a() {
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
-	drawText(svg,"white defendants",0,wy1-18,{"font-size":label_font_size,"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight}) 
-  
+	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
@@ -39,8 +38,8 @@ function drawGraph6a() {
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
 	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
-	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
-	
+	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
+
 	// COMPAS threshold
 	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)
 
@@ -71,79 +70,78 @@ function drawGraph6a() {
 	]
 
 	// bar charts, size & position dynamic to size of svg
-	// var barChartPadding = 20
 	var barYStart = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	barYStart = barYStart + (svgHeight - barYStart)/5 // starts one third
+	barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/6 // starts one third
 
-	var barXStart = (graphicWidth-barWidth)/2
-	var barSpacing = 24 // spacing between bars in same group
-	var barGroupSpacing = 60 // spacing between grouped bars
+	var barWidth = graphicWidth/3
+	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
+	
+	var barXStart = graphicWidth/3
+	var barSpacing = 8 // spacing between bars in same group
+	var barGroupSpacing = 40 // spacing between grouped bars
 
 	var barData = [
 		{
-			label: "WHITE",
-			class: "white",
+			label: "white",
+			class: "whiteGone",
 			y: barYStart,
 			color: yellow,
-			calc: "fpr",
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "WHITE",
-			class: "white",
+			label: "white",
+			class: "whiteGone",
 			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
-			calc: "fnr",
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "BLACK",
-			class: "black",
+			label: "black",
+			class: "blackGone",
 			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
-			calc: "fpr",
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
-			label: "BLACK",
-			class: "black",
+			label: "black",
+			class: "blackGone",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
-			calc: "fnr",
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 	]
 
 
 	for (var b of barData) {
-		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing,d.class)
+		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
 	// label bar groups
+	var barGroupLabelsX = barXStart
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
 	var fpry = barYStart-22
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
 
-	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
-	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"wrongly jailed",barGroupLabelsX,fpry,13.5,"sans-serif","italic","",1)
+	addLabel(svg,"wrongly released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
 
 
 	// Fraction table labels
-	// if (!narrowLayout) {
-	// 	var numbersX = barXStart+barWidth+numMargin
-	// 	var numberLabelY1 = barData[0].y - 30
-	// 	var numberLabelY2 = barData[0].y - 18
-	// 	addLabel(svg,"Jailed,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-	// 	addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-	// 	addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
+	if (!narrowLayout) {
+		var numbersX = barXStart+barWidth+numMargin
+		var numberLabelY1 = barData[0].y - 30
+		var numberLabelY2 = barData[0].y - 18
+		addLabel(svg,"Jailed,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
+		addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
+		addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
 
-	// 	var numberLabelY3 = barData[1].y - 30
-	// 	var numberLabelY4 = barData[1].y - 18
-	// 	addLabel(svg,"Released,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
-	// 	addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
-	// 	addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
-	// }
+		var numberLabelY3 = barData[1].y - 30
+		var numberLabelY4 = barData[1].y - 18
+		addLabel(svg,"Released,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
+		addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
+		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
+	}
 
 
 	// goals
@@ -154,27 +152,6 @@ function drawGraph6a() {
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {
 
-		var t = d3.transition()
-		    .duration(200)
-		    .ease(d3.easeLinear);
-
-		// Has the user moved the slider(s) to the target value?
-		var slider0 = pixelsToScore(sliderList[0].pos, bucketWidth)
-		var slider1 = pixelsToScore(sliderList[1].pos, bucketWidth)
-
-		// turn sliders on and off
-		if (slider0 == goal0){
-			d3.selectAll(".whiteGoal").transition(t).style("opacity",.8)
-		} else {
-			d3.selectAll(".whiteGoal").transition(t).style("opacity",0)
-		}
-
-		if (slider1 == goal1){
-			d3.selectAll(".blackGoal").transition(t).style("opacity",.8)
-		} else {
-			d3.selectAll(".blackGoal").transition(t).style("opacity",0)
-		}
-
 		// update bars
 		for (var b of barData) {
   		updateBar(b,barWidth)		
@@ -182,8 +159,8 @@ function drawGraph6a() {
 	}
 	
 	addSliders(svg, sliderList, bucketWidth, graphicWidth, threshChanged)
-	drawGoal(svg,goal0,wy1,bucketWidth,"whiteGoal",1)
-	drawGoal(svg,goal1,by2,bucketWidth,"blackGoal",-1)
+
+
 }
 
-loadGraphic(drawGraph6a)
+loadGraphic(drawGraph6)
