@@ -83,24 +83,28 @@ function drawGraph6a() {
 	var barData = [
 		{
 			label: "white",
+			class: "white",
 			y: barYStart,
 			color: yellow,
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "white",
+			class: "white",
 			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
 			label: "black",
+			class: "black",
 			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
 		},
 		{
 			label: "black",
+			class: "black",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }

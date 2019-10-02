@@ -256,7 +256,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var dimWeight = 200
   var [percent,numer,denom] = d.getVal()
 
-  g.attr("class", d.label)
+  g.attr("class", d.class)
 
   drawText(
     g, 
@@ -499,18 +499,12 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
 
-    // var label = slider.attr("data-label")
-    // var dimTarget = reverseBlackWhite(label)
-    // svg.selectAll("." + dimTarget).style("opacity",0.3)
   }
   function arrowsIn() {
     var slider = d3.select(this.parentNode) 
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
 
-    // var label = slider.attr("data-label")
-    // var dimTarget = reverseBlackWhite(label)
-    // svg.selectAll("." + dimTarget).style("opacity",1)
   }
 
   svg.selectAll("#hitHandle").on('mouseenter', arrowsOut)
@@ -525,7 +519,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	        d3.event.preventDefault()
 
           //also keep target dimmed
-          var label = slider.label
+          var label = slider.class
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",0.3)
           svg.selectAll("." + dimTarget + "Gone").style("opacity",0)
@@ -546,7 +540,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           callback(x)
 
           //also keep target dimmed
-          var label = slider.label
+          var label = slider.class
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",0.3)
           svg.selectAll("." + dimTarget + "Gone").style("opacity",0)
@@ -568,7 +562,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
           callback(x)
 
           //undim target
-          var label = slider.label
+          var label = slider.class
           var dimTarget = reverseBlackWhite(label)
           svg.selectAll("." + dimTarget).style("opacity",1)
           svg.selectAll("." + dimTarget + "Gone").style("opacity",1)
