@@ -3,7 +3,7 @@
 function drawGraph7() {
 
 	// create svg
-	var barChartHeight = 190 // height of bar chart
+	var barChartHeight = 250 // height of bar chart
 	var chartHeight = 160 // height of chart area above and below
 	var graphicHeight = chartHeight*2 + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
@@ -60,42 +60,43 @@ function drawGraph7() {
 
 	// bar charts, size & position dynamic to size of svg
 	var barYStart = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	barYStart = barYStart + (svgHeight - barYStart)/2 - barChartHeight/6 // starts one third
+	barYStart = barYStart + (svgHeight - barYStart)/5 // starts one third
 
-	var barWidth = graphicWidth/3
-	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
-	
-	var barXStart = graphicWidth/3
-	var barSpacing = 8 // spacing between bars in same group
-	var barGroupSpacing = 40 // spacing between grouped bars
+	var barXStart = (graphicWidth-barWidth)/2
+	var barSpacing = 24 // spacing between bars in same group
+	var barGroupSpacing = 60 // spacing between grouped bars
 
 	var barData = [
 		{
-			label: "white",
+			label: "WHITE",
 			class: "whiteStay",
 			y: barYStart,
 			color: yellow,
+			calc:"fpr",
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "white",
+			label: "WHITE",
 			class: "whiteStay",
 			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
+			calc:"fnr",
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},		
 		{
-			label: "black",
+			label: "BLACK",
 			class: "blackStay",
 			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
+			calc:"fpr",
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
-			label: "black",
+			label: "BLACK",
 			class: "blackStay",
 			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
+			calc:"fnr",
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 	]
@@ -112,25 +113,8 @@ function drawGraph7() {
 	var fpry = barYStart-22
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
 
-	addLabel(svg,"wrongly jailed",barGroupLabelsX,fpry,13.5,"sans-serif","italic","",1)
-	addLabel(svg,"wrongly released",barGroupLabelsX,fnry,13.5,"sans-serif","italic","",1)
-
-
-	// Fraction table labels
-	if (!narrowLayout) {
-		var numbersX = barXStart+barWidth+numMargin
-		var numberLabelY1 = barData[0].y - 30
-		var numberLabelY2 = barData[0].y - 18
-		addLabel(svg,"Jailed,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-		addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-		addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
-
-		var numberLabelY3 = barData[1].y - 30
-		var numberLabelY4 = barData[1].y - 18
-		addLabel(svg,"Released,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
-		addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
-		addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
-	}
+	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {

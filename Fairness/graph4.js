@@ -3,7 +3,7 @@
 function drawGraph4() {
 
 	// create svg
-	var barChartHeight = 70 // height of bar chart
+	var barChartHeight = 75 // height of bar chart
 	var chartHeight = 250 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
@@ -49,19 +49,17 @@ function drawGraph4() {
 	// bar charts, size & position dynamic to size of svg
 	var barYStart = keyHeight+chartHeight+bucketLabelHeight
 	barYStart = barYStart + (svgHeight - barYStart)/2 // starts one third
-
-	var barWidth = graphicWidth/3
-	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
 	
-	var barXStart = graphicWidth/3
+	var barXStart = (graphicWidth-barWidth)/2
 	var barSpacing = 8 // spacing between bars in same group
 	var barGroupSpacing = 40 // spacing between grouped bars
 
 	var barData = [
 		{
-			label: "accuracy",
+			label: "",
 			y: barYStart,
 			color: orange,
+			calc:"acc",
 			getVal: function() { return acc(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		}
 	]
@@ -71,16 +69,8 @@ function drawGraph4() {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
+	addLabel(svg,"ACCURACY",barXStart+barWidth/2,barYStart-22,13.5,"sans-serif","","",1,"bold","middle")
 
-	// Fraction table labels
-	if (!narrowLayout) {
-		var numbersX = barXStart+barWidth+numMargin
-		var numberLabelY1 = barData[0].y - 30
-		var numberLabelY2 = barData[0].y - 18
-		addLabel(svg,"Predicted",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-		addLabel(svg,"correctly",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-		addLabel(svg,"All defendants",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
-	}
 
 	var goal = 5
 

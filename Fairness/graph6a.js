@@ -30,7 +30,7 @@ function drawGraph6a() {
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
-	drawText(svg,"white defendants",0,wy1-18,{"font-size":label_font_size,"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight}) 
+	drawText(svg,"white defendants",0,wy1-18,{"font-size":label_font_size,"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight}) 
   
 
 	// black defendants
@@ -39,7 +39,7 @@ function drawGraph6a() {
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
 	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
-	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
+	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
 	
 	// COMPAS threshold
 	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)

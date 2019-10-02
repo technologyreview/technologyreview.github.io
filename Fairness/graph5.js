@@ -3,7 +3,7 @@
 function drawGraph5() {
 
 	// create svg
-	var barChartHeight = 115 // height of bar chart
+	var barChartHeight = 175 // height of bar chart
 	var chartHeight = 250 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
@@ -50,24 +50,23 @@ function drawGraph5() {
 	var barYStart = keyHeight+chartHeight+bucketLabelHeight
 	barYStart = barYStart + (svgHeight - barYStart)/3 // starts one third
 
-	var barWidth = graphicWidth/3
-	barWidth = Math.max(100,Math.min(300,barWidth)) // min & max barWidth
-	
-	var barXStart = graphicWidth/3
+	var barXStart = (graphicWidth-barWidth)/2
 	var barSpacing = 8 // spacing between bars in same group
-	var barGroupSpacing = 40 // spacing between grouped bars
+	var barGroupSpacing = 60 // spacing between grouped bars
 
 	var barData = [
 		{
 			label: "",
 			y: barYStart,
 			color: orange,
+			calc: "fpr",
 			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "",
 			y: barYStart+params.barHeight+barGroupSpacing,
 			color: orange,
+			calc: "fnr",
 			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		}
 	]
@@ -82,22 +81,6 @@ function drawGraph5() {
 
 	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
 	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
-
-	// // Fraction table labels
-	// if (!narrowLayout) {
-	// 	var numbersX = barXStart+barWidth+numMargin
-	// 	var numberLabelY1 = barData[0].y - 30
-	// 	var numberLabelY2 = barData[0].y - 18
-	// 	addLabel(svg,"Jailed,",numbersX+3*numSpacing,numberLabelY1,10,"sans-serif","italic","")
-	// 	addLabel(svg,"not re-arrested",numbersX+3*numSpacing,numberLabelY2,10,"sans-serif","italic","")
-	// 	addLabel(svg,"Not re-arrested",numbersX+7*numSpacing,numberLabelY2,10,"sans-serif","italic",)
-
-	// 	var numberLabelY3 = barData[1].y - 30
-	// 	var numberLabelY4 = barData[1].y - 18
-	// 	addLabel(svg,"Released,",numbersX+3*numSpacing,numberLabelY3,10,"sans-serif","italic","")
-	// 	addLabel(svg,"re-arrested",numbersX+3*numSpacing,numberLabelY4,10,"sans-serif","italic","")
-	// 	addLabel(svg,"Re-arrested",numbersX+7*numSpacing,numberLabelY4,10,"sans-serif","italic",)
-	// }
 
 	var goal = 8
 

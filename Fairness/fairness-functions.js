@@ -24,7 +24,7 @@ var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20
-var barWidth = 340
+var barWidth = 345
 
 // define constants for text spacing
 var label_font_size = 12
@@ -58,6 +58,7 @@ function drawBuckets(svg, y, bucketWidth) {
         .attr("font-size",12)
         .attr("font-family","sans-serif")
         .style("fill",dimColor)
+        .style("font-weight",dimWeight)
   }  
 }
 
@@ -125,7 +126,8 @@ function drawCompasThresh(svg,x,y1,y2) {
     y1-28, 
     {"font-size":10,
      "text-anchor":"middle",
-     "fill":dimColor})
+     "fill":dimColor,
+     "font-weight":dimWeight, })
 
 }
 
@@ -203,17 +205,12 @@ function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    drawText(slider,"jailed →",10,y1+font_size,12,{"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px"}) 
-    drawText(slider,"← released",-10,y1+font_size,12,{"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px","text-anchor":"end"}) 
+    drawText(slider,"jailed →",10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px"}) 
+    drawText(slider,"← released",-10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px","text-anchor":"end"}) 
 
-    // addLabel(slider,"jailed →",10,y1,12,"sans-serif","italic")
-    // addLabel(slider,"← released",-10,y1,12,"sans-serif","italic","",0.75,"","end")
   } else {
-    drawText(slider,"jailed →",10,y2-18+font_size,12,{"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px"}) 
-    drawText(slider,"← released",-10,y2-18+font_size,12,{"font-family":"sans-serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px","text-anchor":"end"}) 
-    
-    // addLabel(slider,"jailed →",10,y2-18,12,"sans-serif","italic")
-    // addLabel(slider,"← released",-10,y2-18,12,"sans-serif","italic","",0.75,"","end")
+    drawText(slider,"jailed →",10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px"}) 
+    drawText(slider,"← released",-10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px","text-anchor":"end"}) 
   }
   
   return g
@@ -260,7 +257,7 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
 function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var g = svg.append("g")
   var font_size = "12px"
-  var number_font_size = "16px"
+  var number_font_size = "14px"
   var textY = d.y+3
   var [percent,numer,denom] = d.getVal()
 
@@ -311,23 +308,13 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
              numbersY+params.barHeight+2,
              { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
 
+  } else if (d.calc == "acc") {
+    drawText(g,
+             "Out of the 500 total defendants, " + numer + " were predicted correctly.",
+             x,
+             numbersY+params.barHeight+2,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
   }
-
-  // if (!narrowLayout) {
-
-
-    // drawText(g,
-    //          "/",
-    //          numbersX+5.3*numSpacing,
-    //          textY,
-    //          { "font-size":number_font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
-
-    // drawText(g,
-    //          denom,
-    //          numbersX+7*numSpacing,
-    //          numbersY,
-    //          { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
-  // }
 
   return g
 }
@@ -436,8 +423,8 @@ function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
 }
 
 function addKey(svg,x,y,r,spacing,colors,strokeWidth) {
-  drawText(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y+1,{"font-size":12,"font-family":"sans-serif","font-weight":dimWeight,"fill":dimColor}) 
-  drawText(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+17,{"font-size":12,"font-family":"sans-serif","font-weight":dimWeight,"fill":dimColor}) 
+  drawText(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y+2,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+  drawText(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+18,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
   addKeyCircles(svg,x,y+8,r,spacing,colors,strokeWidth)
 
