@@ -3,7 +3,7 @@
 
 // parameters that define drawing layout and style
 var params = {
-  barHeight: 18,          // height of bar
+  barHeight: 20,          // height of bar
   threshWidthScale: 400,  // at this screen width the threshold will be 1px wide
   handleWidth: 7,         // threshold drag handle width
   handleHeight: 20,       // threshold drag handle width
@@ -14,6 +14,8 @@ var yellow = "#FCCD23"
 var orange = "#FC5623"
 var blue = "#1F23E0"
 var gray = "#979797"
+var dimColor = "#4D4D4D"
+var dimWeight = 200
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
@@ -22,6 +24,7 @@ var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20
+var barWidth = 340
 
 // define constants for text spacing
 var label_font_size = 12
@@ -54,7 +57,8 @@ function drawBuckets(svg, y, bucketWidth) {
         .text(i)
         .attr("font-size",12)
         .attr("font-family","sans-serif")
-        .attr("opacity",.7)
+        .style("fill",dimColor)
+        .style("font-weight",dimWeight)
   }  
 }
 
@@ -107,7 +111,7 @@ function drawCompasThresh(svg,x,y1,y2) {
   // main thresh line
   g.append("line")
     .attr("x1", x)
-    .attr("y1", y1-20)
+    .attr("y1", y1-16)
     .attr("x2", x)
     .attr("y2", y2)
     .style("stroke", "gray")
@@ -122,13 +126,15 @@ function drawCompasThresh(svg,x,y1,y2) {
     y1-28, 
     {"font-size":10,
      "text-anchor":"middle",
-     "opacity":0.6})
+     "fill":dimColor,
+     "font-weight":dimWeight, })
 
 }
 
 function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
   var threshWidth = calcThreshWidth(graphicWidth)
   var handleWidth = calcHandleWidth(graphicWidth)
+  var font_size = 12
 
   var g = svg.append("g")
 
@@ -139,7 +145,7 @@ function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .attr("y", y1)
     .attr("width", Math.abs(graphicWidth-x))
     .attr("height", Math.abs(y1 - y2))
-    .style("fill", "light gray")
+    .style("fill", "gray")
     .style("opacity", .03)  
   slider = g.append("g")
     .attr("id", "slider")
@@ -199,11 +205,12 @@ function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    addLabel(slider,"jailed →",10,y1,12,"serif","italic")
-    addLabel(slider,"← released",-10,y1,12,"serif","italic","",0.75,"","end")
+    drawText(slider,"jailed →",10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px"}) 
+    drawText(slider,"← released",-10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px","text-anchor":"end"}) 
+
   } else {
-    addLabel(slider,"jailed →",10,y2-18,12,"serif","italic")
-    addLabel(slider,"← released",-10,y2-18,12,"serif","italic","",0.75,"","end")
+    drawText(slider,"jailed →",10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px"}) 
+    drawText(slider,"← released",-10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px","text-anchor":"end"}) 
   }
   
   return g
@@ -250,19 +257,13 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
 function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var g = svg.append("g")
   var font_size = "12px"
-  var number_font_size = "16px"
-  var textY = d.y
-  var dimColor = "#808080"
-  var dimWeight = 200
+  var number_font_size = "14px"
+  var textY = d.y+3
   var [percent,numer,denom] = d.getVal()
 
-  g.attr("class", d.label)
+  g.attr("class", d.class)
 
-  drawText(
-    g, 
-    d.label,
-    x-10, 
-    textY, 
+  drawText(g, d.label,x-10,textY, 
     {"font-size":font_size,
      "text-anchor":"end"})
 
@@ -283,32 +284,36 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
     .attr("id", "barVal")
 
 
-  var numbersX = x+barWidth+numMargin
-  var numbersY = d.y
+  var numbersX = x+barWidth+10
+  var numbersY = d.y+2
   drawText(g,
            (percent*100).toFixed(0)+"%",
            numbersX,
            numbersY,
-           { "font-size":number_font_size, "id":"percent"})
+           { "font-size":number_font_size,"font-weight":"bold", "id":"percent"})
 
-  if (!narrowLayout) {
-    drawText(g,
-             numer,
-             numbersX+3*numSpacing,
-             numbersY,
-             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"numer", })
+
+  if (d.calc=="fpr") {
 
     drawText(g,
-             "out of",
-             numbersX+4.7*numSpacing,
-             textY,
-             { "font-size":font_size, "fill":dimColor, "font-weight":dimColor, "font-style":"italic"})
-
+             "Out of the " + denom + " defendants not re-arrested, " + numer + " of them are jailed.",
+             x,
+             numbersY+params.barHeight+2,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
+    
+  } else if (d.calc == "fnr") {
     drawText(g,
-             denom,
-             numbersX+7*numSpacing,
-             numbersY,
-             { "font-size":number_font_size, "fill":dimColor, "font-weight":dimWeight, "id":"denom"})
+             "Out of the " + denom + " defendants re-arrested, " + numer + " of them are released.",
+             x,
+             numbersY+params.barHeight+2,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
+
+  } else if (d.calc == "acc") {
+    drawText(g,
+             "Out of the 500 total defendants, " + numer + " were predicted correctly.",
+             x,
+             numbersY+params.barHeight+2,
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
   }
 
   return g
@@ -319,7 +324,9 @@ function updateBar(d,barWidth) {
   var [percent,numer,denom] = d.getVal()
 
   d.el.select("#barVal").attr("width",percent*barWidth)
-  d.el.select("#numer").text(numer)
+  d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " of them are jailed.")
+  d.el.select("#fnr").text("Out of the " + denom + " defendants re-arrested, " + numer + " of them are released.")
+  d.el.select("#acc").text("Out of the 500 total defendants, " + numer + " were predicted correctly.")
   d.el.select("#percent").text((percent*100).toFixed(0)+"%")
 }
 
@@ -377,7 +384,7 @@ function addLabel(
   font_weight,
   text_anchor="start") 
 {
-  svg.append("text")
+  var t = svg.append("text")
       .attr("x", x)
       .attr("y", y+font_size)
       .text(label)
@@ -388,6 +395,8 @@ function addLabel(
       .attr("text-anchor", text_anchor)
       .attr("opacity",opacity)
       .attr("id",id)
+
+  return t
 }
 
 function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
@@ -415,8 +424,8 @@ function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
 }
 
 function addKey(svg,x,y,r,spacing,colors,strokeWidth) {
-  addLabel(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y,12,"sans-serif")
-  addLabel(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+16,12,"sans-serif")
+  drawText(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y+2,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+  drawText(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+18,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
   addKeyCircles(svg,x,y+8,r,spacing,colors,strokeWidth)
 
@@ -497,18 +506,12 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(-5,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(5,0)")
 
-    // var label = slider.attr("data-label")
-    // var dimTarget = reverseBlackWhite(label)
-    // svg.selectAll("." + dimTarget).style("opacity",0.3)
   }
   function arrowsIn() {
     var slider = d3.select(this.parentNode) 
     slider.select("#leftArrow").transition().duration(200).attr("transform","translate(0,0)")
     slider.select("#rightArrow").transition().duration(200).attr("transform","translate(0,0)")
 
-    // var label = slider.attr("data-label")
-    // var dimTarget = reverseBlackWhite(label)
-    // svg.selectAll("." + dimTarget).style("opacity",1)
   }
 
   svg.selectAll("#hitHandle").on('mouseenter', arrowsOut)
@@ -583,23 +586,58 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 }
 
 // draw check
-function drawCheck(svg,thresh,y,bucketWidth,id) {
+function drawGoal(svg,thresh,y,bucketWidth,goalClass,flip) {
   var x = scoreToPixels(thresh, bucketWidth)
-  var t = drawText(svg, "✓", x, y,
-    {
-      "font-size": "20px",
-      "text-anchor":"middle",
-      "id":id
-    },
-    {
-      "font-weight": "100",
-      "color":"red",
-      "opacity": 0,
-    })
+  var g = svg.append("g")
+  var rectWidth = 80
+  var rectHeight = 24
+  var recty = y-flip*10
+  var triWidth = 14 // triangle base
+  var triHeight = 10 // triangle height
+
+  // tooltip box
+  // rectangle body
+  var rect = g.append("rect")
+    .attr("x", x-rectWidth/2)
+    .attr("width", rectWidth)
+    .attr("height", rectHeight)
+    .style("fill", "black")
+    .style("opacity", 0)
+    .style("stroke-width", 0)
+    .attr("class",goalClass)
+
+  // triangle
+  g.append("path")
+    .attr("d", 
+          " M " + (x-triWidth/2) + " " + recty + 
+          " L " + (x+triWidth/2) + " " + recty +
+          " L " + x + " " + (recty+flip*triHeight))
+    .style("fill", "black")
+    .style("opacity", 0)
+    .style("stroke-width", 0)
+    .attr("class",goalClass)
+
+  if (flip==1) {
+    var textOffset = -28
+    rect.attr("y", recty-rectHeight)
+
+  } else {
+    var textOffset = 16
+    rect.attr("y", recty)
+  }
+
+  // text
+  var tooltip = addLabel(g,"best outcome",x,y+textOffset,10)
+  tooltip.attr("text-anchor","middle")
+    .style("fill","white")
+    .style("opacity", 0)
+    .attr("class",goalClass)
+
   
   return t
   
 }
+
 
 /* RESHAPE DATA */
 

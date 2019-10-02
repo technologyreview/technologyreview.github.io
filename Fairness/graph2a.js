@@ -3,7 +3,6 @@
 function drawGraph2a() {
 
 	// create svg
-	keyHeight = 20
 	var chartHeight = 240 // height of chart area above and below
 	var graphicHeight = chartHeight + bucketLabelHeight // height of full canvas
 	var svgHeight = graphicHeight + keyHeight // height of svg
@@ -14,7 +13,7 @@ function drawGraph2a() {
 	var narrowLayout = graphicWidth < 700 
 
 	// default threshold
-	var start = 4
+	var start = 7
 	var thresh = bucketWidth*start
 
 	// bucket labels
@@ -33,7 +32,7 @@ function drawGraph2a() {
 	var threshCOMPAS = drawCompasThresh(svg,thresh,threshy1,threshy2)
 
 	// add key, position dynamic to size of chart
-	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider
+	var keyy = threshy1/2-keyHeight/3
 	
 	// bespoke key with one circle
 	svg.append("circle")
@@ -43,8 +42,8 @@ function drawGraph2a() {
       .style("fill", orange)
       .style("stroke", orange)
       .style("stroke-width", strokeWidth)
-	addLabel(svg,"defendant",keyx+2*d,keyy-2,12,"sans-serif")
-
+    drawText(svg,"defendant",keyx+2*d,keyy-.5,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+	
 	// sliders
 	var sliderList = [ 
 		{
