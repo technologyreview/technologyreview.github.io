@@ -24,7 +24,7 @@ var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20
-var barWidth = 345
+var barWidth = 340
 
 // define constants for text spacing
 var label_font_size = 12
@@ -313,7 +313,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
              "Out of the 500 total defendants, " + numer + " were predicted correctly.",
              x,
              numbersY+params.barHeight+2,
-             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
+             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
   }
 
   return g
@@ -326,6 +326,7 @@ function updateBar(d,barWidth) {
   d.el.select("#barVal").attr("width",percent*barWidth)
   d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " of them are jailed.")
   d.el.select("#fnr").text("Out of the " + denom + " defendants re-arrested, " + numer + " of them are released.")
+  d.el.select("#acc").text("Out of the 500 total defendants, " + numer + " were predicted correctly.")
   d.el.select("#percent").text((percent*100).toFixed(0)+"%")
 }
 
