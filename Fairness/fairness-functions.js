@@ -303,7 +303,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
     
   } else if (d.calc == "fnr") {
     drawText(g,
-             "Out of the " + denom + " defendants re-arrested, " + numer + " of them are released.",
+             "Out of the " + denom + " defendants re-released, " + numer + " of them are re-arrested.",
              x,
              numbersY+params.barHeight+2,
              { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
