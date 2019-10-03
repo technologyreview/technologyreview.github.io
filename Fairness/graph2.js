@@ -17,17 +17,17 @@ function drawGraph2() {
 
 	// add bespoke key with one circle
 	var topOfChart = chartHeight - maxDotStack
-	var keyy = topOfChart // starts a quarter of the way between the top of chart and top of slider
+	var keyy = topOfChart+8 // starts a quarter of the way between the top of chart and top of slider
 
 	svg.append("circle")
       .attr("cx", keyx+d/2)
-      .attr("cy", keyy+8+d/2)
+      .attr("cy", keyy+d/2)
       .attr("r", d/2)
       .style("fill", orange)
       .style("stroke", orange)
       .style("stroke-width", strokeWidth)
 
-	addLabel(svg,"defendant",keyx+2*d,keyy+d/2,12,"sans-serif")
+	drawText(svg,"defendant",keyx+2*d,keyy-2,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
 }
 
