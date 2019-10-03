@@ -125,8 +125,8 @@ function drawGraph6a() {
 	var fpry = barYStart-20
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-20
 
-	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
-	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"RELEASED AND RE-ARRESTED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	// goals
 	var goal0 = 6
