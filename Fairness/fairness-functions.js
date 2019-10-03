@@ -310,7 +310,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
 
   } else if (d.calc == "acc") {
     drawText(g,
-             "Out of the 500 total defendants, " + numer + " were predicted correctly.",
+             "Out of the " + denom + " total defendants, " + numer + " were predicted correctly.",
              x,
              numbersY+params.barHeight+2,
              { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
