@@ -30,7 +30,7 @@ function drawGraph6() {
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
 	var whiteThreshTicksEl = drawThreshTicks(svg, wy1, wy2, bucketWidth, graphicWidth)
 	var whiteThreshEl = drawThresh(svg,"white",whiteThresh,wy1,wy2,graphicWidth,1, narrowLayout)
-	drawText(svg,"white defendants",0,wy1-18,{"font-size":label_font_size,"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight}) 
+	drawText(svg,"white defendants",0,wy1-18,{"font-size":label_font_size,"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight}) 
   
 
 	// black defendants
@@ -39,7 +39,7 @@ function drawGraph6() {
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
 	var blackThreshTicksEl = drawThreshTicks(svg, by1, by2, bucketWidth, graphicWidth)
 	var blackThreshEl = drawThresh(svg,"black",blackThresh,by1,by2,graphicWidth,-1, narrowLayout)
-	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
+	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
 	
 	// COMPAS threshold
 	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)
@@ -122,11 +122,11 @@ function drawGraph6() {
 	// label bar groups
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
-	var fpry = barYStart-22
-	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
+	var fpry = barYStart-20
+	var fnry = barYStart+barGroupHeight+barGroupSpacing-20
 
-	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
-	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	// goals
 	var goal0 = 6

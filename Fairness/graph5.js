@@ -76,11 +76,11 @@ function drawGraph5() {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
-	var fpry = barYStart-22
-	var fnry = barYStart+params.barHeight+barGroupSpacing-22
+	var fpry = barYStart-20
+	var fnry = barYStart+params.barHeight+barGroupSpacing-20
 
-	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
-	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	var goal = 8
 

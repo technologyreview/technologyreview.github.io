@@ -42,7 +42,7 @@ function drawGraph2a() {
       .style("fill", orange)
       .style("stroke", orange)
       .style("stroke-width", strokeWidth)
-    drawText(svg,"defendant",keyx+2*d,keyy-.5,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+    drawText(svg,"defendant",keyx+2*d,keyy-.5,{"font-size":11,"font-family":"NeueHaas,sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 	
 	// sliders
 	var sliderList = [ 

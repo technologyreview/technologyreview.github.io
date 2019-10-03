@@ -71,7 +71,7 @@ function drawGraph3() {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
-	addLabel(svg,"ACCURACY",barXStart+barWidth/2,barYStart-22,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"ACCURACY",barXStart+barWidth/2,barYStart-20,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	var goal = 6
 

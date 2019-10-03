@@ -26,13 +26,13 @@ function drawGraph7() {
 
 	var wy1 = keyHeight+chartHeight-maxDotStack
 	var wy2 = keyHeight+chartHeight+10 // +10 to go over dots
-	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"serif","italic")
+	addLabel(svg,"white defendants",0,wy1-18,label_font_size,"Independent,serif","italic")
 
 	// black defendants
 	drawDots(svg, real_score_black_buckets, blue, keyHeight+chartHeight+bucketLabelHeight, bucketWidth, -1)
 	var by1 = keyHeight+chartHeight+bucketLabelHeight-10 // -10 to go over dots
 	var by2 = keyHeight+chartHeight+bucketLabelHeight+maxDotStack
-	addLabel(svg,"black defendants",0,by2,label_font_size,"serif","italic")
+	addLabel(svg,"black defendants",0,by2,label_font_size,"Independent,serif","italic")
 
 	// draw single threshold
 	var threshTicksEl = drawThreshTicks(svg, wy1, by2, bucketWidth, graphicWidth)
@@ -110,11 +110,11 @@ function drawGraph7() {
 	var barGroupLabelsX = barXStart
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
-	var fpry = barYStart-22
-	var fnry = barYStart+barGroupHeight+barGroupSpacing-22
+	var fpry = barYStart-20
+	var fnry = barYStart+barGroupHeight+barGroupSpacing-20
 
-	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,13.5,"sans-serif","","",1,"bold","middle")
-	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,13.5,"sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"WRONGLY RELEASED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	// called whenever the threshold moves
 	function threshChanged(newThresh) {

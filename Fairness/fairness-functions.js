@@ -205,12 +205,12 @@ function drawThresh(svg,label,x,y1,y2,graphicWidth,flip,narrowLayout) {
     .style("cursor", "col-resize")
 
   if (flip==1) {
-    drawText(slider,"jailed →",10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px"}) 
-    drawText(slider,"← released",-10,y1+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px","text-anchor":"end"}) 
+    drawText(slider,"jailed →",10,y1+font_size,12,{"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px"}) 
+    drawText(slider,"← released",-10,y1+font_size,12,{"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":font_size+"px","text-anchor":"end"}) 
 
   } else {
-    drawText(slider,"jailed →",10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px"}) 
-    drawText(slider,"← released",-10,y2-18+font_size,12,{"font-family":"serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px","text-anchor":"end"}) 
+    drawText(slider,"jailed →",10,y2-18+font_size,12,{"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px"}) 
+    drawText(slider,"← released",-10,y2-18+font_size,12,{"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight,"font-size":"12px","text-anchor":"end"}) 
   }
   
   return g
