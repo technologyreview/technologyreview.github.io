@@ -8,13 +8,14 @@ function drawGraph1() {
 
 	// variables
 	var ncols = 40
-	var spacing = 4
-	var noise = d3.randomNormal(0,.5)
 	var bucketMargin = bucketWidth/8
+	var spacing = bucketMargin/2.5
+	var noise = d3.randomNormal(0,.5)
 	var d = (bucketWidth - 2*bucketMargin - 4*spacing)/5 // compute diameter dynamically
   	d = Math.max(2,Math.min(10,d))
 
   	// padding
+  	spacing = 616/ncols - d
   	var side_margin = (graphicWidth - ncols*(d+spacing)-spacing)/2
   	var top_margin = (svgHeight - Math.ceil(500/ncols)*(d+spacing)-spacing)/2
 
