@@ -296,14 +296,14 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   if (d.calc=="fpr") {
 
     drawText(g,
-             "Out of the " + denom + " defendants not re-arrested, " + numer + " of them are jailed.",
+             "Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"",
              x,
              numbersY+params.barHeight+2,
              { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
     
   } else if (d.calc == "fnr") {
     drawText(g,
-             "Out of the " + denom + " defendants re-released, " + numer + " of them are re-arrested.",
+             "Out of the " + denom + " defendants re-arrested, " + numer + " are rated \"low risk.\"",
              x,
              numbersY+params.barHeight+2,
              { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
@@ -324,8 +324,8 @@ function updateBar(d,barWidth) {
   var [percent,numer,denom] = d.getVal()
 
   d.el.select("#barVal").attr("width",percent*barWidth)
-  d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " of them are jailed.")
-  d.el.select("#fnr").text("Out of the " + denom + " defendants re-arrested, " + numer + " of them are released.")
+  d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"")
+  d.el.select("#fnr").text("Out of the " + denom + "defendants re-arrested, " + numer + " are rated \"low risk.\"")
   d.el.select("#acc").text("Out of the 500 total defendants, " + numer + " were predicted correctly.")
   d.el.select("#percent").text((percent*100).toFixed(0)+"%")
 }
