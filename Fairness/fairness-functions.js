@@ -671,7 +671,7 @@ function bucketScores(array) {
 // --- MAIN ---
 
 // create data variables
-var rng = seedrandom("hello2")
+var rng = seedrandom("hey there")
 var real_score_bw, real_score_bw_buckets, fake_score_bw, fake_score_bw_buckets, real_score_black_buckets, real_score_white_buckets
 var real_score_white, real_score_black
 
