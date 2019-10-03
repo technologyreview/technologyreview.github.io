@@ -12,7 +12,7 @@ var params = {
 
 var yellow = "#FCCD23"
 var orange = "#FC5623"
-var blue = "#1F23E0"
+var blue = "#373bd6"
 var gray = "#979797"
 var dimColor = "#4D4D4D"
 var dimWeight = 200
