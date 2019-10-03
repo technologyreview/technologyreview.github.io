@@ -125,8 +125,8 @@ function drawGraph6() {
 	var fpry = barYStart-20
 	var fnry = barYStart+barGroupHeight+barGroupSpacing-20
 
-	addLabel(svg,"BAD PREDICTIONS TO RIGHT OF THRESHOLD",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
-	addLabel(svg,"BAD PREDICTIONS TO LEFT OF THRESHOLD",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"RELEASED BUT RE-ARRESTED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	// goals
 	var goal0 = 6

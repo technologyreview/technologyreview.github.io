@@ -79,8 +79,8 @@ function drawGraph5() {
 	var fpry = barYStart-20
 	var fnry = barYStart+params.barHeight+barGroupSpacing-20
 
-	addLabel(svg,"BAD PREDICTIONS FOR JAILING",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
-	addLabel(svg,"BAD PREDICTIONS FOR RELEASE",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"RELEASED BUT RE-ARRESTED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 
 	var goal = 8
 
