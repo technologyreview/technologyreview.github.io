@@ -261,6 +261,12 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var textY = d.y+3
   var [percent,numer,denom] = d.getVal()
 
+  if ((barWidth + 50) > graphicWidth) {
+    barWidth = graphicWidth - 100
+    x = (graphicWidth-barWidth)/2
+    font_size = "10px"
+  }
+
   g.attr("class", d.class)
 
   drawText(g, d.label,x-10,textY, 

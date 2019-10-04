@@ -4,7 +4,8 @@ function drawGraph1() {
 
 	// create svg
 	var svgHeight = 220 // height of svg
-	var svg = createSVG(svgHeight)
+	var graphicHeight = svgHeight + keyHeight
+	var svg = createSVG(graphicHeight)
 
 	// variables
 	var ncols = 40
@@ -12,12 +13,12 @@ function drawGraph1() {
 	var spacing = bucketMargin/2.5
 	var noise = d3.randomNormal(0,.5)
 	var d = (bucketWidth - 2*bucketMargin - 4*spacing)/5 // compute diameter dynamically
-  	d = Math.max(2,Math.min(10,d))
+	d = Math.max(2,Math.min(10,d))
 
   	// padding
-  	spacing = 616/ncols - d
-  	var side_margin = (graphicWidth - ncols*(d+spacing)-spacing)/2
-  	var top_margin = (svgHeight - Math.ceil(500/ncols)*(d+spacing)-spacing)/2
+  	spacing = graphicWidth/ncols - d
+  	
+  	var top_margin = keyHeight + (svgHeight - Math.ceil(500/ncols)*(d+spacing)-spacing)/2
 
 	// add dots
 	for (var i=0;i<500;i++) { // for each dot
@@ -26,7 +27,7 @@ function drawGraph1() {
 
 	    // draw circles
 	    var circles = svg.append("circle")
-	      .attr("cx", side_margin + col*(d+spacing)+noise()) // convert cx to pixel
+	      .attr("cx", (d+spacing)/2 + col*(d+spacing)+noise()) // convert cx to pixel
 	      .attr("cy", top_margin + row*(d+spacing)+noise()) // convert cy to pixel
 	      .attr("r", d/2)
 	      .style("fill", orange)
@@ -34,18 +35,18 @@ function drawGraph1() {
 	  }
 
 	// add bespoke key with one circle
-	var keyx = graphicWidth-5*side_margin/6
-	var keyy = top_margin+3*d+2*spacing
+	var keyx = 7*graphicWidth/8
+	var keyy = keyHeight/4
 
 	svg.append("circle")
       .attr("cx", keyx+d/2)
-      .attr("cy", keyy+d/2)
+      .attr("cy", keyy+d)
       .attr("r", d/2)
       .style("fill", orange)
       .style("stroke", orange)
       .style("stroke-width", strokeWidth)
 
-	drawText(svg,"defendant",keyx+2*d,keyy-2,{"font-size":11,"font-family":"NeueHaas,sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+	drawText(svg,"defendant",keyx+2*d,keyy,{"font-size":11,"font-family":"NeueHaas,sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
 }
 
