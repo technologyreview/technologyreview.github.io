@@ -9,10 +9,6 @@ function drawGraph3() {
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 	var svg = createSVG(svgHeight)
 
-	// set threshold for switching to narrow layout
-	// (Too narrow to show some things. True for mobile but also narrow desktop)
-	var narrowLayout = graphicWidth < 700 
-
 	// default threshold
 	var start = 7
 	var thresh = bucketWidth*start

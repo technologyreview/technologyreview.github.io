@@ -19,7 +19,7 @@ var dimWeight = 200
 
 // define constants for spacing of graphics
 // define constants for vertical spacing
-var graphicWidth, bucketWidth, keyx
+var graphicWidth, narrowLayout, bucketWidth, keyx
 var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
@@ -37,9 +37,22 @@ function createSVG(svgHeight) {
     .attr("width","100%")
     .attr("height",svgHeight)
 
+  // calculate graphic width
   graphicWidth = svg.node().getBoundingClientRect().width
+
+  // set threshold for switching to narrow layout
+  narrowLayout = graphicWidth < (barWidth + 100)
+
+  // calculate bucket width
   bucketWidth = graphicWidth/10
-  keyx = scoreToPixels(8,bucketWidth)+bucketWidth/8
+
+  // calculate key
+  if (narrowLayout) {
+    keyx = scoreToPixels(7,bucketWidth)+bucketWidth/8
+  } else {
+    keyx = scoreToPixels(8,bucketWidth)+bucketWidth/8
+  }
+  
 
   return svg
 }
@@ -263,7 +276,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var numbersY = d.y+2
   var [percent,numer,denom] = d.getVal()
 
-  if ((barWidth + 100) > graphicWidth) {
+  if (narrowLayout) {
     barWidth = graphicWidth - 100
     x = (graphicWidth-barWidth)/2
     font_size = "10px"
@@ -356,7 +369,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
 function updateBar(d,barWidth) {
   var [percent,numer,denom] = d.getVal()
 
-  if ((barWidth + 100) > graphicWidth) {
+  if (narrowLayout) {
     barWidth = graphicWidth - 100
 
     d.el.select("#fpr").text(numer + " rated \"high risk\" / " + denom + " not re-arrested")

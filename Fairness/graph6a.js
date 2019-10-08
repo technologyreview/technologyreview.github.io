@@ -15,10 +15,6 @@ function drawGraph6a() {
 	var whiteThresh = bucketWidth*whiteStart
 	var blackThresh = bucketWidth*blackStart
 
-	// set threshold for switching to narrow layout
-	// (Too narrow to show some things. True for mobile but also narrow desktop)
-	var narrowLayout = graphicWidth < 700 
-
 	// bucket labels
 	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
 
