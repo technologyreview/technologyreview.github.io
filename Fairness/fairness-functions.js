@@ -7,7 +7,7 @@ var params = {
   threshWidthScale: 400,  // at this screen width the threshold will be 1px wide
   handleWidth: 7,         // threshold drag handle width
   handleHeight: 20,       // threshold drag handle width
-  sliderHitWidth: 20,     // how far away from threshold you can click
+  sliderHitWidth: 30,     // how far away from threshold you can click
 }
 
 var yellow = "#FCCD23"
@@ -744,7 +744,7 @@ function loadGraphic(drawGraphFunction) {
 
   // import data
   d3.csv("./data/real_score_bw.csv").then(function(score) {
-    
+
     real_score_bw = score.map (a => [Number(a.decile_score), Number(a.two_year_recid), (a.race)])
     real_score_bw_buckets = bucketScores(real_score_bw)
 
