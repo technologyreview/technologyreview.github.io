@@ -21,13 +21,13 @@ function drawGraph2() {
 
 	svg.append("circle")
       .attr("cx", keyx+d/2)
-      .attr("cy", keyy+d/2)
+      .attr("cy", keyy+6)
       .attr("r", d/2)
       .style("fill", orange)
       .style("stroke", orange)
       .style("stroke-width", strokeWidth)
 
-	drawText(svg,"defendant",keyx+2*d,keyy-2,{"font-size":11,"font-family":"NeueHaas,sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+	drawText(svg,"defendant",keyx+2*d,keyy-.5,{"font-size":11,"font-family":"NeueHaas,sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
 }
 

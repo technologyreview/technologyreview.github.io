@@ -482,8 +482,8 @@ function addKeyCircles(svg,cx,cy,r,spacing,colors,strokeWidth) {
 }
 
 function addKey(svg,x,y,r,spacing,colors,strokeWidth) {
-  drawText(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y+2,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
-  drawText(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+18,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+  drawText(svg,"not re-arrested",x+colors.length*(2*r+spacing)+r,y+r/2,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
+  drawText(svg,"re-arrested",x+colors.length*(2*r+spacing)+r,y+r/2+16,{"font-size":11,"font-family":"sans-serif","fill":dimColor, "font-weight":dimWeight, }) 
 
   addKeyCircles(svg,x,y+8,r,spacing,colors,strokeWidth)
 
