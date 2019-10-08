@@ -743,11 +743,9 @@ function loadGraphic(drawGraphFunction) {
   }
 
   // import data
-  d3.csv("./data/compas-scores-two-years.csv").then(function(non_violent) {
-    // create data variables
-    var score = non_violent.map(a => [Number(a.decile_score), Number(a.two_year_recid), (a.race)])
-    var score_bw = filterRace(["Caucasian","African-American"],score)
-    real_score_bw = score_bw.filter(x => rng() > 0.9216) // adjust threshold to control sample size, 500ish is good
+  d3.csv("./data/real_score_bw.csv").then(function(score) {
+    
+    real_score_bw = score.map (a => [Number(a.decile_score), Number(a.two_year_recid), (a.race)])
     real_score_bw_buckets = bucketScores(real_score_bw)
 
     fake_score_bw = real_score_bw.map(a => [a[0], a[0]>=7])
