@@ -599,7 +599,8 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	   	for (var slider of sliderList) {
         
 	      if (slider.dragging) {
-	        const [x, y] = d3.mouse(this)
+	        var [x, y] = d3.mouse(this)
+          x = Math.max(0, Math.min(x, 10*bucketWidth))
 	        moveThresh(slider.el, x, graphicWidth)
           slider.pos = x
           callback(x)
@@ -620,6 +621,7 @@ function addSliders(svg, sliderList, bucketWidth, graphicWidth,callback) {
 	      if (slider.dragging) {
 	        slider.dragging = false
 	        var [x, y] = d3.mouse(this)
+          x = Math.max(0, Math.min(x, 10*bucketWidth))
 	        x = scoreToPixels(pixelsToScore(x,bucketWidth),bucketWidth)
 	        moveThresh(slider.el, x, graphicWidth)
           slider.pos = x
