@@ -24,7 +24,7 @@ var keyHeight = 30 // height of key
 var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20
-var barWidth = 340
+var barWidth = 350
 
 // define constants for text spacing
 var label_font_size = 12
@@ -256,20 +256,68 @@ function drawThreshTicks(svg, y1, y2, bucketWidth, graphicWidth) {
 
 function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
   var g = svg.append("g")
+  g.attr("class", d.class)
+
   var font_size = "12px"
   var number_font_size = "14px"
-  var textY = d.y+3
+  var numbersY = d.y+2
   var [percent,numer,denom] = d.getVal()
 
-  if ((barWidth + 50) > graphicWidth) {
+  if ((barWidth + 100) > graphicWidth) {
     barWidth = graphicWidth - 100
     x = (graphicWidth-barWidth)/2
     font_size = "10px"
+
+    if (d.calc=="fpr") {
+
+      drawText(g,
+               numer + " rated \"high risk\" / " + denom + " not re-arrested",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
+    
+    } else if (d.calc == "fnr") {
+      drawText(g,
+               numer + " rated \"low risk\" / " + denom + " re-arrested",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
+
+    } else if (d.calc == "acc") {
+      drawText(g,
+               numer + " predicted correctly / " + denom + " defendants",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
+    }
+  } else {
+      if (d.calc=="fpr") {
+
+      drawText(g,
+               "Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
+      
+    } else if (d.calc == "fnr") {
+      drawText(g,
+               "Out of the " + denom + " defendants re-arrested, " + numer + " are rated \"low risk.\"",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
+
+    } else if (d.calc == "acc") {
+      drawText(g,
+               "Out of the " + denom + " total defendants, " + numer + " were predicted correctly.",
+               x,
+               numbersY+params.barHeight+2,
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
+    }
   }
 
-  g.attr("class", d.class)
+  
 
-  drawText(g, d.label,x-10,textY, 
+  drawText(g, d.label,x-10,numbersY, 
     {"font-size":font_size,
      "text-anchor":"end"})
 
@@ -291,7 +339,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
 
 
   var numbersX = x+barWidth+10
-  var numbersY = d.y+2
+  
   drawText(g,
            (percent*100).toFixed(0)+"%",
            numbersX,
@@ -299,28 +347,7 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
            { "font-size":number_font_size,"font-weight":"bold", "id":"percent"})
 
 
-  if (d.calc=="fpr") {
-
-    drawText(g,
-             "Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"",
-             x,
-             numbersY+params.barHeight+2,
-             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
-    
-  } else if (d.calc == "fnr") {
-    drawText(g,
-             "Out of the " + denom + " defendants re-arrested, " + numer + " are rated \"low risk.\"",
-             x,
-             numbersY+params.barHeight+2,
-             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
-
-  } else if (d.calc == "acc") {
-    drawText(g,
-             "Out of the " + denom + " total defendants, " + numer + " were predicted correctly.",
-             x,
-             numbersY+params.barHeight+2,
-             { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
-  }
+  
 
   return g
 }
@@ -329,11 +356,23 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
 function updateBar(d,barWidth) {
   var [percent,numer,denom] = d.getVal()
 
+  if ((barWidth + 100) > graphicWidth) {
+    barWidth = graphicWidth - 100
+
+    d.el.select("#fpr").text(numer + " rated \"high risk\" / " + denom + " not re-arrested")
+    d.el.select("#fnr").text(numer + " rated \"low risk\" / " + denom + " re-arrested")
+    d.el.select("#acc").text(numer + " predicted correctly / " + denom + " defendants")
+
+  } else {
+    d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"")
+    d.el.select("#fnr").text("Out of the " + denom + " defendants re-arrested, " + numer + " are rated \"low risk.\"")
+    d.el.select("#acc").text("Out of the 500 total defendants, " + numer + " were predicted correctly.")
+  
+  }
+
   d.el.select("#barVal").attr("width",percent*barWidth)
-  d.el.select("#fpr").text("Out of the " + denom + " defendants not re-arrested, " + numer + " are rated \"high risk.\"")
-  d.el.select("#fnr").text("Out of the " + denom + "defendants re-arrested, " + numer + " are rated \"low risk.\"")
-  d.el.select("#acc").text("Out of the 500 total defendants, " + numer + " were predicted correctly.")
   d.el.select("#percent").text((percent*100).toFixed(0)+"%")
+
 }
 
 function drawNumLabel(svg,label,x,y) {

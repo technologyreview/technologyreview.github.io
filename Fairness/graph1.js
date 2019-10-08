@@ -10,7 +10,6 @@ function drawGraph1() {
 	var ncols = 40
 	var bucketMargin = bucketWidth/12
 	var spacing = bucketMargin/2.5
-	var noise = d3.randomNormal(0,.5)
 	var d = (bucketWidth - 2*bucketMargin - 4*spacing)/5 // compute diameter dynamically
 	d = Math.max(2,Math.min(10,d))
 
@@ -26,8 +25,8 @@ function drawGraph1() {
 
 	    // draw circles
 	    var circles = svg.append("circle")
-	      .attr("cx", (d+spacing)/2 + col*(d+spacing)+noise()) // convert cx to pixel
-	      .attr("cy", top_margin + row*(d+spacing)+noise()) // convert cy to pixel
+	      .attr("cx", (d+spacing)/2 + col*(d+spacing)) // convert cx to pixel
+	      .attr("cy", top_margin + row*(d+spacing)) // convert cy to pixel
 	      .attr("r", d/2)
 	      .style("fill", orange)
 	      .style("stroke", orange)
