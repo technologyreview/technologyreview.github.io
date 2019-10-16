@@ -10,10 +10,8 @@ function drawGraph6a() {
 	var svg = createSVG(svgHeight)
 
 	// default threshold
-	var blackStart = 7
-	var whiteStart = 7
-	var whiteThresh = bucketWidth*whiteStart
-	var blackThresh = bucketWidth*blackStart
+	var whiteThresh = bucketWidth*start
+	var blackThresh = bucketWidth*start
 
 	// bucket labels
 	drawBuckets(svg, keyHeight+graphicHeight/2, bucketWidth)
@@ -38,7 +36,7 @@ function drawGraph6a() {
 	drawText(svg,"black defendants",0,by2,{"font-size":label_font_size,"font-family":"Independent,serif","font-style":"italic","fill":dimColor,"font-weight":dimWeight})
 	
 	// COMPAS threshold
-	var threshCOMPAS = drawCompasThresh(svg,whiteThresh,wy1,by2)
+	var threshCOMPAS = drawCompasThresh(svg,wy1,by2)
 
 	// add key, position dynamic to size of chart
 	var keyy = wy1/2-2*keyHeight/3 // starts a quarter of the way between the top of chart and top of slider

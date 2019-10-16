@@ -10,7 +10,6 @@ function drawGraph3() {
 	var svg = createSVG(svgHeight)
 
 	// default threshold
-	var start = 7
 	var thresh = bucketWidth*start
 
 	// bucket labels
@@ -26,7 +25,7 @@ function drawGraph3() {
 	var threshEl = drawThresh(svg,"",thresh,threshy1,threshy2,graphicWidth,1, narrowLayout)
 
 	// COMPAS threshold
-	var threshCOMPAS = drawCompasThresh(svg,thresh,threshy1,threshy2)
+	var threshCOMPAS = drawCompasThresh(svg,threshy1,threshy2)
 
 	// add key, position dynamic to size of chart
 	var keyy = threshy1/2-keyHeight/2 // starts a quarter of the way between the top of chart and top of slider

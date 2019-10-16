@@ -25,6 +25,7 @@ var bucketLabelHeight = 40 // height of bucket labels
 var strokeWidth
 var barChartTopPadding = 20
 var barWidth = 350
+var start = 5
 
 // define constants for text spacing
 var label_font_size = 12
@@ -117,8 +118,8 @@ function calcHandleWidth(graphicWidth) {
   return Math.min(params.handleWidth, params.handleWidth*(graphicWidth/params.threshWidthScale)/2)
 }
 
-function drawCompasThresh(svg,x,y1,y2) {
-
+function drawCompasThresh(svg,y1,y2) {
+  var x = bucketWidth*7
   var g = svg.append("g")
 
   // main thresh line
@@ -687,7 +688,7 @@ function drawGoal(svg,thresh,y,bucketWidth,goalClass,flip) {
   }
 
   // text
-  var tooltip = addLabel(g,"best outcome",x,y+textOffset,10)
+  var tooltip = addLabel(g,"best threshold",x,y+textOffset,10)
   tooltip.attr("text-anchor","middle")
     .style("fill","white")
     .style("opacity", 0)
