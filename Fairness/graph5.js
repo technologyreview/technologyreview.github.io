@@ -51,19 +51,20 @@ function drawGraph5() {
 	var barGroupSpacing = 60 // spacing between grouped bars
 
 	var barData = [
+		
 		{
 			label: "",
 			y: barYStart,
 			color: orange,
-			calc: "fpr",
-			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+			calc: "fnr",
+			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		},
 		{
 			label: "",
 			y: barYStart+params.barHeight+barGroupSpacing,
 			color: orange,
-			calc: "fnr",
-			getVal: function() { return fnr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
+			calc: "fpr",
+			getVal: function() { return fpr(real_score_bw, pixelsToScore(sliderList[0].pos, bucketWidth)) }
 		}
 	]
 
@@ -72,11 +73,12 @@ function drawGraph5() {
 		b.el = drawBar(svg,barXStart,b,barWidth,narrowLayout,numMargin,numSpacing)
 	}
 
-	var fpry = barYStart-20
-	var fnry = barYStart+params.barHeight+barGroupSpacing-20
+	var fnry = barYStart-20
+	var fpry = barYStart+params.barHeight+barGroupSpacing-20	
 
-	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 	addLabel(svg,"RELEASED BUT RE-ARRESTED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	
 
 	var goal = 8
 

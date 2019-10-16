@@ -285,23 +285,23 @@ function drawBar(svg, x, d, barWidth, narrowLayout, numMargin, numSpacing) {
 
       drawText(g,
                numer + " rated \"high risk\" / " + denom + " not re-arrested",
-               x,
+               x+barWidth/2,
                numbersY+params.barHeight+2,
-               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif"})
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fpr", "font-family":"sans-serif", "text-anchor":"middle"})
     
     } else if (d.calc == "fnr") {
       drawText(g,
                numer + " rated \"low risk\" / " + denom + " re-arrested",
-               x,
+               x+barWidth/2,
                numbersY+params.barHeight+2,
-               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif"})
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"fnr", "font-family":"sans-serif", "text-anchor":"middle"})
 
     } else if (d.calc == "acc") {
       drawText(g,
                numer + " predicted correctly / " + denom + " defendants",
-               x,
+               x+barWidth/2,
                numbersY+params.barHeight+2,
-               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif"})
+               { "font-size":font_size, "fill":dimColor, "font-weight":dimWeight, "id":"acc", "font-family":"sans-serif", "text-anchor":"middle"})
     }
   } else {
       if (d.calc=="fpr") {

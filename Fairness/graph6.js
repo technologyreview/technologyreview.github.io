@@ -79,7 +79,7 @@ function drawGraph6() {
 		{
 			label: "WHITE",
 			class: "whiteGone",
-			y: barYStart,
+			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
 			color: yellow,
 			calc: "fpr",
 			getVal: function() { return fpr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -87,7 +87,7 @@ function drawGraph6() {
 		{
 			label: "WHITE",
 			class: "whiteGone",
-			y: barYStart+2*params.barHeight+barSpacing+barGroupSpacing,
+			y: barYStart,
 			color: yellow,
 			calc: "fnr",
 			getVal: function() { return fnr(real_score_white, pixelsToScore(sliderList[0].pos, bucketWidth)) }
@@ -95,7 +95,7 @@ function drawGraph6() {
 		{
 			label: "BLACK",
 			class: "blackGone",
-			y: barYStart+params.barHeight+barSpacing,
+			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
 			color: blue,
 			calc: "fpr",
 			getVal: function() { return fpr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
@@ -103,7 +103,7 @@ function drawGraph6() {
 		{
 			label: "BLACK",
 			class: "blackGone",
-			y: barYStart+3*params.barHeight+2*barSpacing+barGroupSpacing,
+			y: barYStart+params.barHeight+barSpacing,
 			color: blue,
 			calc: "fnr",
 			getVal: function() { return fnr(real_score_black, pixelsToScore(sliderList[1].pos, bucketWidth)) }
@@ -118,11 +118,12 @@ function drawGraph6() {
 	// label bar groups
 	var barGroupHeight = 2*params.barHeight+barSpacing
 
-	var fpry = barYStart-20
-	var fnry = barYStart+barGroupHeight+barGroupSpacing-20
+	var fnry = barYStart-20
+	var fpry = barYStart+barGroupHeight+barGroupSpacing-20
 
-	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
 	addLabel(svg,"RELEASED BUT RE-ARRESTED",barXStart+barWidth/2,fnry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	addLabel(svg,"NEEDLESSLY JAILED",barXStart+barWidth/2,fpry,12,"NeueHaas,sans-serif","","",1,"bold","middle")
+	
 
 	// goals
 	var goal0 = 6
