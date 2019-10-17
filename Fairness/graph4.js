@@ -9,6 +9,7 @@ function drawGraph4() {
 	var svgHeight = graphicHeight + keyHeight + barChartHeight // height of svg
 	var svg = createSVG(svgHeight)
 
+	var start = 4
 	var thresh = bucketWidth*start
 
 	// bucket labels
