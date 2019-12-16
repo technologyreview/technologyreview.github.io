@@ -1,0 +1,1124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!-- start coded_template: id:6519392106 path:Technologyreview_August2018 Theme/Email/Newsletters/The_Algorithm.html --><html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Face (un)fairness, algorithmic hate, mortal AI</title>
+	<meta property="og:title" content="Face (un)fairness, algorithmic hate, mortal AI">
+	<meta name="twitter:title" content="Face (un)fairness, algorithmic hate, mortal AI">
+	
+	<style type="text/css" id="hs-inline-css">
+
+		/*** GLOBALS AND WRAPPERS ***/
+
+		body {
+			background-color: #ffffff;
+		}
+
+		.totalTable {
+			background-color: #ffffff;
+		}
+
+		.wrapper {
+			width: 640px;
+			min-width: 640px;
+		}
+
+		a {
+			color: #8A60AE;
+			text-decoration: underline;
+		}
+
+		/*** HEADER ***/
+
+		.mobileHeaderLogoTable {
+			display: none;
+			padding-top: 7px;
+			padding-bottom: 4px;
+		}
+
+		.headerBackgroundTable {
+			background-color: #7d38a3;
+			color: #ffffff;
+			padding-top: 10px;
+			padding-bottom: 50px;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.titleLogoTable {
+			padding-top: 80px;
+			padding-bottom: 35px;
+		}
+
+		.taglineTable {
+			padding-bottom: 50px;
+		}
+
+		.title {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 63px;
+			line-height: 70px;
+			color: #ffffff;
+		}
+
+		.tagline {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: 300;
+			font-size: 29px;
+			line-height: 30px;
+			color: #ffffff;
+		}
+
+		.titleRule {
+			width: 80px;
+			border-top: solid 7px #ffffff;
+			padding-bottom: 12px;
+		}
+
+		.emailTitle div {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 20px;
+			line-height: 20px;
+			color: #ffffff;
+		}
+
+		.date div {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 20px;
+			color: #ffffff;
+		}
+
+		/*** EDITABLE TEXT ***/
+
+		/* Story title */
+		.standardText h4 {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 12px;
+			color: #7d38a3;
+			text-transform: uppercase;
+			letter-spacing: 0.8px;
+			display: inline-block;
+			border-bottom: 3px solid #7d38a3;
+			padding-top: 0;
+			padding-bottom: 1px;
+			margin-top: 0;
+			margin-bottom: 12px;
+		}
+
+		/* In-house promo headline */
+		.standardText h5 {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 22px;
+			line-height: 24px;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		/* Quote */
+		.standardText h6 {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-style: italic;
+			font-size: 24px;
+			line-height: 27px;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 5px;
+		}
+
+		/* In-house promo text */
+		.standardText.inHousePromoText p {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 18px;
+			line-height: 24px;
+			margin-bottom: 0;
+		}
+
+		/*** STANDARD TEXT ***/
+
+		.standardText {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 17px;
+			line-height: 21px;
+			color: #000000;
+		}
+		.standardText p {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
+		.standardText ul,
+		.standardText ol {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
+		.standardText li {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 10px;
+		}
+		.standardText hr {
+			border: 0;
+			border-bottom: 1px solid #000000;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 30px;
+		}
+		.standardText p + hr,
+		.standardText ul + hr,
+		.standardText ol + hr {
+			margin-top: 40px;
+		}
+		.standardText p:last-child,
+		.standardText ul:last-child,
+		.standardText ol:last-child,
+		.standardText li:last-child,
+		.standardText hr:last-child {
+			margin-bottom: 0 !important;
+		}
+
+		/*** SECTIONS ***/
+
+		.bodyWrapper {
+			padding-top: 30px;
+		}
+
+		.introTable {
+			padding-bottom: 25px;
+		}
+
+		.storyTable {
+			padding-bottom: 40px;
+		}
+
+		.storyImageTable {
+			padding-bottom: 15px;
+		}
+
+		.moduleWrapperTable {
+			padding-bottom: 40px;
+		}
+
+		.moduleTable {
+			background-color: #ece1f1;
+			padding-top: 30px;
+			padding-bottom: 25px;
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+		.inHousePromoTable {
+			border-top: 4px solid #000000;
+			padding-top: 15px;
+			padding-bottom: 50px;
+		}
+
+		/*** PRE-FOOTER ***/
+
+		.prefooterTable {
+			border-top: 7px solid #7d38a3;
+			padding-top: 20px;
+			padding-bottom: 30px;
+		}
+
+		.authorTable {
+			padding-bottom: 15px;
+		}
+
+		.authorAvatarTable {
+			padding-right: 20px;
+		}
+
+		.prefooterText div {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 18px;
+			color: #000000;
+		}
+		.prefooterText p {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 10px;
+		}
+		.prefooterText p:last-of-type {
+			margin-bottom: 0;
+		}
+
+		.ctaTable {
+			padding-top: 12px;
+		}
+
+		.singleCtaTable {
+			padding-bottom: 15px;
+		}
+
+		.ctaText {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 19px;
+			color: #000000;
+		}
+
+		.ctaButtonTable {
+			padding-left: 10px;
+		}
+		.ctaButtonTable img {
+			width: 165px;
+			height: 54px;
+		}
+
+		.closingCtaWrapper {
+			padding-top: 15px;
+		}
+
+		.closingCtaTable {
+			padding-top: 25px;
+			padding-bottom: 25px;
+			padding-right: 20px;
+			padding-left: 20px;
+		}
+		.closingCtaTableSubscribe {
+			background-color: #C4AFD6;
+			color: #000000;
+		}
+
+		.closingCtaTableEvent {
+			background-color: #9B9B9B;
+			color: #ffffff;
+		}
+		.closingCtaTableEvent .altColor {
+			color: #000000;
+		}
+
+		.closingCtaTableEmtechMit {
+			background-color: #ffffff;
+			color: #000000;
+			border: 2px solid #F90E1E;
+		}
+		.closingCtaTableEmtechMit .altColor {
+			color: #F90E1E;
+		}
+
+		.closingCtaTableEmtechDigital {
+			background-color: #F9A939;
+			color: #ffffff;
+		}
+		.closingCtaTableEmtechDigital .altColor {
+			color: #000000;
+		}
+
+		.closingCtaTableEmtechNext {
+			background-color: #188FF1;
+			color: #ffffff;
+		}
+		.closingCtaTableEmtechNext .altColor {
+			color: #000000;
+		}
+
+		.closingCtaTable p {
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 25px;
+		}
+
+		p.closingCtaTitle {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 36px;
+			line-height: 38px;
+			letter-spacing: -1px;
+		}
+		.closingCtaTableSubscribe p.closingCtaTitle {
+			margin-bottom: 0;
+		}
+
+		p.closingCtaBody {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: normal;
+			font-size: 28px;
+			line-height: 30px;
+		}
+
+		a.closingCtaButton {
+			color: #ffffff;
+			text-decoration: none;
+			display: inline-block;
+		}
+		.closingCtaButton table {
+			background-color: #8A60AE;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-right: 60px;
+			padding-left: 60px;
+		}
+		.closingCtaButton td {
+			font-family: Helvetica,Arial,sans-serif;
+			font-weight: bold;
+			font-size: 18px;
+			line-height: 18px;
+			color: #ffffff;
+		}
+
+		/*** FOOTER CTA MODULE ***/
+
+	  .bottom-pane-wrp {
+	    padding-top: 25px;
+	    padding-bottom: 25px;
+	    padding-right: 20px;
+	    padding-left: 20px;
+	    background-color: #ffffff;
+	    color: #000000;
+	    border: 2px solid #F90E1E;
+	    font-family: Helvetica,Arial,sans-serif;
+	  }
+	  .bottom-pane-wrp .button img {
+	    max-width: 232px;
+	    width: 232px;
+	  }
+	  .bottom-pane-wrp h1 {
+	    font-weight: bold;
+	    font-size: 36px;
+	    font-family: Helvetica,Arial,sans-serif;
+	    line-height: 38px;
+	    letter-spacing: -1px;
+	    margin:0;
+	    margin-top: 0px;
+	  }
+	  .bottom-pane-wrp h1 span {
+	    margin: 0px;
+	  }
+	  .bottom-pane-wrp p {
+	    font-weight: normal;
+	    font-size: 28px;
+	    font-family: Helvetica,Arial,sans-serif;
+	    line-height: 30px;
+	    margin:0;
+	  }
+	  .bottom-pane-wrp .title {
+	  	color: #000000;
+	  }
+
+		.hs-cta-img {
+			height: auto;
+		}
+
+		/*** FOOTER ***/
+
+		.footerTable {
+			padding-top: 20px;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-bottom: 10px;
+			background-color: #f0f0f0;
+		}
+
+		.footerWrapper {
+			width: 640px;
+			min-width: 640px;
+			padding-left: 45px;
+			padding-right: 45px;
+		}
+
+		.prefsTable {
+			padding-bottom: 20px;
+		}
+
+		.smallText div {
+			color: #000000;
+			font-family: Helvetica,Arial,sans-serif;
+			font-size: 12px;
+			line-height: 19px;
+		}
+		.smallText div a {
+			text-decoration: none;
+		}
+
+		.prefsLinksTable {
+			padding-bottom: 10px;
+		}
+		.prefsLinksTable div a {
+			color: #000000;
+			text-decoration: none;
+		}
+
+		.prefsFollowTable {
+			padding-bottom: 10px;
+		}
+
+		.addressTable {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+
+		.glyphTable {
+			padding-bottom: 10px;
+		}
+
+	</style>
+
+	<style type="text/css">
+
+		@media (max-width:665px) {
+			.mobileHeaderLogoTable {
+				display: table !important;
+			}
+
+			.desktopHeaderLogoTable {
+				display: none !important;
+			}
+
+			.wrapper, .footerWrapper, .bodyWrapper {
+				width: 100% !important;
+				min-width: 350px !important;
+			}
+
+			img.imgMax {
+				width: 100% !important;
+				height: auto !important;
+			}
+
+			.standardText img {
+				max-width: 100% !important;
+				height: auto !important;
+			}
+
+			.standardText hr {
+				margin-bottom: 20px !important;
+			}
+			.standardText p + hr,
+			.standardText ul + hr,
+			.standardText ol + hr {
+				margin-top: 30px;
+			}
+
+			.headerBackgroundTable {
+				padding-bottom: 22px !important;
+			}
+
+			.titleLogoTable {
+				padding-top: 30px !important;
+				padding-bottom: 20px !important;
+			}
+
+			.titleLogoTable img {
+				width: 50px !important;
+				height: auto !important;
+			}
+
+			.titleTable {
+				padding-bottom: 2px !important;
+			}
+
+			.title {
+				font-size: 32px !important;
+				line-height: 32px !important;
+			}
+
+			.taglineTable {
+				padding-bottom: 30px !important;
+			}
+
+			.tagline {
+				font-size: 18px !important;
+				line-height: 18px !important;
+			}
+
+			.titleRule {
+				padding-bottom: 10px !important;
+			}
+
+			.emailTitleTable {
+				padding-bottom: 5px !important;
+			}
+
+			.emailTitle div {
+				font-size: 14px !important;
+				line-height: 16px !important;
+			}
+
+			.date div {
+				font-size: 12px !important;
+				line-height: 16px !important;
+			}
+
+			.bodyWrapper {
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			.moduleWrapperTable {
+				padding-bottom: 30px !important;
+			}
+
+			.inHousePromoTable {
+				padding-bottom: 40px !important;
+			}
+
+			.standardText {
+				font-size: 16px !important;
+				line-height: 22px !important;
+			}
+
+			.prefooterTable {
+				padding-top: 15px !important;
+				padding-bottom: 25px !important;
+			}
+
+			table.authorTable,
+			table.authorTable tbody,
+			table.authorTable tr,
+			table.authorTable td {
+				display: block !important;
+			}
+			.authorTable {
+				padding-bottom: 20px !important;
+			}
+
+			.authorAvatarTable {
+				width: 100% !important;
+				padding-right: 0 !important;
+				padding-bottom: 10px !important;
+			}
+			.authorAvatarTable td {
+				text-align: center !important;
+			}
+
+			.authorAvatar {
+				width: 145px !important;
+				height: 145px !important;
+			}
+
+			.ctaTable {
+				padding-top: 0 !important;
+			}
+
+			.closingCtaTable {
+				padding-top: 20px !important;
+				padding-bottom: 20px !important;
+			}
+
+			.closingCtaTable p {
+				margin-bottom: 15px !important;
+			}
+			.closingCtaTableSubscribe p.closingCtaTitle {
+				margin-bottom: 0 !important;
+			}
+
+			p.closingCtaTitle {
+				font-size: 26px !important;
+				line-height: 24px !important;
+			}
+
+			p.closingCtaBody {
+				font-size: 18px !important;
+				line-height: 20px !important;
+			}
+
+			.closingCtaButton img {
+				width: 166px !important;
+				height: auto !important;
+			}
+
+			/*** FOOTER CTA MODULE ***/
+
+			.bottom-pane-wrp {
+				max-width: 100% !important;
+				width: 100% !important;
+			}
+		    table.bottom-pane-wrp tr {
+		      width: 100%;
+		      max-width: 100%;
+		      display: block;
+		    }
+
+		    .bottom-pane-wrp .title {
+		      font-size: 26px;
+		      line-height: 24px;
+		    }
+		    .bottom-pane-wrp p {
+		      font-size: 18px !important;
+		      line-height: 20px !important;
+		    }
+		}
+
+		@media (max-width:425px) {
+			.footerWrapper {
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			}
+			.footerTable {
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+		}
+
+	</style>
+	<!--[if gte mso]>
+	<style type="text/css">
+		.standardText h4 {
+			display: block !important;
+			border-bottom: 0 !important;
+		}
+	</style>
+	<![endif]-->
+<meta name="generator" content="HubSpot"><meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:url" content="https://go.technologyreview.com/face-unfairness-algorithmic-hate-mortal-ai?hs_preview=yhbHRtRE-7316857148"><meta name="x-apple-disable-message-reformatting"><meta name="robots" content="noindex,follow"></head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background-color:#ffffff" bgcolor="#ffffff"><div id="preview_text" style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">Three new papers are bringing much-needed attention to AI bias in face recognition. So today we're unpacking this issue.</div>
+
+<center>
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" class="totalTable" style="background-color:#ffffff" bgcolor="#ffffff">
+<tbody><tr>
+<td align="center" valign="top">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mobileHeaderLogoTable" style="display:none; padding-top:7px; padding-bottom:4px">
+	<tbody><tr>
+		<td valign="top" align="center">
+			<a href="https://www.technologyreview.com/" target="_blank" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0"><img src="__assets/horizontal-logo-v2--430x40.png" width="147" height="14" border="0" alt="MIT Technology Review"></a>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="640" class="wrapper" style="width:640px; min-width:640px">
+<tbody><tr>
+<td valign="top" align="center">
+
+<div id="hs_cos_wrapper_module_topper" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><!-- BEGIN: Topper -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="headerBackgroundTable" style="background-color:#7d38a3; color:#ffffff; padding-top:10px; padding-bottom:50px; padding-left:20px; padding-right:20px" bgcolor="#7d38a3">
+<tbody><tr>
+<td valign="top" align="center">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="headerAlignWrapperTable">
+	<tbody><tr>
+		<td valign="top" align="center">
+
+			<table border="0" cellpadding="0" cellspacing="0" align="left" class="desktopHeaderLogoTable">
+				<tbody><tr>
+					<td valign="top" align="left">
+						<a href="https://www.technologyreview.com/" target="_blank" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="1"><img src="__assets/horizontal-logo-v2--white--430x40.png" width="158" height="15" border="0" alt="MIT Technology Review"></a>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table><!-- /.headerAlignWrapperTable -->
+
+<table border="0" cellpadding="0" cellspacing="0" width="10" class="titleWrapperTable">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="titleLogoTable" style="padding-top:80px; padding-bottom:35px">
+				<tbody><tr>
+					<td valign="middle" align="center"><img src="__assets/algorithm-icon-v2--white-148x156.png" width="74" height="78" border="0" alt=""></td>
+				</tr>
+			</tbody></table><!-- /.titleLogoTable -->
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="titleTable">
+				<tbody><tr>
+					<td valign="top" align="left" nowrap>
+						<div class="title" style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:63px; line-height:70px; color:#ffffff">
+							The Algorithm
+						</div>
+					</td>
+				</tr>
+			</tbody></table><!-- /.titleTable -->
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="taglineTable" style="padding-bottom:50px">
+				<tbody><tr>
+					<td valign="top" align="left">
+						<div class="tagline" style="font-family:Helvetica, Arial, sans-serif; font-weight:300; font-size:29px; line-height:30px; color:#ffffff">
+							Artificial intelligence, demystified
+						</div>
+					</td>
+				</tr>
+			</tbody></table><!-- /.taglineTable -->
+
+			<table border="0" cellpadding="0" cellspacing="0" width="80" class="titleRule" style="width:80px; border-top:solid 7px #ffffff; padding-bottom:12px">
+				<tbody><tr>
+					<td></td>
+				</tr>
+			</tbody></table>
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="emailTitleTable">
+				<tbody><tr>
+					<td valign="top" align="left" class="emailTitle">
+						<div style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:20px; line-height:20px; color:#ffffff">
+							The unfairness of face recognition
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="dateTable">
+				<tbody><tr>
+					<td valign="top" align="left" class="date">
+						<div style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:12px; line-height:20px; color:#ffffff">
+							01.29.19
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table><!-- /.titleWrapperTable -->
+
+</td>
+</tr>
+</tbody></table><!-- /.headerBackgroundTable -->
+<!-- END: Topper --></div>
+
+</td>
+</tr>
+</tbody></table><!-- /.wrapper -->
+
+<table border="0" cellpadding="0" cellspacing="0" width="640" class="wrapper" style="width:640px; min-width:640px">
+<tbody><tr>
+<td valign="top" align="center">
+
+<table border="0" cellpadding="0" cellspacing="0" width="600" class="bodyWrapper" style="padding-top:30px">
+<tbody><tr>
+<td valign="top" align="left">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="introTable" style="padding-bottom:25px">
+	<tbody><tr>
+		<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+			<div>
+<div id="hs_cos_wrapper_module_intro" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_intro_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">Hello Algorithm readers,</div></div>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyTable" style="padding-bottom:40px">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyBodyTable">
+				<tbody><tr>
+					<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+						<div>
+<div id="hs_cos_wrapper_module_stories_1" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_stories_1_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">Three new papers released in the past week are bringing much-needed attention to AI bias in face recognition. So today we’re dedicating our entire newsletter to unpacking this issue.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">In the past few years, there’s been a dramatic rise in the adoption of face recognition technology (and the related technologies: face detection and face analysis) for anything from <a href="https://www.hirevue.com/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">hiring</a> and <a href="https://www.technologyreview.com/s/603494/10-breakthrough-technologies-2017-paying-with-your-face/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">retail</a> to <a href="https://www.theverge.com/2018/10/15/17979688/tsa-precheck-facial-recognition-airport-cbp-biometric-exit" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">security</a> and <a href="https://theintercept.com/2018/09/06/nypd-surveillance-camera-skin-tone-search/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">surveillance</a>. You’re probably most familiar with <strong>recognition</strong> systems, like Facebook’s photo-tagging recommender and Apple’s FaceID, which can identify faces as specific individuals. <strong>Detection</strong> systems, on the other hand, determine whether a face is present; and <strong>analysis</strong> systems pick out features, like the face’s gender and race.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">Many people believe that these systems are both highly accurate and impartial. Airport security staff can get tired, police can misjudge suspects, but a well-trained AI system should be able to consistently identify or categorize any image of a face.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">But in practice, research has repeatedly shown that these systems are not uniformly accurate across different demographic groups. Last year, <a href="http://gendershades.org/overview.html" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">Gender Shades</a>, a seminal study led by MIT Media Lab researcher Joy Buolamwini, found that systems sold by IBM, Microsoft, and Face++ had as high as a 34.4% accuracy gap in gender classification between lighter-skinned males and darker-skinned females. The ACLU of Northern California <a href="https://www.aclu.org/blog/privacy-technology/surveillance-technologies/amazons-face-recognition-falsely-matched-28" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">similarly found</a> that Amazon’s platform had a higher rate of misidentification for non-white over white Congress members.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">The problem is face recognition and analysis systems are often trained on skewed datasets: they’re fed far fewer images of women and people with dark skin than they are men and people with light skin. And while many of them are supposedly tested for fairness, those tests don’t check performance on a wide enough range of faces—as Buolamwini found. These disparities perpetuate and further entrench existing injustices and lead to consequences that only worsen as the stakes get higher.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">With that context, we’re back to our three papers.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Paper #1.</strong> Last Thursday, Buolamwini <a href="http://www.aies-conference.com/wp-content/uploads/2019/01/AIES-19_paper_223.pdf" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">released</a> an update to Gender Shades by retesting the previous systems she’d examined and expanding her review to include Amazon’s Rekognition and a new system from a small AI company called Kairos. There is some good news. She found that IBM, Face++, and Microsoft had each seen significant improvements in their gender classification accuracy for darker-skinned women, with Microsoft reducing their error rate below 2%. On the other hand, Amazon’s and Kairos’ platforms both had a 31% and 23% accuracy gap, respectively. Buolamwini <a href="https://hackernoon.com/response-racial-and-gender-bias-in-amazon-rekognition-commercial-ai-system-for-analyzing-faces-a289222eeced" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">said</a> the study shows the need for these technologies to be externally audited in order to hold them technically accountable.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><img src="__assets/export-j1aZR%20(2).png?width=600&amp;name=export-j1aZR%20(2).png" alt="export-j1aZR (2)" width="600" style="width: 600px; max-width: 600px;" srcset="__assets/export-j1aZR%20(2).png?width=600&amp;name=export-j1aZR%20(2).png 600w, __assets/export-j1aZR%20(2).png?width=1200&amp;name=export-j1aZR%20(2).png 1200w" sizes="(max-width: 600px) 100vw, 600px"></p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><img src="__assets/export-a9cB1%20(1).png?width=600&amp;name=export-a9cB1%20(1).png" alt="export-a9cB1 (1)" width="600" style="width: 600px; max-width: 600px;" srcset="__assets/export-a9cB1%20(1).png?width=600&amp;name=export-a9cB1%20(1).png 600w, __assets/export-a9cB1%20(1).png?width=1200&amp;name=export-a9cB1%20(1).png 1200w" sizes="(max-width: 600px) 100vw, 600px"></p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Paper #2.</strong> On Sunday, a <a href="http://www.aies-conference.com/wp-content/papers/main/AIES-19_paper_220.pdf" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">study</a> from the MIT Computer Science and Artificial Intelligence Laboratory (CSAIL) demonstrated the effectiveness of a new algorithm for mitigating biases in a face detection system even when it’s trained on data that is heavily biased. In other words, as it trains, it also identifies which examples in the data are underrepresented and spends extra time looking at them to compensate. When the researchers tested the system against Buolamwini’s Gender Shades dataset, they found that it helped close their largest accuracy gap between lighter- and darker-skinned males compared to a standard training algorithm, though it didn’t eliminate it completely.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Paper #3.</strong> This morning, IBM Research released a <a href="https://www.research.ibm.com/artificial-intelligence/trusted-ai/diversity-in-faces/documents/Diversity-in-Faces-Publication.pdf" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">paper</a> that identifies dozens of features for measuring diversity beyond skin color and gender, including head height, face width, intra-eye distance, and age, based on previous research of human faces. “Unless we have measures of facial diversity,” says John Smith, one of the co-authors of the paper, “we can't come back and enforce them as we train these face recognition systems.” In conjunction, the team released a new dataset with 1 million images of faces, annotated with these new measures.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">Each of these studies have taken important steps forward&nbsp;in addressing bias in facial recognition: by holding companies accountable, by creating new algorithms, and by expanding our understanding of data diversity. But it’s important to note that creating fairer and more accurate systems is only half the battle.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">Here's the other half. Even the fairest and most accurate systems can still be used to infringe on people’s civil liberties. Last year, a Daily Beast <a href="https://www.thedailybeast.com/amazon-pushes-ice-to-buy-its-face-recognition-surveillance-tech" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">investigation</a> found that Amazon was actively pitching its face surveillance platform to the US Immigration Controls and Enforcement agency, better known as ICE, to aid their crackdown on migrant communities. An Intercept <a href="https://theintercept.com/2018/09/06/nypd-surveillance-camera-skin-tone-search/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="1" target="_blank">investigation</a> also found that IBM developed the ability to extract the ethnicity of faces as part of a long-term partnership with the New York Police Department. This technology was then deployed in public surveillance cameras for testing without the knowledge of city residents. Already, the UK Metropolitan police uses face recognition to <a href="https://metro.co.uk/2018/07/06/weve-got-to-stop-the-met-polices-dangerously-authoritarian-facial-recognition-surveillance-7687833/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">scan public crowds</a> for people on their watch lists, and China uses it for <a href="https://www.nytimes.com/2018/07/08/business/china-surveillance-technology.html" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">mass surveillance</a> of all of its residents, including to track dissidents.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">In response to the rapid proliferation of these systems, a growing number of <a href="https://www.technologyreview.com/s/612552/facial-recognition-has-to-be-regulated-to-protect-the-public-says-ai-report/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">civil rights activists</a> and <a href="https://www.cnbc.com/2019/01/24/davos-microsofts-nadella-says-facial-recognition-needs-regulation.html" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">technologists</a> have called for them to be regulated; Google has even <a href="https://www.cnet.com/news/google-vows-not-to-sell-its-facial-recognition-technology-for-now/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">suspended</a> its sale of such systems until it has clear strategies for preventing their abuse.</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">“Without algorithmic justice, algorithmic accuracy/technical fairness can create AI tools that are weaponized,” says Buolamwini.</p></div></div>
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyTable" style="padding-bottom:40px">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyBodyTable">
+				<tbody><tr>
+					<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+						<div>
+<div id="hs_cos_wrapper_module_stories_2" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_stories_2_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h4 style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:12px; line-height:12px; color:#7d38a3; text-transform:uppercase; letter-spacing:0.8px; display:inline-block; border-bottom:3px solid #7d38a3; padding-top:0; padding-bottom:1px; margin-top:0; margin-bottom:12px">TR archives</h4>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Will Knight, senior AI editor, on the black box nature of AI:</strong> “There’s already an argument that being able to interrogate an AI system about how it reached its conclusions is a fundamental legal right. Starting in the summer of 2018, the European Union may require that companies be able to give users an explanation for decisions that automated systems reach. This might be impossible, even for systems that seem relatively simple on the surface. [...] The computers that run those services have programmed themselves, and they have done it in ways we cannot understand.” Read more <a href="https://www.technologyreview.com/s/604087/the-dark-secret-at-the-heart-of-ai/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">here</a>.</p></div></div>
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table>
+
+<div id="hs_cos_wrapper_module_purple_1" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="moduleWrapperTable" style="padding-bottom:40px">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="moduleTable" style="background-color:#ece1f1; padding-top:30px; padding-bottom:25px; padding-left:30px; padding-right:30px" bgcolor="#ece1f1">
+				<tbody><tr>
+					<td valign="top" align="left">
+
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+								<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+									<div>
+                    <div id="hs_cos_wrapper_module_purple_1_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_inline_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="inline_rich_text" data-hs-cos-field="content"><h4 style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:12px; line-height:12px; color:#7d38a3; text-transform:uppercase; letter-spacing:0.8px; display:inline-block; border-bottom:3px solid #7d38a3; padding-top:0; padding-bottom:1px; margin-top:0; margin-bottom:12px">Take a stand</h4>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">When do you think&nbsp;it's appropriate to&nbsp;use&nbsp;face recognition systems?&nbsp;When do think&nbsp;they should be banned? Send your thoughts to algorithm@technologyreview.com.</p></div>
+									</div>
+								</td>
+							</tr>
+						</tbody></table>
+
+
+					</td>
+				</tr>
+			</tbody></table><!-- /.moduleTable -->
+
+		</td>
+	</tr>
+</tbody></table><!-- /.moduleWrapperTable -->
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="inHousePromoTable" style="border-top:4px solid #000000; padding-top:15px; padding-bottom:50px">
+	<tbody><tr>
+		<td valign="top" align="left" class="standardText inHousePromoText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+			<div>
+<div id="hs_cos_wrapper_module_in_house_promo" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_in_house_promo_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><h5 style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:22px; line-height:24px; padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:0">T-minus 1 day until the launch of our new space newsletter, The Airlock!</h5>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:18px; line-height:24px; margin-bottom:0"><a href="https://go.technologyreview.com/newsletters/the-airlock?utm_medium=email&amp;utm_source=newsletters&amp;utm_campaign=the_airlock.unpaid.acquisition&amp;utm_content=algorithm_promo" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">Sign up</a> today to get the first edition in your inbox on January 30.</p></div></div>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyTable" style="padding-bottom:40px">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="storyBodyTable">
+				<tbody><tr>
+					<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+						<div>
+<div id="hs_cos_wrapper_module_stories_3" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_stories_3_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><hr style="border:0; border-bottom:1px solid #000000; padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:30px">
+<h4 style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:12px; line-height:12px; color:#7d38a3; text-transform:uppercase; letter-spacing:0.8px; display:inline-block; border-bottom:3px solid #7d38a3; padding-top:0; padding-bottom:1px; margin-top:0; margin-bottom:12px">Bits and Bytes</h4>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>YouTube is still recommending content from hate groups</strong><br>Despite years of promising fixes to its “Up Next” algorithm, the platform hasn’t done enough. (<a href="https://www.buzzfeednews.com/article/carolineodonovan/down-youtubes-recommendation-rabbithole" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">BuzzFeed News</a>)</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Can machine learning help us understand depression?</strong><br>Scientists are using algorithms to analyze fMRI scans, genetic data, and other assessment information to develop data-driven models for mental illness. (<a href="https://www.theverge.com/2019/1/28/18197253/ai-mental-illness-artificial-intelligence-science-neuroimaging-mri" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">Verge</a>)</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>DeepMind might be overblowing how impressive the AlphaStar was<br></strong>The AI that beat a human player at Starcraft II likely won because of a mechanical advantage rather than superior decision making. (<a href="https://www.youtube.com/watch?v=sxQ-VRq3y9E" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">brownbear/YouTube</a>, video)<br><em>+ The original story: DeepMind’s AI beat pro-gamers at Starcraft II for the first time (<a href="https://www.technologyreview.com/the-download/612832/deepminds-new-ai-just-beat-top-human-pro-gamers-at-starcraft-ii-for-the-first/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">TR</a>)</em></p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Applying AI to medicine is easier said than done<br></strong>Algorithms trained to recognize diseases from medical images struggle to handle imperfect conditions outside of the lab. (<a href="https://www.wsj.com/articles/googles-effort-to-prevent-blindness-hits-roadblock-11548504004" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">WSJ</a>)</p>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px"><strong>Executives are spending billions to automate their workforce<br></strong>Publicly, they will never admit this agenda; privately, they discuss the profit margins they would gain. (<a href="https://www.nytimes.com/2019/01/25/technology/automation-davos-world-economic-forum.html" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">NYT</a>)</p></div></div>
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table>
+
+<div id="hs_cos_wrapper_module_purple_2" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="moduleWrapperTable" style="padding-bottom:40px">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="moduleTable" style="background-color:#ece1f1; padding-top:30px; padding-bottom:25px; padding-left:30px; padding-right:30px" bgcolor="#ece1f1">
+				<tbody><tr>
+					<td valign="top" align="left">
+
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+								<td valign="top" align="left" class="standardText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:17px; line-height:21px; color:#000000">
+									<div>
+                    <div id="hs_cos_wrapper_module_purple_2_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_inline_rich_text" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="inline_rich_text" data-hs-cos-field="content"><h4 style="font-family:Helvetica, Arial, sans-serif; font-weight:bold; font-size:12px; line-height:12px; color:#7d38a3; text-transform:uppercase; letter-spacing:0.8px; display:inline-block; border-bottom:3px solid #7d38a3; padding-top:0; padding-bottom:1px; margin-top:0; margin-bottom:12px">Quotable</h4>
+<h6 style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-style:italic; font-size:24px; line-height:27px; padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:5px">I want to call attention to the mortal danger facing open societies from the instruments of control that machine learning and artificial intelligence can put in the hands of repressive regimes.</h6>
+<p style="padding-top:0; padding-bottom:0; margin-top:0; margin-bottom:20px">—<a href="https://www.bloomberg.com/news/videos/2019-01-25/soros-warns-of-mortal-danger-in-china-using-ai-video" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0" target="_blank">Billionaire George Soros</a> at the World Economic Forum in Davos, denouncing Chinese president Xi Jinping for using AI to repress its citizens</p></div>
+									</div>
+								</td>
+							</tr>
+						</tbody></table>
+
+
+					</td>
+				</tr>
+			</tbody></table><!-- /.moduleTable -->
+
+		</td>
+	</tr>
+</tbody></table><!-- /.moduleWrapperTable -->
+</div>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="prefooterTable" style="border-top:7px solid #7d38a3; padding-top:20px; padding-bottom:30px">
+	<tbody><tr>
+		<td valign="top" align="center">
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="authorTable" style="padding-bottom:15px">
+				<tbody><tr>
+					<td valign="middle" align="left">
+						<table border="0" cellpadding="0" cellspacing="0" class="authorAvatarTable" style="padding-right:20px">
+							<tbody><tr>
+								<td valign="middle" align="left">
+									<img src="__assets/Karen.png?sw=290" width="110" height="110" border="0" alt="Karen Hao" class="authorAvatar">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+					<td valign="middle" align="left" width="100%" class="prefooterText">
+						<div style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:14px; line-height:18px; color:#000000">
+<div id="hs_cos_wrapper_module_author_signoff" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text widget-type-rich_text" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; color:inherit; font-size:inherit; line-height:inherit" data-hs-cos-general-type="widget" data-hs-cos-type="module"><div id="hs_cos_wrapper_module_author_signoff_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; color:inherit; font-size:inherit; line-height:inherit" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text">Hello! You made it to the bottom. Now that you're here, fancy sending us some <a href="mailto:algorithm@technologyreview.com" target="_blank" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0">feedback</a>? You can also follow me for more AI content and whimsy at <a href="https://twitter.com/_KarenHao" target="_blank" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0">@_KarenHao</a>.</div></div>
+						</div>
+					</td>
+				</tr>
+			</tbody></table><!-- /.authorTable -->
+
+			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="ctaTable" style="padding-top:12px">
+				<tbody><tr>
+					<td valign="top" align="left">
+
+						<table border="0" cellpadding="0" cellspacing="0" width="100%" class="singleCtaTable" style="padding-bottom:15px">
+							<tbody><tr>
+								<td valign="middle" align="left" class="ctaText" style="font-family:Helvetica, Arial, sans-serif; font-weight:normal; font-size:16px; line-height:19px; color:#000000">
+									Was this forwarded to you, and you’d like to see more?
+								</td>
+								<td valign="middle" align="right" width="175">
+									<table border="0" cellpadding="0" cellspacing="0" class="ctaButtonTable" width="100%" style="padding-left:10px">
+										<tbody><tr>
+											<td valign="top" align="right">
+												<div id="hs_cos_wrapper_" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_cta" style="color: inherit; font-size: inherit; line-height: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="cta"><!--HubSpot Call-to-Action Code -->  <span class="hs-cta-wrapper" data-hs-img-pg="7c2b6abc-ee16-4e03-be41-e6c469b41b4f" id="hs-cta-wrapper-7c2b6abc-ee16-4e03-be41-e6c469b41b4f"><span class="hs-cta-node hs-cta-7c2b6abc-ee16-4e03-be41-e6c469b41b4f" id="hs-cta-7c2b6abc-ee16-4e03-be41-e6c469b41b4f"><a href="https://cta-image-cms2.hubspot.com/ctas/v2/public/cs/ci/?pg=7c2b6abc-ee16-4e03-be41-e6c469b41b4f&amp;pid=4518541&amp;ecid={{encrypted_contact_id}}&amp;hseid={{email_campaign_id}}&amp;hsic={{impersonated_contact}}" target="_blank" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="0"><img class="hs-cta-img" id="hs-cta-img-7c2b6abc-ee16-4e03-be41-e6c469b41b4f" style="height:54px; border-width:0px; width:auto !important; max-width:100% !important" mce_noresize="1" height="54" width="auto" src="__assets/__ctas/sign-up-for-free.png?&amp;pid=4518541&amp;ecid={{encrypted_contact_id}}&amp;hseid={{email_campaign_id}}&amp;hsic={{impersonated_contact}}" alt="New Call-to-action"></a></span></span>  <!-- end HubSpot Call-to-Action Code --></div>
+											</td>
+										</tr>
+									</tbody></table>
+								</td>
+							</tr>
+						</tbody></table><!-- /.singleCtaTable -->
+
+					</td>
+				</tr>
+			</tbody></table><!-- /.ctaTable -->
+
+<!--HubSpot Call-to-Action Code -->
+<!--HubSpot Call-to-Action Code -->  <span class="hs-cta-wrapper" data-hs-img-pg="a4e18df5-27a1-4d56-8df4-fb1e881a8908" id="hs-cta-wrapper-a4e18df5-27a1-4d56-8df4-fb1e881a8908"><span class="hs-cta-node hs-cta-a4e18df5-27a1-4d56-8df4-fb1e881a8908" id="hs-cta-a4e18df5-27a1-4d56-8df4-fb1e881a8908"><a href="https://cta-image-cms2.hubspot.com/ctas/v2/public/cs/ci/?pg=a4e18df5-27a1-4d56-8df4-fb1e881a8908&amp;pid=4518541&amp;ecid={{encrypted_contact_id}}&amp;hseid={{email_campaign_id}}&amp;hsic={{impersonated_contact}}" data-hs-link-id="0" target="_blank"><img class="hs-cta-img" id="hs-cta-img-a4e18df5-27a1-4d56-8df4-fb1e881a8908" style="border-width:0px;width: auto !important; max-width: 100% !important;" mce_noresize="1" height="300" width="600" src="__assets/__ctas/apply-today.png?&amp;pid=4518541&amp;ecid={{encrypted_contact_id}}&amp;hseid={{email_campaign_id}}&amp;hsic={{impersonated_contact}}" alt="New call-to-action" srcset="__assets/__ctas/apply-today.png?&amp;pid=4518541&amp;ecid={{encrypted_contact_id}}&amp;hseid={{email_campaign_id}}&amp;hsic={{impersonated_contact}}&amp;dsf=2 2x"></a></span></span>  <!-- end HubSpot Call-to-Action Code --><!-- end HubSpot Call-to-Action Code -->
+		</td>
+	</tr>
+</tbody></table><!-- /.prefooterTable -->
+
+</td>
+</tr>
+</tbody></table><!-- /.bodyWrapper -->
+
+</td>
+</tr>
+</tbody></table><!-- /.wrapper -->
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="footerTable" style="padding-top:20px; padding-left:10px; padding-right:10px; padding-bottom:10px; background-color:#f0f0f0" bgcolor="#f0f0f0">
+<tbody><tr>
+<td align="center" valign="top">
+
+<table border="0" cellpadding="0" cellspacing="0" width="640" class="footerWrapper" style="width:640px; min-width:640px; padding-left:45px; padding-right:45px">
+<tbody><tr>
+<td valign="top">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="prefsTable" style="padding-bottom:20px">
+	<tbody><tr>
+		<td valign="top" align="left" class="smallText">
+			<div style="color:#000000; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px">
+				<a href="https://go.technologyreview.com/face-unfairness-algorithmic-hate-mortal-ai?hs_preview=yhbHRtRE-7316857148" target="_blank" style="color:#8a60ae; text-decoration:none" data-hs-link-id="0">View this in a browser</a>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="prefsTable" style="padding-bottom:20px">
+	<tbody><tr>
+		<td valign="top" align="left" class="smallText">
+			<div style="color:#000000; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px">
+				You received this newsletter because you subscribed with the email address:
+				<a href="mailto:CONTACT.EMAIL" style="color:#8a60ae; text-decoration:none" data-hs-link-id="0" target="_blank">CONTACT.EMAIL</a>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr>
+		<td valign="top" align="left">
+
+			<table border="0" cellpadding="0" cellspacing="0" align="left" class="prefsLinksTable" style="padding-bottom:10px">
+				<tbody><tr>
+					<td valign="top" align="left" class="smallText">
+						<div style="color:#000000; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px">
+							<a href="https://go.technologyreview.com/newsletters?the_download=CONTACT.THE_DOWNLOAD&amp;clocking_in=CONTACT.CLOCKING_IN&amp;chain_letter=CONTACT.CHAIN_LETTER&amp;the_algorithm=CONTACT.THE_ALGORITHM&amp;this_week_in_tech_review=CONTACT.THIS_WEEK_IN_TECH_REVIEW&amp;weekend_reads=CONTACT.WEEKEND_READS&amp;mit_opted_into_promotional_emails=CONTACT.MIT_OPTED_INTO_PROMOTIONAL_EMAILS&amp;mit_opted_into_third_party_promotional_emails=CONTACT.MIT_OPTED_INTO_THIRD_PARTY_PROMOTIONAL_EMAILS&amp;mit_opted_into_events_promotional_emails=CONTACT.MIT_OPTED_INTO_EVENTS_PROMOTIONAL_EMAILS&amp;firstname=there&amp;lastname=CONTACT.LASTNAME&amp;email=CONTACT.EMAIL&amp;topics_to_follow_=CONTACT.TOPICS_TO_FOLLOW_" style="color:#000000; text-decoration:none" data-hs-link-id="0" target="_blank">edit preferences</a>
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							<a data-unsubscribe="true" href="https://go.technologyreview.com/hs/manage-preferences/unsubscribe-all-test?d=VmYj6N8n-jdPVKgD3Q3_YlyBW2m3bL73_YlyBN1JxwY5GKd_PV20N563TR_jnW76z_XQ7PRgNNF17-F-ChNPt1&amp;v=3" style="color:#000000; text-decoration:none" data-hs-link-id="0" target="_blank">unsubscribe</a>
+							&nbsp;&nbsp;|&nbsp;&nbsp;
+							follow us
+							&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+			<table border="0" cellpadding="0" cellspacing="0" align="left" class="prefsFollowTable" style="padding-bottom:10px">
+				<tbody><tr>
+					<td valign="top" align="left" class="smallText">
+						<div style="color:#000000; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px">
+							<a href="https://www.facebook.com/technologyreview" style="color:#8a60ae; text-decoration:none" data-hs-link-id="0" target="_blank"><img src="__assets/social-icon--facebook--32x32.png" width="16" height="16" border="0" alt="Facebook" title="Facebook" align="top"></a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="https://twitter.com/techreview" style="color:#8a60ae; text-decoration:none" data-hs-link-id="0" target="_blank"><img src="__assets/social-icon--twitter--40x32.png" width="20" height="16" border="0" alt="Twitter" title="Twitter" align="top"></a>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="https://www.instagram.com/technologyreview/" style="color:#8a60ae; text-decoration:none" data-hs-link-id="0" target="_blank"><img src="__assets/social-icon--instagram--32x32.png" width="16" height="16" border="0" alt="Instagram" title="Instagram" align="top"></a>
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="addressTable" style="padding-top:15px; padding-bottom:15px">
+	<tbody><tr>
+		<td valign="top" align="left" class="smallText">
+			<div style="color:#000000; font-family:Helvetica, Arial, sans-serif; font-size:12px; line-height:19px">
+				MIT Technology Review<br>
+				One Main Street<br>
+				Cambridge, MA 02142
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="glyphTable" style="padding-bottom:10px">
+	<tbody><tr>
+		<td valign="top" align="left">
+			<a href="https://www.technologyreview.com/" style="color:#8a60ae; text-decoration:underline" data-hs-link-id="2" target="_blank">
+				<img src="__assets/tr-glyph-v2-black-100x100.png" width="50" height="50" border="0" alt="TR">
+			</a>
+		</td>
+	</tr>
+</tbody></table>
+
+</td>
+</tr>
+</tbody></table><!-- /.footerWrapper -->
+
+</td>
+</tr>
+</tbody></table><!-- /.footerTable -->
+
+</td>
+</tr>
+</tbody></table><!-- /.totalTable -->
+
+</center>
+
+
+<!-- end coded_template: id:6519392106 path:Technologyreview_August2018 Theme/Email/Newsletters/The_Algorithm.html -->
+</body></html>
